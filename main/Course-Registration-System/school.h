@@ -17,7 +17,7 @@ struct student
 };
 struct day
 {
-	int sessions[4];
+	int sessions;
 };
 struct course
 {
