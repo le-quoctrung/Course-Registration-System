@@ -2,7 +2,7 @@
 
 bool checkFile(std::string name)
 {
-	std::ifstream check(name + ".txt");
+	std::ifstream check("db\\" + name + ".txt");
 	if (check.is_open())
 	{
 		check.close();
@@ -13,12 +13,24 @@ bool checkFile(std::string name)
 
 void registering(std::string name, std::string pass, int type)
 {
-	std::ofstream write(name + ".txt", std::ios::out);
+	std::ofstream write("db\\" + name + ".txt", std::ios::out);
 	if (write.is_open())
 	{
 		write << name << std::endl;
 		write << pass << std::endl;
 		write << type;
+		write.close();
+	}
+}
+
+void registering(student user, std::string pass)
+{
+	std::ofstream write("db\\" + user.ID + ".txt");
+	if (write.is_open())
+	{
+		write << user.ID << std::endl;
+		write << pass << std::endl;
+		write << 0;
 		write.close();
 	}
 }
@@ -80,7 +92,12 @@ User viewProfile(std::string name)
 	return _user;
 }
 
-void changePass(User _user, std::string pass)
+void changePass(std::string name, std::string pass)
 {
-	registering(_user._name, pass, _user.type);
+	registering(name, pass, 1);
+}
+
+void changePass(student user, std::string pass)
+{
+	registering(user,pass);
 }
