@@ -1,5 +1,3 @@
-
-
 #include"Console.h"
 
 

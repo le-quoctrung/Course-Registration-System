@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include<iostream>
 #include<fstream>	
 #include<Windows.h>
@@ -7,10 +6,7 @@
 #include<conio.h>
 #include<stdio.h>
 
-
-
 using namespace std;
-
 
 void Gotoxy(int x, int y);
 void ResizeConsole(int width, int height);// default 300-80
