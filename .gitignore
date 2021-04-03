@@ -24,3 +24,6 @@ main/Course-Registration-System/x64/Debug/vc142.pdb
 main/x64/Debug/Course-Registration-System.exe
 main/x64/Debug/Course-Registration-System.ilk
 main/x64/Debug/Course-Registration-System.pdb
+main/Course-Registration-System/x64/Debug/Tokenizer.obj
+main/.vs/main/v16/ipch/AutoPCH/f489a177fc0ad91e/TOKENIZER.ipch
+main/.vs/main/v16/ipch/AutoPCH/62aa72fd54fef41d/TOKENIZER.ipch
