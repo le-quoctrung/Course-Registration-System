@@ -83,6 +83,7 @@ void DisableSelection()
 }
 void Start()
 {
+    system("cls"); //clear screen
     SetConsoleTitle(L"portal.ctdb.hcmus.edu.vn");
     system("color 70"); // change white background for console
     system("mode 650");	// set console to fullscreen
@@ -91,6 +92,7 @@ void Start()
     ShowScrollbar(0);
     DisableSelection();
     AnTroChuot();
+   
 }
 void ReadFile(string FileName)
 {
