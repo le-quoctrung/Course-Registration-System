@@ -13,5 +13,6 @@ int main()
 	int n = 0;
 	ReadFile("input.txt", A,n);
 	Output(A, n);
+
 	return 0;
 }
