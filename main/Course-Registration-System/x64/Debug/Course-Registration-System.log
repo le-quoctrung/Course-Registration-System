@@ -1,4 +1,0 @@
-﻿  main.cpp
-C:\Users\Le Quoc Trung\Documents\GitHub\Course-Registration-System\main\Course-Registration-System\main.cpp(9,17): error C2664: 'time_t time(time_t *const )': cannot convert argument 1 from 'int' to 'time_t *const '
-C:\Users\Le Quoc Trung\Documents\GitHub\Course-Registration-System\main\Course-Registration-System\main.cpp(9,13): message : Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\time.h(532,42): message : see declaration of 'time'
