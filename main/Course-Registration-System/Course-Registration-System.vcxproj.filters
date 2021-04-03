@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Login_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,6 +22,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Tokenizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="school.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +45,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Tokenizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="school.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,19 +28,16 @@ struct course
 	int max = 50;
 	day Day;
 };
-
 struct sem
 {
 	date start, end;
 	course* Courses;
 	int type;
 };
-
 struct Class
 {
 	student* Students;
 };
-
 struct year
 {
 	sem Sem[3];
