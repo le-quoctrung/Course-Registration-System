@@ -14,6 +14,7 @@ struct student
 	int No;
 	string DOB;
 	bool gender;
+	student* Students;
 };
 struct day
 {
