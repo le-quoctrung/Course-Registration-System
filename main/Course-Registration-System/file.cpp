@@ -38,8 +38,27 @@ void Output(student* pHead)
 		pCur = pCur->pNext;
 	}
 }
+
 void WriteFile(string name, student* A, int n)
 {
 	fstream fout;
+}
 
+void readfile(string file, course*& C)
+{
+	ifstream fin(file, ios::in);
+	while (fin.is_open()) {
+		string line;
+		vector<string>read;
+
+		fin >> line;
+		read = split(line, ",");
+
+		C->ID = read[0];
+		C->name = read[1];
+		C->TeacherName = read[2];
+		C->credit = stoi(read[3]);
+		C->max = stoi(read[4]);
+		fin.close();
+	}
 }
