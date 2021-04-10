@@ -15,10 +15,10 @@ int main()
 	
 	//ReadFile("input.txt", pHead);
 	//Output(pHead);
-
-	//home();
 	
+	home();
 	login();
 
+	Sleep(1000);
 	return 0;
 }

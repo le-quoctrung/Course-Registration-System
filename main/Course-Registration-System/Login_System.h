@@ -5,7 +5,12 @@
 #include <string>
 #include <fstream>
 #include "school.h"
+#include<limits> 
+#include<ios>
 #include<conio.h>
+#include"Console.h"
+#include"display.h"
+
 struct User
 {
 	std::string _name;

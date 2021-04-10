@@ -106,26 +106,25 @@ void login()
 {
 	string name="", pass = "";
 	char chpass, chname;
-	cout << "username: ";
-	cin >> name;
-	//chname = _getch();
-	//while (chname != 13) {//character 13 is enter
-	//	if (chname == '\b' && name.length() >= 1)//if user typed backspace 
-	//	{
-	//		cout << "\b \b";//rub the character behind the cursor.
-	//		pass.pop_back();
-	//	}
-	//	else
-	//	{
-	//		pass.push_back(chname);
-	//	}
-	//	chpass = _getch();
-	//}
-	//cout << name;
-	//
-	//
 	
-	cout << "\npassword: ";
+	Gotoxy(80, 13);
+	chname = _getch();
+	while (chname != 13) {//character 13 is enter
+		if (chname == '\b' && name.length() >= 1)//if user typed backspace 
+		{
+			cout << "\b \b";//rub the character behind the cursor.
+			name.pop_back();
+		}
+		else if (chname == '\b' && name.length() == 0) chname = '\0';
+		else
+		{
+			name.push_back(chname);
+			cout << chname;
+		}
+		chname = _getch();
+	}	
+
+	Gotoxy(80, 15);
 	chpass = _getch();
 	while (chpass != 13) {//character 13 is enter
 		if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
@@ -133,6 +132,7 @@ void login()
 			cout << "\b \b";//rub the character behind the cursor.
 			pass.pop_back();
 		}
+		else if (chpass == '\b' && pass.length() == 0) chpass = '\0';
 		else
 		{
 			pass.push_back(chpass);
@@ -140,12 +140,10 @@ void login()
 		}
 		chpass = _getch();
 	}
-	cout << pass;
-
 	switch (checkLogin(name,pass))
 	{
-	case 404: cout << "Login failed. Account not found"; break;
-	case -1: cout << "Login failed. Wrong password"; break;
+	case 404: system("cls"); home(); Gotoxy(80, 17); cout << "Login failed. Account not found"; break;
+	case -1: system("cls"); home(); Gotoxy(80, 17); cout << "Login failed. Wrong password"; break;
 		break;
 	}
 }
