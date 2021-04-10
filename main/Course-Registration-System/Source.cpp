@@ -9,10 +9,10 @@
 
 int main()
 {
-	student* A;
-	int n = 0;
-	ReadFile("input.txt", A,n);
-	Output(A, n);
+	student* pHead = nullptr;
+	
+	ReadFile("input.txt", pHead);
+	Output(pHead);
 
 	
 	return 0;

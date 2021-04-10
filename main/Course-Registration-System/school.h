@@ -14,7 +14,7 @@ struct student
 	int No;
 	string DOB;
 	bool gender;
-	student* Students;
+	student* pNext;
 };
 struct day
 {
@@ -25,19 +25,19 @@ struct course
 	string TeacherName, ID, name;
 	date start, end;
 	int credit;
-	student* Students;
+	student* pStudent;
 	int max = 50;
 	day Day;
 };
 struct sem
 {
 	date start, end;
-	course* Courses;
+	course* pCourse;
 	int type;
 };
 struct Class
 {
-	student* Students;
+	student* pStudents;
 };
 struct year
 {
