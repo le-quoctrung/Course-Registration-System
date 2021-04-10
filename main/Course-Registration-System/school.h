@@ -15,6 +15,7 @@ struct student
 	int No;
 	string DOB;
 	bool gender;
+	student* pNext;
 };
 
 struct course
