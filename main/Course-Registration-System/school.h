@@ -8,39 +8,67 @@ struct date
 {
 	int year, month, day;
 };
+
 struct student
 {
 	string ID, FirstName, LastName, SocialID;
 	int No;
 	string DOB;
 	bool gender;
-	student* pNext;
 };
-struct day
-{
-	int sessions;
-};
+
 struct course
 {
 	string TeacherName, ID, name;
 	date start, end;
 	int credit;
-	student* pStudent;
 	int max = 50;
-	day Day;
+	bool** session;
 };
-struct sem
+
+struct Sem
 {
 	date start, end;
-	course* pCourse;
+	course* Courses;
 	int type;
+
+	//Node
+	Sem* next;
 };
+
 struct Class
 {
-	student* pStudents;
+	student* Students;
+
+	//Node
+	Class* next;
 };
-struct year
+
+struct Year
 {
-	sem Sem[3];
-	Class* classes;
+	Class* classAPCS;
+	Class* classCLC;
+	Class* classVP;
+	Sem* semesters;
+
+	Year* next;
 };
+
+void createYear(Year*& nYear);
+
+void createClass(Class*& nClass);
+
+void addStudent(Class* nClass);
+
+template<class T>
+int getSize(T* pHead)
+{
+	if (pHead == nullptr) return 0;
+	int count = 1;
+	while (pHead->next != nullptr)
+	{
+		count++;
+		pHead = pHead->next;
+	}
+	return count;
+}
