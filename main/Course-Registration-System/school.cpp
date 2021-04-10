@@ -34,6 +34,15 @@ void createClass(Class*& nClass)
 	tmp->next = newClass;
 }
 
+void createCourse(course* &nCourse)
+{
+	course* newCourse = new course;
+	newCourse->max = 50;
+	newCourse->session = nullptr;
+	newCourse->next = nCourse;
+	nCourse = newCourse;
+}
+
 void addStudent(Class* nClass)
 {
 

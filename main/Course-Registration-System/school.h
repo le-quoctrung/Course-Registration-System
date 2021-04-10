@@ -25,6 +25,8 @@ struct course
 	int credit;
 	int max = 50;
 	bool** session;
+
+	course* next;
 };
 
 struct Sem
@@ -58,6 +60,8 @@ struct Year
 void createYear(Year*& nYear);
 
 void createClass(Class*& nClass);
+
+void createCourse(course*& nCourse);
 
 void addStudent(Class* nClass);
 
