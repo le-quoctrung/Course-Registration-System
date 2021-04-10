@@ -4,14 +4,14 @@
 
 void home()
 {
-	int x = 30, y = 5;
+	int x = 80, y = 10;
 	Gotoxy(1, 3);
 	cout << "HOME";
 	Gotoxy(x, y);
 	cout << "log in";
 	Gotoxy(x - 10, y + 3);
-	cout << "username: ";
+	cout << "USERNAME: ";
 	Gotoxy(x - 10, y + 5);
-	cout << "password: ";
-	Gotoxy(x, y + 8);
+	cout << "PASSWORD: ";
+	
 }
