@@ -12,7 +12,7 @@
 using namespace std;
 
 
-void Gotoxy(int x, int y);
+void Gotoxy(int x, int y); // x max 54, y max 210 after setting console
 void ResizeConsole(int width, int height);// default 300-80
 void SetTextColor(int backgound_color/*default white*/, int text_color);
 void HienTroChuot();

@@ -101,3 +101,51 @@ void changePass(student user, std::string pass)
 {
 	registering(user,pass);
 }
+
+void login()
+{
+	string name="", pass = "";
+	char chpass, chname;
+	cout << "username: ";
+	cin >> name;
+	//chname = _getch();
+	//while (chname != 13) {//character 13 is enter
+	//	if (chname == '\b' && name.length() >= 1)//if user typed backspace 
+	//	{
+	//		cout << "\b \b";//rub the character behind the cursor.
+	//		pass.pop_back();
+	//	}
+	//	else
+	//	{
+	//		pass.push_back(chname);
+	//	}
+	//	chpass = _getch();
+	//}
+	//cout << name;
+	//
+	//
+	
+	cout << "\npassword: ";
+	chpass = _getch();
+	while (chpass != 13) {//character 13 is enter
+		if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
+		{
+			cout << "\b \b";//rub the character behind the cursor.
+			pass.pop_back();
+		}
+		else
+		{
+			pass.push_back(chpass);
+			cout << '*';
+		}
+		chpass = _getch();
+	}
+	cout << pass;
+
+	switch (checkLogin(name,pass))
+	{
+	case 404: cout << "Login failed. Account not found"; break;
+	case -1: cout << "Login failed. Wrong password"; break;
+		break;
+	}
+}

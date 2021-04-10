@@ -88,7 +88,7 @@ void Start()
     DisableResizeWindow();
     DisableCtrButton(0, 1, 1);
     ShowScrollbar(0);
-    DisableSelection();
+    //DisableSelection();
     AnTroChuot();
    
 }

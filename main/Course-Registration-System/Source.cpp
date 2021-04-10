@@ -6,14 +6,19 @@
 #include "Tokenizer.h"
 #include "school.h"
 #include"file.h"
+#include"display.h"
 
 int main()
 {
-	student* pHead = nullptr;
+	Start();
+	//student* pHead = nullptr;
 	
-	ReadFile("input.txt", pHead);
-	Output(pHead);
+	//ReadFile("input.txt", pHead);
+	//Output(pHead);
 
+	//home();
 	
+	login();
+
 	return 0;
 }

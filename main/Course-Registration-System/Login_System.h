@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 #include "school.h"
-
+#include<conio.h>
 struct User
 {
 	std::string _name;
@@ -29,5 +29,5 @@ int checkLogin(std::string name, std::string pass);					//	checkLogin returns
 User viewProfile(std::string path);									//Returns User data type, containing information from the file
 void changePass(std::string name, std::string pass);				//Call registering for rewriting and adding new password
 void changePass(student user, std::string pass);
-
+void login();														//call first to run all login function
 #endif // !_LOGIN_SYSTEM_H_
