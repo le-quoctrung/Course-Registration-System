@@ -10,9 +10,8 @@
 
 int main()
 {
-	Start();
+	Start(); 
 	//student* pHead = nullptr;
-	
 	//ReadFile("input.txt", pHead);
 	//Output(pHead);
 	
