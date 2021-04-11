@@ -4,11 +4,8 @@
 #include<fstream>
 #include<vector>
 #include"Tokenizer.h"
-
 using namespace std;
-
-void Read_List_to_Class(string name, Class* nClass);
-void Output_Student(Student* A);
-void WriteFile(string name, Student* A, int n);
-
-void Read_a_Course(string file, Course*& C);
+void ReadFile(string name, student*& A);
+void Output(student* A);
+void WriteFile(string name, student* A, int n);
+void readfile(string file, course*& C);
