@@ -1,50 +1,59 @@
-#include "file.h"
+﻿#include "file.h"
 
-void ReadFile(string name, student*& pHead)
+bool checkGender(std::string a)
 {
-	fstream fin;
-	fin.open(name);
-	student* pCur = new student;
-	pHead = pCur;
-	string tmp;
-	vector<string> read;
-	while (fin.eof())
-	{
-		fin >> tmp;
-		read = split(tmp, ",");
-		pCur->No = stoi(read[0]);
-		pCur->ID = read[1];
-		pCur->FirstName = read[2];
-		pCur->LastName = read[3];
-		pCur->gender = stoi(read[4]);
-		pCur->DOB = read[5];
-		pCur->SocialID = read[6];
-		pCur->pNext = new student;
-		pCur = pCur->pNext;
-	}
-	fin.close();
-	
+	if (a == "Nu") return 0;
+	else if (a == "Nam") return 1;
 }
-void Output(student* pHead)
+
+void Read_List_to_Class(string name, Class* nClass)
+{
+	ifstream file(name);
+
+	if (file.is_open())
+	{
+		string tmp;
+		vector<string> read;
+
+		while (!file.eof())
+		{
+			if (!std::getline(file, tmp)) return;
+			read = split(tmp, ",");
+
+			addStudent( nClass,					// Add into what class
+						stoi(read[0]),			// No
+						read[1],				// ID
+						read[2],				// First Name
+						read[3],				// Last Name
+						checkGender(read[4]),	// Gender (0 - female; 1 - male)
+						read[5],				// Date of birth
+						read[6]					// Social ID
+			);
+		}
+		file.close();
+	}
+}
+
+void Output_Student(Student* pHead)
 {
 	/*for (int i = 0; i < n; i++)
 	{
 		cout << A[i].No << " " << " " << A[i].ID << " " << A[i].FirstName << " " << A[i].LastName << " " << A[i].gender << " " << A[i].DOB << " " << A[i].SocialID << endl;
 	}*/
-	student* pCur = pHead;
+	Student* pCur = pHead;
 	while (pCur)
 	{
 		cout << pCur->No << " " << pCur->ID << " " << pCur->LastName << " " << pCur->gender << " " << pCur->DOB << " " << pCur->SocialID << endl;
-		pCur = pCur->pNext;
+		pCur = pCur->next;
 	}
 }
 
-void WriteFile(string name, student* A, int n)
+void WriteFile(string name, Student* A, int n)
 {
 	fstream fout;
 }
 
-void readfile(string file, course*& C)
+void Read_a_Course(string file, Course*& C)
 {
 	ifstream fin(file, ios::in);
 	while (fin.is_open()) {
