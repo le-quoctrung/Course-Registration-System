@@ -2,22 +2,21 @@
 #include <iostream>
 #include "Login_System.h"
 #include "Console.h"
-#include"time.h"
+#include "time.h"
 #include "Tokenizer.h"
 #include "school.h"
-#include"file.h"
-#include"display.h"
+#include "file.h"
+#include "display.h"
 
 int main()
 {
-	Start(); 
-	//student* pHead = nullptr;
-	//ReadFile("input.txt", pHead);
-	//Output(pHead);
-	
-	home();
-	login();
+	Class* APCS = nullptr;
 
-	Sleep(1000);
+	createClass(APCS);
+
+	Read_List_to_Class("allStudent.csv", APCS);
+
+	Output_Student(APCS->Students);
+
 	return 0;
 }
