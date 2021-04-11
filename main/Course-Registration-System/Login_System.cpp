@@ -23,7 +23,7 @@ void registering(std::string name, std::string pass, int type)
 	}
 }
 
-void registering(student user, std::string pass)
+void registering(Student user, std::string pass)
 {
 	std::ofstream write("db\\" + user.ID + ".txt");
 	if (write.is_open())
@@ -97,7 +97,7 @@ void changePass(std::string name, std::string pass)
 	registering(name, pass, 1);
 }
 
-void changePass(student user, std::string pass)
+void changePass(Student user, std::string pass)
 {
 	registering(user,pass);
 }
