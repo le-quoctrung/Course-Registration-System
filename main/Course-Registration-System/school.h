@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
+#include "time.h"
 
 using namespace std;
 
@@ -9,16 +10,16 @@ struct date
 	int year, month, day;
 };
 
-struct student
+struct Student
 {
-	string ID, FirstName, LastName, SocialID;
+	string ID, FirstName, LastName, SocialID, DOB;
 	int No;
-	string DOB;
 	bool gender;
-	student* pNext;
+
+	Student* next;
 };
 
-struct course
+struct Course
 {
 	string TeacherName, ID, name;
 	date start, end;
@@ -26,13 +27,13 @@ struct course
 	int max = 50;
 	bool** session;
 
-	course* next;
+	Course* next;
 };
 
 struct Sem
 {
 	date start, end;
-	course* Courses;
+	Course* Courses;
 	int type;
 
 	//Node
@@ -41,7 +42,7 @@ struct Sem
 
 struct Class
 {
-	student* Students;
+	Student* Students;
 
 	//Node
 	Class* next;
@@ -61,9 +62,16 @@ void createYear(Year*& nYear);
 
 void createClass(Class*& nClass);
 
-void createCourse(course*& nCourse);
+void createCourse(Course*& nCourse);
 
-void addStudent(Class* nClass);
+void addStudent(Class* nClass,
+				int no,
+				std::string id,
+				std::string firstname,
+				std::string lastname,
+				bool gender,
+				std::string socialid,
+				std::string dob);
 
 template<class T>
 int getSize(T* pHead)
