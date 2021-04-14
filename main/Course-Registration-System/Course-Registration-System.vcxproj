@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="display.cpp" />
     <ClCompile Include="file.cpp" />
     <ClCompile Include="Login_System.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -148,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Console.h" />
+    <ClInclude Include="display.h" />
     <ClInclude Include="file.h" />
     <ClInclude Include="Login_System.h" />
     <ClInclude Include="school.h" />

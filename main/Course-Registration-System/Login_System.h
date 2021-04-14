@@ -1,12 +1,12 @@
 #ifndef _LOGIN_SYSTEM_H_
 #define _LOGIN_SYSTEM_H_
 
+
 #include <iostream>
 #include <string>
 #include <fstream>
 #include "school.h"
-#include<limits> 
-#include<ios>
+
 #include<conio.h>
 #include"Console.h"
 #include"display.h"

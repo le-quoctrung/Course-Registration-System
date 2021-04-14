@@ -123,7 +123,6 @@ void login()
 			cout << chname;
 		}
 		chname = _getch();
-		
 	}	
 
 	Gotoxy(80, 15);

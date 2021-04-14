@@ -25,3 +25,23 @@ std::vector<std::string> split(std::string haystack, std::string needle)
 
 	return result;
 }
+void controlTyping(string name, char chname)
+{
+	chname = _getch();
+	while (chname != 13) //character 13 is enter
+	{
+		if (name.length() > 7 && chname != '\b') chname = '\0';
+		else if (chname == '\b' && name.length() >= 1)//if user typed backspace 
+		{
+			std::cout << "\b \b";//rub the character behind the cursor.
+			name.pop_back();
+		}
+		else if (chname == '\b' && name.length() == 0) chname = '\0';
+		else
+		{
+			name.push_back(chname);
+			std::cout << chname;
+		}
+		chname = _getch();
+	}
+}
