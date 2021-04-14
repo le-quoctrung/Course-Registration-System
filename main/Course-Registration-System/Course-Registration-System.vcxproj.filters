@@ -64,8 +64,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Nguyen Van A.txt">
+    <None Include="allStudent.csv">
       <Filter>Resource Files</Filter>
-    </Text>
+    </None>
   </ItemGroup>
 </Project>
