@@ -25,7 +25,7 @@ std::vector<std::string> split(std::string haystack, std::string needle)
 
 	return result;
 }
-void controlTyping(string name, char chname)
+void controlTyping(std::string name, char chname)
 {
 	chname = _getch();
 	while (chname != 13) //character 13 is enter

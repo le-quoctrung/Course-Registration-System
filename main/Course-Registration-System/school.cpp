@@ -8,7 +8,11 @@ void createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	if (nYear == nullptr) newYear->next = nullptr;
+	if (nYear == nullptr)
+	{
+		newYear->next = nullptr;
+		nYear = newYear;
+	}
 	else newYear->next = nYear;
 	nYear = newYear;
 }

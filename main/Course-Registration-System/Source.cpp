@@ -8,15 +8,26 @@
 #include "file.h"
 #include "display.h"
 
+
+
 int main()
 {
-	Class* APCS = nullptr;
+	Start();
+	/*Class* APCS = nullptr;
 
 	createClass(APCS);
 
 	Read_List_to_Class("allStudent.csv", APCS);
 
-	Output_Student(APCS->Students);
-
+	Output_Student(APCS->Students);*/
+	
+	POINT xypos;
+	while (1) {
+		GetCursorPos(&xypos);
+		cout << xypos.x << endl << xypos.y;
+		system("cls");
+	}
+	
 	return 0;
 }
+
