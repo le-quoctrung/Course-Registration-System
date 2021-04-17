@@ -1,12 +1,28 @@
 #include "school.h"
 
-void createYear(Year*& nYear)
+int createYear(Year*& nYear)
 {
+	int month = GetMonth();
+	int day = GetDay();
+
+	if (day < 1 || day > 31)
+	{
+		return -1;
+	}
+	else if (month == 9)
+	{
+		if (day > 30) return -1;
+	}
+	else return 0;
+
 	Year* newYear = new Year;
 	newYear->classAPCS = nullptr;
 	newYear->classCLC = nullptr;
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
+
+	newYear->startYear = GetYear();
+	newYear->endYear = GetYear() + 1;
 
 	if (nYear == nullptr)
 	{
@@ -15,6 +31,8 @@ void createYear(Year*& nYear)
 	}
 	else newYear->next = nYear;
 	nYear = newYear;
+
+	return 1;
 }
 
 void createClass(Class*& nClass)
@@ -45,7 +63,8 @@ void createCourse(Course* &nCourse)
 	newCourse->next = nCourse;
 	nCourse = newCourse;
 }
-void viewList(course*& nCourse) {
+
+void viewList(Course*& nCourse) {
 	while (nCourse != nullptr) {
 		cout << nCourse->credit << endl;
 		cout << nCourse->ID << endl;
