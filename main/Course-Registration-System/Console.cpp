@@ -44,7 +44,18 @@ void SetTextColor(int backgound_color/*default white*/, int text_color)
     int color_code = backgound_color * 16 + text_color;
     SetConsoleTextAttribute(hStdout, color_code);
 }
+void full_screen()
+{
+    HWND hwnd = GetForegroundWindow();
+    int cx = GetSystemMetrics(SM_CXSCREEN); /* screen width pixels */
+    int cy = GetSystemMetrics(SM_CYSCREEN); /* screen height pixel */
 
+    LONG l_WinStyle = GetWindowLong(hwnd, GWL_STYLE); /* Get window information */
+    /* Set the window information to maximize Cancel the title bar and border */
+    SetWindowLong(hwnd, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE) & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_BORDER);
+
+    SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
+}
 void DisableResizeWindow()
 {
     HWND hWnd = GetConsoleWindow();
@@ -72,6 +83,15 @@ void ShowScrollbar(bool Show)
 {
     HWND hWnd = GetConsoleWindow();
     ShowScrollBar(hWnd, SB_BOTH, Show);
+    SetConsoleDisplayMode(GetStdHandle(STD_OUTPUT_HANDLE), CONSOLE_FULLSCREEN_MODE, 0);
+
+    HANDLE hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(hstdout, &csbi);
+
+    csbi.dwSize.X = csbi.dwMaximumWindowSize.X;
+    csbi.dwSize.Y = csbi.dwMaximumWindowSize.Y;
+    SetConsoleScreenBufferSize(hstdout, csbi.dwSize);
 }
 void DisableSelection()
 {
@@ -83,26 +103,43 @@ void Start()
 {
     system("cls"); //clear screen
     SetConsoleTitle(L"portal.ctdb.hcmus.edu.vn");
+    full_screen();
     system("color 70"); // change white background for console
-    system("mode 650");	// set console to fullscreen
+    //system("mode 650");	// set console to fullscreen
     DisableResizeWindow();
     DisableCtrButton(0, 1, 1);
     ShowScrollbar(0);
+
     //DisableSelection();
     AnTroChuot();
-   
+    DisableSelection();   
 }
-void ReadFile(string FileName)
+bool CheckCurSorClick(int xPos1, int xPos2, int yPos1, int yPOs2) // max xPos 1535, max yPos 863
 {
-    fstream fin;
-    //D:\OneDrive - VNU-HCMUS\PROJECT\programming technique\list.xlsx
-    fin.open(FileName.c_str(), ios::in);
-
-    if (fin.is_open()) {
-
-        fin.close();
-    }
-    else {
-        cout << "Failed To Open File" << endl;
-    }
+    POINT CursorPos;
+    HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hin = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD InputRecord;
+    DWORD Events;
+    COORD coord;
+    CONSOLE_CURSOR_INFO cci;
+    cci.dwSize = 25;
+    cci.bVisible = FALSE;
+    SetConsoleCursorInfo(hout, &cci);
+    SetConsoleMode(hin, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
+        ReadConsoleInput(hin, &InputRecord, 1, &Events);
+        while (1)
+        {
+            if (InputRecord.EventType == MOUSE_EVENT)
+            {
+                if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+                {
+                    GetCursorPos(&CursorPos);
+                    if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2)
+                        return true;
+                    return false;
+                }
+            }
+        }
+  
 }
