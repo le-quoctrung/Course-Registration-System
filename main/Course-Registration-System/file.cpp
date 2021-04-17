@@ -20,7 +20,7 @@ void Read_List_to_Class(string name, Class* nClass)
 			if (!std::getline(file, tmp)) return;
 			read = split(tmp, ",");
 
-			addStudent( nClass,					// Add into what class
+			addStudent(nClass,					// Add into what class
 						stoi(read[0]),			// No
 						read[1],				// ID
 						read[2],				// First Name
@@ -34,16 +34,28 @@ void Read_List_to_Class(string name, Class* nClass)
 	}
 }
 
+void CreateStudentAccounts(Class* nClass)
+{
+	std::ofstream write("db\\students.txt", std::ios::app);
+	if (write.is_open())
+	{
+		while (nClass->Students != nullptr)
+		{
+			write << nClass->Students->ID << "," << nClass->Students->DOB.year 
+												<< nClass->Students->DOB.month
+												<< nClass->Students->DOB.day << std::endl;
+			nClass->Students = nClass->Students->next;
+		}
+		write.close();
+	}
+}
+
 void Output_Student(Student* pHead)
 {
-	/*for (int i = 0; i < n; i++)
-	{
-		cout << A[i].No << " " << " " << A[i].ID << " " << A[i].FirstName << " " << A[i].LastName << " " << A[i].gender << " " << A[i].DOB << " " << A[i].SocialID << endl;
-	}*/
 	Student* pCur = pHead;
-	while (pCur)
+	while (pCur != nullptr)
 	{
-		cout << pCur->No << " " << pCur->ID << " " << pCur->LastName << " " << pCur->gender << " " << pCur->DOB << " " << pCur->SocialID << endl;
+		cout << pCur->No << " " << pCur->ID << " " << pCur->LastName << " " << pCur->gender << " " << displayDate(pCur->DOB) << " " << pCur->SocialID << endl;
 		pCur = pCur->next;
 	}
 }

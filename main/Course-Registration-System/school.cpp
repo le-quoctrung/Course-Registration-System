@@ -42,28 +42,38 @@ int createYear(Year*& nYear)
 	return 1;
 }
 
-Sem* createSemester(int type, date start, date end)
+int createSemester(Year* nYear, int type, date start, date end)
 {
-	Sem* newSem = new Sem;
+	if (type < 1 || type > 3) return -2;
 
 	switch (type)
 	{
-		case 1: //1st sem will be in [1st Sep - 31st Nov]
-		{
-			
-		}
-		case 2: //2nd sem will be in [1st Mar - 31st May]
-		{
-			break;
-		}
-		case 3: //3rd sem will be in [1st June - 31st Aug]
-		{
-			break;
-		}
+	case 1: //1st sem will be in [1st Sep - 31st Nov]
+	{
+		if (start.month != 9 && end.month != 11) return -1;
+	}
+	case 2: //2nd sem will be in [1st Mar - 31st May]
+	{
+		if (start.month != 3 && end.month != 5) return -1;
+	}
+	case 3: //3rd sem will be in [1st June - 31st Aug]
+	{
+		if (start.month != 6 && end.month != 8) return -1;
+	}
 	}
 
+	//check if this semester is valid for nYear
+	if (getSize(nYear) >= 3) return 0;
 
-	return newSem;
+	Sem* newSem = new Sem;
+	newSem->type = type;
+	newSem->Courses = nullptr;
+	copyDate(newSem->start, start);
+	copyDate(newSem->end, end);
+	newSem->next = nYear->semesters;
+	nYear->semesters = newSem;
+
+	return 1;
 }
 
 void createClass(Class*& nClass)
@@ -117,7 +127,7 @@ void addStudent(Class* nClass, int no, std::string id, std::string firstname, st
 	newStudent->FirstName = firstname;
 	newStudent->LastName = lastname;
 	newStudent->gender = gender;
-	newStudent->DOB = dob;
+	copyDate(newStudent->DOB, parseDate(dob));
 	newStudent->SocialID = socialid;
 
 	newStudent->next = nullptr;

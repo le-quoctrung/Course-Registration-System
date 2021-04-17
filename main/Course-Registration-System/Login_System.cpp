@@ -11,69 +11,61 @@ bool checkFile(std::string name)
 	return false;
 }
 
-void registering(std::string name, std::string pass, int type)
-{
-	std::ofstream write("db\\" + name + ".txt", std::ios::out);
-	if (write.is_open())
-	{
-		write << name << std::endl;
-		write << pass << std::endl;
-		write << type;
-		write.close();
-	}
-}
-
-void registering(Student user, std::string pass)
-{
-	std::ofstream write("db\\" + user.ID + ".txt");
-	if (write.is_open())
-	{
-		write << user.ID << std::endl;
-		write << pass << std::endl;
-		write << 0;
-		write.close();
-	}
-}
-
 int checkLogin(std::string name, std::string pass)
 {
 	if (!checkFile(name)) return 404;
 
-	std::ifstream file(name + ".txt", std::ios::in);
+	std::ifstream file("db\\students.txt", std::ios::in);
 	if (file.is_open())
 	{
 		std::string check;
-		int type;
+		std::vector<std::string> line;
 
-		std::getline(file, check);
-
-		//check name
-		if (check.compare(name) != 0)
+		while (!file.eof())
 		{
-			//username doesn't match with file's name
-			//file might be tampered
-			return -2;
+			std::getline(file, check);
+
+			line = split(check, ",");
+
+			if (name == line[0])
+			{
+				//check password
+				if (pass != line[1])
+				{
+					return -1;
+				}
+				else return 0;
+			}
 		}
-
-		file >> check;
-
-		//check password
-		if (check.compare(pass) != 0)
-		{
-			return -1;
-		}
-
-		file >> type;
-
-		//check type of user
-		//return -2 if type isn't [0;1]
-		if (type == 0) return 0;
-		else if (type == 1) return 1;
-		else return -2;
-
 		file.close();
 	}
 
+	std::ifstream file("db\\staffs.txt", std::ios::in);
+	if (file.is_open())
+	{
+		std::string check;
+		std::vector<std::string> line;
+
+		while (!file.eof())
+		{
+			std::getline(file, check);
+
+			line = split(check, ",");
+
+			if (name == line[0])
+			{
+				//check password
+				if (pass != line[1])
+				{
+					return -1;
+				}
+				else return 1;
+			}
+		}
+		file.close();
+	}
+
+	return 404;
 }
 
 User viewProfile(std::string name)
@@ -95,11 +87,6 @@ User viewProfile(std::string name)
 void changePass(std::string name, std::string pass)
 {
 	registering(name, pass, 1);
-}
-
-void changePass(Student user, std::string pass)
-{
-	registering(user,pass);
 }
 
 void login()

@@ -7,9 +7,10 @@ using namespace std;
 
 struct Student
 {
-	string ID, FirstName, LastName, SocialID, DOB;
+	string ID, FirstName, LastName, SocialID;
 	int No;
 	bool gender;
+	date DOB;
 
 	Student* next;
 };
@@ -61,8 +62,12 @@ int createYear(Year*& nYear);			// createYear return:
 										// 0 - Not September
 										// 1 - Created successfully
 
-Sem* createSemester(int type, Year* nYear, date start, date end);
-
+int createSemester(Year* nYear,			// createSemester return:
+					int type,			// -2 - Invalid type
+					date start,			// -1 - Invalid date compare to semester
+					date end);			//  0 - Year already have that semester or Invalid semester
+										//  1 - Created successfully				
+					
 void createClass(Class*& nClass);
 
 void createCourse(Course*& nCourse);
@@ -73,8 +78,8 @@ void addStudent(Class* nClass,
 				std::string firstname,
 				std::string lastname,
 				bool gender,
-				std::string socialid,
-				std::string dob);
+				std::string dob,
+				std::string social);
 
 template<class T>
 int getSize(T* pHead)
@@ -87,4 +92,17 @@ int getSize(T* pHead)
 		pHead = pHead->next;
 	}
 	return count;
+}
+
+template<class T>
+T getNode(T* pHead, int n)
+{
+	if (n > getSize(pHead)) return nullptr;
+
+	for (int i = 0; i < n; i++)
+	{
+		pHead = pHead->next;
+	}
+
+	return pHead;
 }
