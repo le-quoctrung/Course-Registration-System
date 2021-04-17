@@ -10,6 +10,15 @@
 
 int main()
 {
+	/*ListClass* classes = new ListClass;
+
+	createEmptyList(classes);
+	addClass(classes, 1, "CLC");
+	ReadListToClass("allStudent.csv", getNode(classes->head, 1));
+	OutputListStudents(getNode(classes->head, 1));
+	CreateStudentAccounts(getNode(classes->head, 1));*/
+	home();
+	login();
 
 	return 0;
 }
