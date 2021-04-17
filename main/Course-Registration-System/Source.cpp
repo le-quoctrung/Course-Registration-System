@@ -14,7 +14,6 @@
 int main()
 {
 	Start();
-<<<<<<< HEAD
     home();
 	/*return 0;
  
@@ -54,9 +53,6 @@ int main()
             FlushConsoleInputBuffer(hin);
         }*/
         return 0;
-
-  
-=======
 	/*Class* APCS = nullptr;
 
 	createClass(APCS);
@@ -77,6 +73,6 @@ int main()
 	std::cout << displayDate(today);
 
 	return 0;
->>>>>>> 5c6990a42d1ca5518654f8a327321a19cc38e4ce
+
 }
 
