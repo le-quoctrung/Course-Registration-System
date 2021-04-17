@@ -36,3 +36,9 @@ main/Course-Registration-System/list.csv.xlsx
 main/Course-Registration-System/~$list.csv.xlsx
 main/.vs/main/v16/ipch/AutoPCH/f38a7dbed66a7fdf/SOURCE.ipch
 *.ipch
+main/Course-Registration-System/x64/Debug/Course-R.101DAF2D.tlog/unsuccessfulbuild
+main/Course-Registration-System/x64/Debug/Course-Registration-System.exe.recipe
+main/Course-Registration-System/x64/Debug/display.obj
+main/Course-Registration-System/x64/Debug/file.obj
+main/Course-Registration-System/x64/Debug/school.obj
+main/Course-Registration-System/x64/Debug/time.obj
