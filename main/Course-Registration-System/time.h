@@ -3,6 +3,8 @@
 
 #include<ctime>
 #include<iostream>
+#include <sstream>
+
 using namespace std;
 
 struct date
@@ -11,7 +13,7 @@ struct date
 };
 
 date getDate();
-void displayDate(date* d);
+std::string displayDate(date d);
 
 int GetDay();
 int GetMonth();

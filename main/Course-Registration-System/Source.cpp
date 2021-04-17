@@ -21,13 +21,17 @@ int main()
 
 	Output_Student(APCS->Students);*/
 	
-	POINT xypos;
+	/*POINT xypos;
 	while (1) {
 		GetCursorPos(&xypos);
 		cout << xypos.x << endl << xypos.y;
 		system("cls");
-	}
+	}*/
 	
+	date today = getDate();
+
+	std::cout << displayDate(today);
+
 	return 0;
 }
 
