@@ -1,12 +1,34 @@
 #include "school.h"
 
-void createYear(Year*& nYear)
+int createYear(Year*& nYear)
 {
+	date today = getDate();
+
+	if (today.day < 1 || today.day > 31)
+	{
+		return -1;
+	}
+	else if (today.month == 9)
+	{
+		if (today.day > 30) return -1;
+	}
+	else return 0;
+
 	Year* newYear = new Year;
 	newYear->classAPCS = nullptr;
 	newYear->classCLC = nullptr;
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
+
+	newYear->startYear.year = today.year;
+	newYear->startYear.month = today.month;
+	newYear->startYear.day = today.day;
+
+	//School year ends in the next year after exactly 12 months
+	//with each semsester is 3 months
+	newYear->endYear.year = newYear->startYear.year + 1;
+	newYear->endYear.month = newYear->startYear.month + 12;
+	newYear->endYear.day = newYear->startYear.day + 365;
 
 	if (nYear == nullptr)
 	{
@@ -15,6 +37,17 @@ void createYear(Year*& nYear)
 	}
 	else newYear->next = nYear;
 	nYear = newYear;
+
+	return 1;
+}
+
+int createSemester()
+{
+
+
+
+
+	return 1;
 }
 
 void createClass(Class*& nClass)
@@ -37,44 +70,54 @@ void createClass(Class*& nClass)
 	tmp->next = newClass;
 }
 
-void createCourse(Course* &nCourse)
+void createCourse(Course* &nCourse, string TeacherName,string ID, string name,
+int credit,int max = 50)
 {
 	Course* newCourse = new Course;
-	newCourse->max = 50;
-	newCourse->session = nullptr;
+	newCourse->max = max;
+	newCourse->ID = ID;
+	newCourse->TeacherName = TeacherName;
+	newCourse->name = name;
+	newCourse->credit = credit;
 	newCourse->next = nCourse;
 	nCourse = newCourse;
 }
-void viewList(Course*& nCourse) {
+//<<<<<<< HEAD
+//=======
+
+//>>>>>>> 76ec897d18d5a6eeee4552c6cc98d4d9af468734
+void viewList(Course* nCourse) {
 	while (nCourse != nullptr) {
 		cout << nCourse->credit << endl;
 		cout << nCourse->ID << endl;
 		cout << nCourse->name << endl;
 		cout << nCourse->TeacherName << endl;
-		cout << nCourse->session << endl;
+	
+		cout << nCourse->max << endl << endl;
+
+		
 		nCourse = nCourse->next;
 	}
+	cout << endl;
 }
-void updateCourse(Course*&nCourse,string oldId,string newId){
-	int pos = 0;
+void updateCourse(Course*&nCourse,string ID,string Teachername){
 	if (nCourse == nullptr) {
 		cout << "The list hasn't been initialized!";
 	}
 	Course* cCourse = nCourse;
-	while (cCourse->next != nullptr) {
-		if (cCourse->ID == oldId) {
-			cCourse->ID == newId;
-			cout << oldId << " has been found at position " << pos << " , replaced with " << newId << " \n";
+	while (cCourse != nullptr) {
+		if (cCourse->ID == ID&&cCourse->TeacherName==Teachername) {
+
 			return;
 		}
 		cCourse = cCourse->next;
-		pos++;
+	
 	}
-	cout << oldId << " does not exist int the list!";
+	
 }
-void deCourse(Course*&nCourse,string deID) {
+void deCourse(Course*&nCourse,string deID,string Teachername) {
 	for (Course* p = nCourse; p != nullptr; p = p->next) {
-		if (p->ID == deID) {
+		if (p->ID == deID &&p->TeacherName==Teachername) {
 			Course* q = new Course;
 			q = p;
 			p = q->next;

@@ -5,11 +5,6 @@
 
 using namespace std;
 
-struct date
-{
-	int year, month, day;
-};
-
 struct Student
 {
 	string ID, FirstName, LastName, SocialID, DOB;
@@ -55,10 +50,18 @@ struct Year
 	Class* classVP;
 	Sem* semesters;
 
+	date startYear;
+	date endYear;
+
 	Year* next;
 };
 
-void createYear(Year*& nYear);
+int createYear(Year*& nYear);			// createYear return:
+										// -1 - Invalid date
+										// 0 - Not September
+										// 1 - Created successfully
+
+int createSemester(Year* nYear);
 
 void createClass(Class*& nClass);
 
