@@ -14,6 +14,7 @@
 int main()
 {
 	Start();
+<<<<<<< HEAD
     home();
 	/*return 0;
  
@@ -55,5 +56,27 @@ int main()
         return 0;
 
   
+=======
+	/*Class* APCS = nullptr;
+
+	createClass(APCS);
+
+	Read_List_to_Class("allStudent.csv", APCS);
+
+	Output_Student(APCS->Students);*/
+	
+	/*POINT xypos;
+	while (1) {
+		GetCursorPos(&xypos);
+		cout << xypos.x << endl << xypos.y;
+		system("cls");
+	}*/
+	
+	date today = getDate();
+
+	std::cout << displayDate(today);
+
+	return 0;
+>>>>>>> 5c6990a42d1ca5518654f8a327321a19cc38e4ce
 }
 
