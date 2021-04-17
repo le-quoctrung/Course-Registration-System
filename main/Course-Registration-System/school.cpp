@@ -42,6 +42,16 @@ void createCourse(course* &nCourse)
 	newCourse->next = nCourse;
 	nCourse = newCourse;
 }
+void viewList(course*& nCourse) {
+	while (nCourse != nullptr) {
+		cout << nCourse->credit << endl;
+		cout << nCourse->ID << endl;
+		cout << nCourse->name << endl;
+		cout << nCourse->TeacherName << endl;
+		cout << nCourse->session << endl;
+		nCourse = nCourse->next;
+	}
+}
 
 void addStudent(Class* nClass)
 {
