@@ -11,14 +11,43 @@
 
 using namespace std;
 
-bool checkFile(std::string name);
+const std::string pathStudentAccounts = "db\\students.txt";
+const std::string pathStaffAccounts = "db\\staffs.txt";
 
-void Read_List_to_Class(std::string name, NodeClass* nClass);		// Read from .csv and parse students to Class
-void Output_List_Students(NodeClass* nClass);						// Output a list of students of a Class
-void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
-																	// with username is [ID] and password is [DOB (yyyymmdd)]
+/*STRUCT TEMPORARY LIST FOR CHANGING PASSWORD*/
+struct NodeAccount
+{
+	std::string username;
+	std::string password;
 
-void ChangePassword(std::string name, std::string pass);			// Copy from the database and change it on runtime and write back
-																	// onto the database
+	NodeAccount* next;
+};
+struct ListAccount
+{
+	NodeAccount* head;
+	NodeAccount* tail;
+};
+
+void addAccount(ListAccount*& list);
+void deleteListAccount(ListAccount*& list);
+
+/*FUNCTIONS*/
+bool CheckFile(std::string name);
+
+void ReadListToClass(std::string name, NodeClass* nClass);	// Read from .csv and parse students to Class
+void OutputListStudents(NodeClass* nClass);					// Output a list of students of a Class
+
+void CreateStudentAccounts(NodeClass* nClass);				// From an available Class, make accounts
+															// with username is [ID] and password is [DOB (yyyymmdd)]
+
+int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
+													//	-1	- password not match
+													//	0	- student
+													//	1	- staff
+													//	404 - file not found
+
+int ChangePassword(std::string name, std::string pass, std::string newPass);	// ChangePassword returns
+																				// 0 - failed to get account
+																				// 1 - changed sucessfully
 
 #endif // !_FILE_H_
