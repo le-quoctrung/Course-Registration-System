@@ -5,17 +5,23 @@
 
 using namespace std;
 
-struct Student
+struct NodeStudent
 {
 	string ID, FirstName, LastName, SocialID;
 	int No;
 	bool gender;
 	date DOB;
 
-	Student* next;
+	NodeStudent* next;
 };
 
-struct Course
+struct ListStudent
+{
+	NodeStudent* head;
+	NodeStudent* tail;
+};
+
+struct NodeCourse
 {
 	string TeacherName, ID, name;
 	date start, end;
@@ -23,33 +29,51 @@ struct Course
 	int max = 50;
 	bool** session;
 
-	Course* next;
+	NodeCourse* next;
 };
 
-struct Sem
+struct ListCourse
+{
+	NodeCourse* head;
+	NodeCourse* tail;
+};
+
+struct NodeSem
 {
 	date start, end;
-	Course* Courses;
+	ListCourse* Courses;
 	int type;
 
 	//Node
-	Sem* next;
+	NodeSem* next;
 };
 
-struct Class
+struct ListSem
 {
-	Student* Students;
+	NodeSem* head;
+	NodeSem* tail;
+};
+
+struct NodeClass
+{
+	ListStudent* Students;
+	int no;
+	std::string name;
 
 	//Node
-	Class* next;
+	NodeClass* next;
+};
+
+struct ListClass
+{
+	NodeClass* head;
+	NodeClass* tail;
 };
 
 struct Year
 {
-	Class* classAPCS;
-	Class* classCLC;
-	Class* classVP;
-	Sem* semesters;
+	ListClass* classes;
+	ListSem* semesters;
 
 	date startYear;
 	date endYear;
@@ -68,18 +92,18 @@ int createSemester(Year* nYear,			// createSemester return:
 					date end);			//  0 - Year already have that semester or Invalid semester
 										//  1 - Created successfully				
 					
-void createClass(Class*& nClass);
-
-void createCourse(Course*& nCourse);
-
-void addStudent(Class* nClass,
-				int no,
-				std::string id,
-				std::string firstname,
-				std::string lastname,
-				bool gender,
-				std::string dob,
-				std::string social);
+//void createClass(Class*& nClass);
+//
+//void createCourse(Course*& nCourse);
+//
+//void addStudent(Class* nClass,
+//				int no,
+//				std::string id,
+//				std::string firstname,
+//				std::string lastname,
+//				bool gender,
+//				std::string dob,
+//				std::string social);
 
 template<class T>
 int getSize(T* pHead)

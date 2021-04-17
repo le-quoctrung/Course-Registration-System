@@ -1,18 +1,24 @@
 #pragma once
-#include<iostream>
-#include"school.h"
-#include<fstream>
-#include<vector>
-#include"Tokenizer.h"
+#ifndef _FILE_H_
+#define _FILE_H_
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+#include "Tokenizer.h"
+#include "school.h"
 
 using namespace std;
 
-void Read_List_to_Class(string name, Class* nClass);
+bool checkFile(std::string name);
 
-void CreateStudentAccounts(Class* nClass);
+void Read_List_to_Class(std::string name, NodeClass* nClass);		// Read from .csv and parse students to Class
+void Output_List_Students(NodeClass* nClass);						// Output a list of students of a Class
+void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
+																	// with username is [ID] and password is [DOB (yyyymmdd)]
 
-void Output_Student(Student* A);
-void WriteFile(string name, Student* A, int n);
+void ChangePassword(std::string name, std::string pass);			// Copy from the database and change it on runtime and write back
+																	// onto the database
 
-void Read_a_Course(string file, Course*& C);
-
+#endif // !_FILE_H_

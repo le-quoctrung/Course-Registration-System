@@ -1,1 +1,1 @@
-20102,vatly,yenhong,1124,50,mon,s1,tue,s3
+20102,vatly,yenhong,10,,mon,s1,tue,s3

@@ -1,16 +1,5 @@
 #include "Login_System.h"
 
-bool checkFile(std::string name)
-{
-	std::ifstream check("db\\" + name + ".txt");
-	if (check.is_open())
-	{
-		check.close();
-		return true;
-	}
-	return false;
-}
-
 int checkLogin(std::string name, std::string pass)
 {
 	if (!checkFile(name)) return 404;
@@ -40,7 +29,7 @@ int checkLogin(std::string name, std::string pass)
 		file.close();
 	}
 
-	std::ifstream file("db\\staffs.txt", std::ios::in);
+	file.open("db\\staffs.txt", std::ios::in);
 	if (file.is_open())
 	{
 		std::string check;
@@ -66,27 +55,6 @@ int checkLogin(std::string name, std::string pass)
 	}
 
 	return 404;
-}
-
-User viewProfile(std::string name)
-{
-	User _user;
-
-	std::ifstream file(name + ".txt", std::ios::in);
-	if (file.is_open())
-	{
-		std::getline(file, _user._name);
-		file >> _user._pass;
-		file >> _user.type;
-
-		file.close();
-	}
-	return _user;
-}
-
-void changePass(std::string name, std::string pass)
-{
-	registering(name, pass, 1);
 }
 
 void login()

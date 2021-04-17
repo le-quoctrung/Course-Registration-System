@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "Login_System.h"
 #include "Console.h"
@@ -9,19 +8,8 @@
 #include "display.h"
 
 
-
 int main()
 {
-	Start();
-	
-	Class* APCS = nullptr;
-
-	createClass(APCS);
-
-	Read_List_to_Class("allStudent.csv", APCS);
-	Output_Student(APCS->Students);
-
-	CreateStudentAccounts(APCS);
 
 	return 0;
 }
