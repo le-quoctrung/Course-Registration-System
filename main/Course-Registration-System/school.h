@@ -61,7 +61,7 @@ int createYear(Year*& nYear);			// createYear return:
 										// 0 - Not September
 										// 1 - Created successfully
 
-int createSemester(Year* nYear);
+Sem* createSemester(int type, Year* nYear, date start, date end);
 
 void createClass(Class*& nClass);
 

@@ -30,6 +30,7 @@ int createYear(Year*& nYear)
 	newYear->endYear.month = newYear->startYear.month + 12;
 	newYear->endYear.day = newYear->startYear.day + 365;
 
+	//push a Year Node
 	if (nYear == nullptr)
 	{
 		newYear->next = nullptr;
@@ -41,13 +42,28 @@ int createYear(Year*& nYear)
 	return 1;
 }
 
-int createSemester()
+Sem* createSemester(int type, date start, date end)
 {
+	Sem* newSem = new Sem;
+
+	switch (type)
+	{
+		case 1: //1st sem will be in [1st Sep - 31st Nov]
+		{
+			
+		}
+		case 2: //2nd sem will be in [1st Mar - 31st May]
+		{
+			break;
+		}
+		case 3: //3rd sem will be in [1st June - 31st Aug]
+		{
+			break;
+		}
+	}
 
 
-
-
-	return 1;
+	return newSem;
 }
 
 void createClass(Class*& nClass)
