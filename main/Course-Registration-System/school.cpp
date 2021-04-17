@@ -2,8 +2,7 @@
 
 int createYear(Year*& nYear)
 {
-	nYear->startYear.month = GetMonth();
-	nYear->startYear.day = GetDay();
+	nYear->startYear = getDate();
 
 	if (nYear->startYear.day < 1 || nYear->startYear.day > 31)
 	{
@@ -21,8 +20,9 @@ int createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	newYear->startYear.year = GetYear();
-	newYear->endYear.year = GetYear() + 1;
+	//School year ends in the next year after exactly 12 months
+	//with each semsester is 3 months
+	newYear->endYear.year = newYear->startYear.year + 1;
 	newYear->endYear.month = newYear->startYear.month + 12;
 	newYear->endYear.day = newYear->startYear.day + 365;
 

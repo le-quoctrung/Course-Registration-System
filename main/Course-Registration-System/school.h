@@ -5,11 +5,6 @@
 
 using namespace std;
 
-struct date
-{
-	int year, month, day;
-};
-
 struct Student
 {
 	string ID, FirstName, LastName, SocialID, DOB;
