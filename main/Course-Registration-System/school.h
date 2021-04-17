@@ -55,8 +55,8 @@ struct Year
 	Class* classVP;
 	Sem* semesters;
 
-	int startYear;
-	int endYear;
+	date startYear;
+	date endYear;
 
 	Year* next;
 };
@@ -65,6 +65,8 @@ int createYear(Year*& nYear);			// createYear return:
 										// -1 - Invalid date
 										// 0 - Not September
 										// 1 - Created successfully
+
+int createSemester(Year* nYear);
 
 void createClass(Class*& nClass);
 

@@ -2,16 +2,16 @@
 
 int createYear(Year*& nYear)
 {
-	int month = GetMonth();
-	int day = GetDay();
+	nYear->startYear.month = GetMonth();
+	nYear->startYear.day = GetDay();
 
-	if (day < 1 || day > 31)
+	if (nYear->startYear.day < 1 || nYear->startYear.day > 31)
 	{
 		return -1;
 	}
-	else if (month == 9)
+	else if (nYear->startYear.month == 9)
 	{
-		if (day > 30) return -1;
+		if (nYear->startYear.day > 30) return -1;
 	}
 	else return 0;
 
@@ -21,8 +21,10 @@ int createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	newYear->startYear = GetYear();
-	newYear->endYear = GetYear() + 1;
+	newYear->startYear.year = GetYear();
+	newYear->endYear.year = GetYear() + 1;
+	newYear->endYear.month = newYear->startYear.month + 12;
+	newYear->endYear.day = newYear->startYear.day + 365;
 
 	if (nYear == nullptr)
 	{
@@ -31,6 +33,15 @@ int createYear(Year*& nYear)
 	}
 	else newYear->next = nYear;
 	nYear = newYear;
+
+	return 1;
+}
+
+int createSemester()
+{
+
+
+
 
 	return 1;
 }
