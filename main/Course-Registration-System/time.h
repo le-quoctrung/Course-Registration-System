@@ -8,3 +8,4 @@ using namespace std;
 int GetDay();
 int GetMonth();
 int GetYear();
+void findSemesYear(int M);

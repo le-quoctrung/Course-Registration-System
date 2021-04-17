@@ -63,6 +63,9 @@ void createYear(Year*& nYear);
 void createClass(Class*& nClass);
 
 void createCourse(Course*& nCourse);
+void viewList(Course*& nCourse);
+void updateCourse(Course*& nCourse, string oldId, string newId);
+void deCourse(Course*& nCourse, string deID);
 
 void addStudent(Class* nClass,
 				int no,

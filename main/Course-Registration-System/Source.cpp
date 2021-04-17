@@ -24,8 +24,8 @@ int main()
 	POINT xypos;
 	while (1) {
 		GetCursorPos(&xypos);
-		cout << xypos.x << endl << xypos.y;
-		system("cls");
+		cout << xypos.x << " " << xypos.y << endl;
+		
 	}
 	
 	return 0;

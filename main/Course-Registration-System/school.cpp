@@ -45,7 +45,7 @@ void createCourse(Course* &nCourse)
 	newCourse->next = nCourse;
 	nCourse = newCourse;
 }
-void viewList(course*& nCourse) {
+void viewList(Course*& nCourse) {
 	while (nCourse != nullptr) {
 		cout << nCourse->credit << endl;
 		cout << nCourse->ID << endl;
@@ -55,6 +55,34 @@ void viewList(course*& nCourse) {
 		nCourse = nCourse->next;
 	}
 }
+void updateCourse(Course*&nCourse,string oldId,string newId){
+	int pos = 0;
+	if (nCourse == nullptr) {
+		cout << "The list hasn't been initialized!";
+	}
+	Course* cCourse = nCourse;
+	while (cCourse->next != nullptr) {
+		if (cCourse->ID == oldId) {
+			cCourse->ID == newId;
+			cout << oldId << " has been found at position " << pos << " , replaced with " << newId << " \n";
+			return;
+		}
+		cCourse = cCourse->next;
+		pos++;
+	}
+	cout << oldId << " does not exist int the list!";
+}
+void deCourse(Course*&nCourse,string deID) {
+	for (Course* p = nCourse; p != nullptr; p = p->next) {
+		if (p->ID == deID) {
+			Course* q = new Course;
+			q = p;
+			p = q->next;
+			delete q;
+		}
+		}
+}
+
 
 void addStudent(Class* nClass, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid )
 {
