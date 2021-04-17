@@ -1,4 +1,3 @@
-#include "time.h"
 #include "school.h"
 
 void createYear(Year*& nYear)
@@ -9,7 +8,11 @@ void createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	if (nYear == nullptr) newYear->next = nullptr;
+	if (nYear == nullptr)
+	{
+		newYear->next = nullptr;
+		nYear = newYear;
+	}
 	else newYear->next = nYear;
 	nYear = newYear;
 }
@@ -34,9 +37,9 @@ void createClass(Class*& nClass)
 	tmp->next = newClass;
 }
 
-void createCourse(course* &nCourse)
+void createCourse(Course* &nCourse)
 {
-	course* newCourse = new course;
+	Course* newCourse = new Course;
 	newCourse->max = 50;
 	newCourse->session = nullptr;
 	newCourse->next = nCourse;
@@ -53,7 +56,34 @@ void viewList(course*& nCourse) {
 	}
 }
 
-void addStudent(Class* nClass)
+void addStudent(Class* nClass, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid )
 {
+	if (nClass == nullptr) return;
 
+	Student* newStudent = new Student;
+
+	newStudent->No = no;
+	newStudent->ID = id;
+	newStudent->FirstName = firstname;
+	newStudent->LastName = lastname;
+	newStudent->gender = gender;
+	newStudent->DOB = dob;
+	newStudent->SocialID = socialid;
+
+	newStudent->next = nullptr;
+
+	if (nClass->Students == nullptr)
+	{
+		nClass->Students = newStudent;
+		return;
+	}
+
+	Student* tmp = nClass->Students;
+
+	while (tmp->next != nullptr)
+	{
+		tmp = tmp->next;
+	}
+
+	tmp->next = newStudent;
 }

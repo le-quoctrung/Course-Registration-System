@@ -2,23 +2,32 @@
 #include <iostream>
 #include "Login_System.h"
 #include "Console.h"
-#include"time.h"
+#include "time.h"
 #include "Tokenizer.h"
 #include "school.h"
-#include"file.h"
-#include"display.h"
+#include "file.h"
+#include "display.h"
+
+
 
 int main()
 {
 	Start();
-	//student* pHead = nullptr;
-	
-	//ReadFile("input.txt", pHead);
-	//Output(pHead);
+	/*Class* APCS = nullptr;
 
-	//home();
-	
-	login();
+	createClass(APCS);
 
+	Read_List_to_Class("allStudent.csv", APCS);
+
+	Output_Student(APCS->Students);*/
+	
+	POINT xypos;
+	while (1) {
+		GetCursorPos(&xypos);
+		cout << xypos.x << endl << xypos.y;
+		system("cls");
+	}
+	
 	return 0;
 }
+
