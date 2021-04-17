@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//STUDENT
 struct NodeStudent
 {
 	string ID, FirstName, LastName, SocialID;
@@ -12,48 +13,17 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 
+	//Node
 	NodeStudent* next;
 };
-
 struct ListStudent
 {
 	NodeStudent* head;
 	NodeStudent* tail;
 };
 
-struct NodeCourse
-{
-	string TeacherName, ID, name;
-	date start, end;
-	int credit;
-	int max = 50;
-	bool** session;
 
-	NodeCourse* next;
-};
-
-struct ListCourse
-{
-	NodeCourse* head;
-	NodeCourse* tail;
-};
-
-struct NodeSem
-{
-	date start, end;
-	ListCourse* Courses;
-	int type;
-
-	//Node
-	NodeSem* next;
-};
-
-struct ListSem
-{
-	NodeSem* head;
-	NodeSem* tail;
-};
-
+//CLASS
 struct NodeClass
 {
 	ListStudent* Students;
@@ -63,14 +33,51 @@ struct NodeClass
 	//Node
 	NodeClass* next;
 };
-
 struct ListClass
 {
 	NodeClass* head;
 	NodeClass* tail;
 };
 
-struct Year
+
+//COURSE
+struct NodeCourse
+{
+	string TeacherName, ID, name;
+	date start, end;
+	int credit;
+	int max = 50;
+	bool** session;
+
+	//Node
+	NodeCourse* next;
+};
+struct ListCourse
+{
+	NodeCourse* head;
+	NodeCourse* tail;
+};
+
+
+//SEMESTER
+struct NodeSem
+{
+	date start, end;
+	ListCourse* Courses;
+	int type;
+
+	//Node
+	NodeSem* next;
+};
+struct ListSem
+{
+	NodeSem* head;
+	NodeSem* tail;
+};
+
+
+//YEAR
+struct NodeYear
 {
 	ListClass* classes;
 	ListSem* semesters;
@@ -78,33 +85,37 @@ struct Year
 	date startYear;
 	date endYear;
 
-	Year* next;
+	//Node
+	NodeYear* next;
 };
 
-int createYear(Year*& nYear);			// createYear return:
-										// -1 - Invalid date
-										// 0 - Not September
-										// 1 - Created successfully
+struct ListYear
+{
+	NodeYear* head;
+	NodeYear* tail;
+};
 
-int createSemester(Year* nYear,			// createSemester return:
-					int type,			// -2 - Invalid type
-					date start,			// -1 - Invalid date compare to semester
-					date end);			//  0 - Year already have that semester or Invalid semester
-										//  1 - Created successfully				
-					
-//void createClass(Class*& nClass);
-//
-//void createCourse(Course*& nCourse);
-//
-//void addStudent(Class* nClass,
-//				int no,
-//				std::string id,
-//				std::string firstname,
-//				std::string lastname,
-//				bool gender,
-//				std::string dob,
-//				std::string social);
+//FUNCTIONS FOR SCHOOL.H
+void addYear(ListYear*& nYear);
 
+void addSemester(ListSem*& nSem, 
+				int type,
+				date start,
+				date end);
+
+void addClass(ListClass*& nClass, int no, std::string name);
+
+void addStudent(ListStudent* nStudent,
+				int no,
+				std::string id,
+				std::string firstname,
+				std::string lastname,
+				bool gender,
+				std::string dob,
+				std::string socialid);
+
+
+//FUNCTIONS FOR LIST
 template<class T>
 int getSize(T* pHead)
 {
@@ -119,14 +130,21 @@ int getSize(T* pHead)
 }
 
 template<class T>
-T getNode(T* pHead, int n)
+T* getNode(T* pHead, int n)
 {
 	if (n > getSize(pHead)) return nullptr;
 
-	for (int i = 0; i < n; i++)
+	for (int i = 0; i < n-1; i++)
 	{
 		pHead = pHead->next;
 	}
 
 	return pHead;
+}
+
+//MAKE EMPTY LIST FROM POINTER CLASS <T>
+template<class T>
+void createEmptyList(T*& List)
+{
+	List->head = List->tail = nullptr;
 }
