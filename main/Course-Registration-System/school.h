@@ -5,43 +5,16 @@
 
 using namespace std;
 
-//STUDENT
-struct NodeStudent
+struct Student
 {
-	string ID, FirstName, LastName, SocialID;
+	string ID, FirstName, LastName, SocialID, DOB;
 	int No;
 	bool gender;
-	date DOB;
 
-	//Node
-	NodeStudent* next;
-};
-struct ListStudent
-{
-	NodeStudent* head;
-	NodeStudent* tail;
+	Student* next;
 };
 
-
-//CLASS
-struct NodeClass
-{
-	ListStudent* Students;
-	int no;
-	std::string name;
-
-	//Node
-	NodeClass* next;
-};
-struct ListClass
-{
-	NodeClass* head;
-	NodeClass* tail;
-};
-
-
-//COURSE
-struct NodeCourse
+struct Course
 {
 	string TeacherName, ID, name;
 	date start, end;
@@ -49,73 +22,60 @@ struct NodeCourse
 	int max = 50;
 	bool** session;
 
-	//Node
-	NodeCourse* next;
-};
-struct ListCourse
-{
-	NodeCourse* head;
-	NodeCourse* tail;
+	Course* next;
 };
 
-
-//SEMESTER
-struct NodeSem
+struct Sem
 {
 	date start, end;
-	ListCourse* Courses;
+	Course* Courses;
 	int type;
 
 	//Node
-	NodeSem* next;
-};
-struct ListSem
-{
-	NodeSem* head;
-	NodeSem* tail;
+	Sem* next;
 };
 
-
-//YEAR
-struct NodeYear
+struct Class
 {
-	ListClass* classes;
-	ListSem* semesters;
+	Student* Students;
+
+	//Node
+	Class* next;
+};
+
+struct Year
+{
+	Class* classAPCS;
+	Class* classCLC;
+	Class* classVP;
+	Sem* semesters;
 
 	date startYear;
 	date endYear;
 
-	//Node
-	NodeYear* next;
+	Year* next;
 };
 
-struct ListYear
-{
-	NodeYear* head;
-	NodeYear* tail;
-};
+int createYear(Year*& nYear);			// createYear return:
+										// -1 - Invalid date
+										// 0 - Not September
+										// 1 - Created successfully
 
-//FUNCTIONS FOR SCHOOL.H
-void addYear(ListYear*& nYear);
+Sem* createSemester(int type, Year* nYear, date start, date end);
 
-void addSemester(ListSem*& nSem, 
-				int type,
-				date start,
-				date end);
+void createClass(Class*& nClass);
 
-void addClass(ListClass*& nClass, int no, std::string name);
+void createCourse(Course*& nCourse);
 
-void addStudent(ListStudent* nStudent,
+void addStudent(Class* nClass,
 				int no,
 				std::string id,
 				std::string firstname,
 				std::string lastname,
 				bool gender,
-				std::string dob,
-				std::string socialid);
+				std::string socialid,
+				std::string dob);
 
-
-//FUNCTIONS FOR LIST
 template<class T>
 int getSize(T* pHead)
 {
@@ -127,24 +87,4 @@ int getSize(T* pHead)
 		pHead = pHead->next;
 	}
 	return count;
-}
-
-template<class T>
-T* getNode(T* pHead, int n)
-{
-	if (n > getSize(pHead)) return nullptr;
-
-	for (int i = 0; i < n-1; i++)
-	{
-		pHead = pHead->next;
-	}
-
-	return pHead;
-}
-
-//MAKE EMPTY LIST FROM POINTER CLASS <T>
-template<class T>
-void createEmptyList(T*& List)
-{
-	List->head = List->tail = nullptr;
 }
