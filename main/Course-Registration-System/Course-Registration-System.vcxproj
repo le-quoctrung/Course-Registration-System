@@ -159,11 +159,6 @@
   <ItemGroup>
     <None Include="allStudent.csv" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="db\staffs.txt" />
-    <Text Include="db\students.txt" />
-    <Text Include="Text.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
