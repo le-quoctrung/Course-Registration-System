@@ -51,6 +51,7 @@ void Output_Student(Student* pHead)
 void WriteFile(string name, Student* A, int n)
 {
 	fstream fout;
+	
 }
 
 void Read_a_Course(string file, Course*& C)
@@ -69,5 +70,70 @@ void Read_a_Course(string file, Course*& C)
 
 			fin.close();
 		
+	}
+}
+void EditStu(Student student[], int index)
+{
+	string stuid, ID, Last_name, First_name, Dob;
+	bool gender;
+	cout << "Enter the student's ID you want to change: ";
+	cin >> stuid;
+	ofstream out;
+	out.open("allStudent.csv", std::ofstream::trunc);
+	if (!out)
+	{
+		cout << "Error!\n";
+	}
+	else
+	{
+		for (int i = 0; i < index; i++)
+		{
+			if (student[i].ID == stuid)
+			{
+				cout << "1. Change ID\n" << "2. Change last name\n" << "3. Change first name\n" << "4. Change gender\n" << "5. Change DoB\n";
+				int e;
+				cin >> e;
+				switch (e)
+				{
+				case 1:
+					cout << "New ID: ";
+					cin >> ID;
+					student[i].ID = ID;
+					break;
+				case 2:
+					cout << "New last name: ";
+					cin >> Last_name;
+					student[i].LastName = Last_name;
+					break;
+				case 3:
+					cout << "New first name: ";
+					cin >> First_name;
+					student[i].FirstName = First_name;
+					break;
+				case 4:
+					cout << "New gender: ";
+					cin >> gender;
+						student[i].gender = gender;
+					break;
+				case 5:
+					cout << "New dob: ";
+					cin >> Dob;
+					student[i].DOB = Dob;
+					break;
+				}
+
+			}
+		}
+		out << "No,Student ID,Lastname,Firstname,Gender,DoB\n";
+		for (int i = 0; i < index; i++)
+		{
+			out << student[i].No << ",";
+			out << student[i].ID << ",";
+			out << student[i].LastName << ",";
+			out << student[i].FirstName << ",";
+			out << student[i].gender << ",";
+			out << student[i].DOB << endl;
+		}
+		out.close();
 	}
 }
