@@ -28,10 +28,11 @@ struct ListAccount
 	NodeAccount* tail;
 };
 
-void addAccount(ListAccount*& list);
+void addAccount(ListAccount*& list, std::string name, std::string pass);
 void deleteListAccount(ListAccount*& list);
 
 /*FUNCTIONS*/
+bool is_digits(std::string str);
 bool CheckFile(std::string name);
 
 void ReadListToClass(std::string name, NodeClass* nClass);	// Read from .csv and parse students to Class
