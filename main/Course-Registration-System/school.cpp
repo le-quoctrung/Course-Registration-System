@@ -70,7 +70,7 @@ void createClass(Class*& nClass)
 	tmp->next = newClass;
 }
 
-void createCourse(Course* &nCourse, string TeacherName,string ID, string name,
+void createCourse(Course* &nCourse, string TeacherName,string ID, string name,string session,
 int credit,int max = 50)
 {
 	Course* newCourse = new Course;
@@ -78,6 +78,7 @@ int credit,int max = 50)
 	newCourse->ID = ID;
 	newCourse->TeacherName = TeacherName;
 	newCourse->name = name;
+	newCourse->session = session;
 	newCourse->credit = credit;
 	newCourse->next = nCourse;
 	nCourse = newCourse;
@@ -87,16 +88,18 @@ int credit,int max = 50)
 
 //>>>>>>> 76ec897d18d5a6eeee4552c6cc98d4d9af468734
 void viewList(Course* nCourse) {
+	int n = 1;
+	cout << "\n\n\t\t LIST COURSE: \n";
 	while (nCourse != nullptr) {
-		cout << nCourse->credit << endl;
-		cout << nCourse->ID << endl;
-		cout << nCourse->name << endl;
-		cout << nCourse->TeacherName << endl;
-	
-		cout << nCourse->max << endl << endl;
-
-		
+		cout << n << "/";
+		cout <<"ID: "<<nCourse->ID<< "\t";
+		cout <<"Name: "<<nCourse->name << "\t";
+		cout <<"Teacher Name: "<<nCourse->TeacherName << "\t";
+		cout <<"Credit: "<<nCourse->credit<<"\t";
+		cout <<"Max: "<<nCourse->max << "\t  ";
+		cout <<"Session: "<<nCourse->session << endl;
 		nCourse = nCourse->next;
+		n++;
 	}
 	cout << endl;
 }

@@ -17,10 +17,9 @@ struct Student
 struct Course
 {
 	string TeacherName, ID, name;
-	date start, end;
 	int credit;
-	int max = 50;
-	bool** session;
+	int max;
+	string session; 
 
 	Course* next;
 };
@@ -65,8 +64,9 @@ int createSemester(Year* nYear);
 
 void createClass(Class*& nClass);
 
-void createCourse(Course*& nCourse);
-void viewList(Course*& nCourse);
+void createCourse(Course*& nCourse, string TeacherName, string ID, string name,string session,
+	int credit, int max );
+void viewList(Course* nCourse);
 void updateCourse(Course*& nCourse, string oldId, string newId);
 void deCourse(Course*& nCourse, string deID);
 

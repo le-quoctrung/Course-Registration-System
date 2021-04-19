@@ -59,15 +59,15 @@ void Read_a_Course(string file, Course*& C)
 	while (fin.is_open()) {
 		string line;
 		vector<string>read;
+		while (!fin.eof()) {
+			fin >> line;
+			read = split(line, ",");
+			
+			createCourse(C, read[1], read[0], read[2], read[4], stoi(read[3]),stoi(read[5]));
+			
+		}
 
-		fin >> line;
-		read = split(line, ",");
-
-		C->ID = read[0];
-		C->name = read[1];
-		C->TeacherName = read[2];
-		C->credit = stoi(read[3]);
-		C->max = stoi(read[4]);
-		fin.close();
+			fin.close();
+		
 	}
 }

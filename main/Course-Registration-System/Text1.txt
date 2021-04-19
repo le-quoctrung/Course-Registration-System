@@ -1,0 +1,2 @@
+cs1012,yenhong,vatly,1234,Mon-S3&Tue-S2,50
+abc11,kimha,giaitich,222,Tues-S1&Mon-S2,50

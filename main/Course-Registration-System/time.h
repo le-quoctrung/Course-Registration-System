@@ -18,4 +18,3 @@ std::string displayDate(date d);
 int GetDay();
 int GetMonth();
 int GetYear();
-void findSemesYear(int M);
