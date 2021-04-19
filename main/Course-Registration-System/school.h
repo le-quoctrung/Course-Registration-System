@@ -64,11 +64,11 @@ int createSemester(Year* nYear);
 
 void createClass(Class*& nClass);
 
-void createCourse(Course*& nCourse, string TeacherName, string ID, string name,string session,
-	int credit, int max );
+void createCourse(Course*& nCourse, string TeacherName, string ID, string name, string session,
+	int credit, int max = 50);
 void viewList(Course* nCourse);
-void updateCourse(Course*& nCourse, string oldId, string newId);
-void deCourse(Course*& nCourse, string deID);
+void updateCourse(Course*& nCourse, string ID, string Teachername);
+void deCourse(Course*& nCourse, string deID, string Teachername);
 
 void addStudent(Class* nClass,
 				int no,

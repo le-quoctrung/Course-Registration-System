@@ -71,7 +71,7 @@ void createClass(Class*& nClass)
 }
 
 void createCourse(Course* &nCourse, string TeacherName,string ID, string name,string session,
-int credit,int max = 50)
+int credit,int max )
 {
 	Course* newCourse = new Course;
 	newCourse->max = max;
