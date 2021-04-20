@@ -4,13 +4,13 @@ int createYear(Year*& nYear)
 {
 	date today = getDate();
 
-	if (today.day < 1 || today.day > 31)
+	if (today->day < 1 || today->day > 31)
 	{
 		return -1;
 	}
-	else if (today.month == 9)
+	else if (today->month == 9)
 	{
-		if (today.day > 30) return -1;
+		if (today->day > 30) return -1;
 	}
 	else return 0;
 
@@ -20,16 +20,17 @@ int createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	newYear->startYear.year = today.year;
-	newYear->startYear.month = today.month;
-	newYear->startYear.day = today.day;
+	newYear->startYear->year = today->year;
+	newYear->startYear->month = today->month;
+	newYear->startYear->day = today->day;
 
 	//School year ends in the next year after exactly 12 months
 	//with each semsester is 3 months
-	newYear->endYear.year = newYear->startYear.year + 1;
-	newYear->endYear.month = newYear->startYear.month + 12;
-	newYear->endYear.day = newYear->startYear.day + 365;
+	newYear->endYear->year = newYear->startYear->year + 1;
+	newYear->endYear->month = newYear->startYear->month + 12;
+	newYear->endYear->day = newYear->startYear->day + 365;
 
+	//push a Year Node
 	if (nYear == nullptr)
 	{
 		newYear->next = nullptr;
@@ -41,13 +42,28 @@ int createYear(Year*& nYear)
 	return 1;
 }
 
-int createSemester()
+Sem* createSemester(int type, date start, date end)
 {
+	Sem* newSem = new Sem;
+
+	switch (type)
+	{
+		case 1: //1st sem will be in [1st Sep - 31st Nov]
+		{
+			
+		}
+		case 2: //2nd sem will be in [1st Mar - 31st May]
+		{
+			break;
+		}
+		case 3: //3rd sem will be in [1st June - 31st Aug]
+		{
+			break;
+		}
+	}
 
 
-
-
-	return 1;
+	return newSem;
 }
 
 void createClass(Class*& nClass)
@@ -160,4 +176,19 @@ void addStudent(Class* nClass, int no, std::string id, std::string firstname, st
 	}
 
 	tmp->next = newStudent;
+}
+void exportList(Student*& stu, Course* course1) {
+	while (stu != nullptr) {
+		if (stu->course->ID == course1->ID) {
+			cout << stu->No << " " << endl;
+			cout << stu->ID << " " << endl;
+			cout << stu->FirstName << " " << endl;
+			cout << stu->LastName << " " << endl;
+			cout << stu->gender << " " << endl;
+			cout << stu->DOB << " " << endl;
+			cout << stu->SocialID << " " << endl;
+
+		}
+		stu = stu->next;
+	}
 }

@@ -19,7 +19,7 @@ struct Student
 	string ID, FirstName, LastName, SocialID, DOB;
 	int No;
 	bool gender;
-	Course course;
+	Course *course;
 	Student* next;
 };
 
@@ -93,3 +93,4 @@ int getSize(T* pHead)
 	}
 	return count;
 }
+void exportList(Student*& stu, Course* course1);

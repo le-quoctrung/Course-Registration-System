@@ -137,3 +137,9 @@ void EditStu(Student student[], int index)
 		out.close();
 	}
 }
+void writeFileinaCourse(Student*&stu,Course*course1) {
+	ofstream fout;
+	fout.open("studentACourse.txt", ios::out);
+	exportList(stu, course1);
+	fout.close();
+}
