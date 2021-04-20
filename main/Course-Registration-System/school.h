@@ -3,26 +3,28 @@
 #include<string>
 #include "time.h"
 
-using namespace std;
+using namespace std; 
+struct Course
+{
+	string TeacherName, ID, name;
+	int credit;
+	int max;
+	string session;
+
+	Course* next;
+};
 
 struct Student
 {
 	string ID, FirstName, LastName, SocialID, DOB;
 	int No;
 	bool gender;
-
+	Course course;
 	Student* next;
 };
 
-struct Course
-{
-	string TeacherName, ID, name;
-	int credit;
-	int max;
-	string session; 
 
-	Course* next;
-};
+
 
 struct Sem
 {
@@ -60,7 +62,7 @@ int createYear(Year*& nYear);			// createYear return:
 										// 0 - Not September
 										// 1 - Created successfully
 
-int createSemester(Year* nYear);
+Sem* createSemester(int type, Year* nYear, date start, date end);
 
 void createClass(Class*& nClass);
 
