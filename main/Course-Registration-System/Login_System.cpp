@@ -40,8 +40,10 @@ int checkLogin(std::string name, std::string pass)
 	if (!checkFile(name)) return 404;
 
 	std::ifstream file(name + ".txt", std::ios::in);
+	
 	if (file.is_open())
 	{
+		
 		std::string check;
 		int type;
 
@@ -104,10 +106,12 @@ void changePass(Student user, std::string pass)
 
 void login()
 {
+	int x = 155, y = 17;
 	string name="", pass = "";
 	char chpass, chname;
-	
-	Gotoxy(80, 13);
+	HienTroChuot();
+
+	Gotoxy(x, y);
 	chname = _getch();
 	while (chname != 13) {//character 13 is enter
 		if (name.length() > 7 && chname != '\b') chname = '\0';
@@ -125,7 +129,7 @@ void login()
 		chname = _getch();
 	}	
 
-	Gotoxy(80, 15);
+	Gotoxy(x, y + 5);
 	chpass = _getch();
 	while (chpass != 13) {//character 13 is enter
 		if (pass.length() > 16 && chpass != '\b') chpass = '\0';
@@ -145,9 +149,9 @@ void login()
 	system("cls");
 	switch (checkLogin(name,pass))
 	{
-	case 404: home(); Gotoxy(80, 17); cout << "Login failed. Account not found"; break;
-	case -1: home(); Gotoxy(80, 17); cout << "Login failed. Wrong password"; break;
-	case 1: break;
+	case 404: home(); Gotoxy(x - 5, y+8); cout << "Login failed. Account not found"; break;
+	case -1: home(); Gotoxy(x - 5, y + 8); cout << "Login failed. Wrong password"; break;
+	case 1: cout << "welcome student"; break;
 	case -2: break;
 	case 0: break;
 		break;

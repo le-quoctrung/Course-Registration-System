@@ -4,13 +4,13 @@ int createYear(Year*& nYear)
 {
 	date today = getDate();
 
-	if (today->day < 1 || today->day > 31)
+	if (today.day < 1 || today.day > 31)
 	{
 		return -1;
 	}
-	else if (today->month == 9)
+	else if (today.month == 9)
 	{
-		if (today->day > 30) return -1;
+		if (today.day > 30) return -1;
 	}
 	else return 0;
 
@@ -20,15 +20,15 @@ int createYear(Year*& nYear)
 	newYear->classVP = nullptr;
 	newYear->semesters = nullptr;
 
-	newYear->startYear->year = today->year;
-	newYear->startYear->month = today->month;
-	newYear->startYear->day = today->day;
+	newYear->startYear.year = today.year;
+	newYear->startYear.month = today.month;
+	newYear->startYear.day = today.day;
 
 	//School year ends in the next year after exactly 12 months
 	//with each semsester is 3 months
-	newYear->endYear->year = newYear->startYear->year + 1;
-	newYear->endYear->month = newYear->startYear->month + 12;
-	newYear->endYear->day = newYear->startYear->day + 365;
+	newYear->endYear.year = newYear->startYear.year + 1;
+	newYear->endYear.month = newYear->startYear.month + 12;
+	newYear->endYear.day = newYear->startYear.day + 365;
 
 	//push a Year Node
 	if (nYear == nullptr)
@@ -86,65 +86,25 @@ void createClass(Class*& nClass)
 	tmp->next = newClass;
 }
 
-void createCourse(Course* &nCourse, string TeacherName,string ID, string name,string session,
-int credit,int max )
+void createCourse(Course* &nCourse)
 {
 	Course* newCourse = new Course;
-	newCourse->max = max;
-	newCourse->ID = ID;
-	newCourse->TeacherName = TeacherName;
-	newCourse->name = name;
-	newCourse->session = session;
-	newCourse->credit = credit;
+	newCourse->max = 50;
+	newCourse->session = nullptr;
 	newCourse->next = nCourse;
 	nCourse = newCourse;
 }
-//<<<<<<< HEAD
-//=======
 
-//>>>>>>> 76ec897d18d5a6eeee4552c6cc98d4d9af468734
-void viewList(Course* nCourse) {
-	int n = 1;
-	cout << "\n\n\t\t LIST COURSE: \n";
+void viewList(Course*& nCourse) {
 	while (nCourse != nullptr) {
-		cout << n << "/";
-		cout <<"ID: "<<nCourse->ID<< "\t";
-		cout <<"Name: "<<nCourse->name << "\t";
-		cout <<"Teacher Name: "<<nCourse->TeacherName << "\t";
-		cout <<"Credit: "<<nCourse->credit<<"\t";
-		cout <<"Max: "<<nCourse->max << "\t  ";
-		cout <<"Session: "<<nCourse->session << endl;
+		cout << nCourse->credit << endl;
+		cout << nCourse->ID << endl;
+		cout << nCourse->name << endl;
+		cout << nCourse->TeacherName << endl;
+		cout << nCourse->session << endl;
 		nCourse = nCourse->next;
-		n++;
 	}
-	cout << endl;
 }
-void updateCourse(Course*&nCourse,string ID,string Teachername){
-	if (nCourse == nullptr) {
-		cout << "The list hasn't been initialized!";
-	}
-	Course* cCourse = nCourse;
-	while (cCourse != nullptr) {
-		if (cCourse->ID == ID&&cCourse->TeacherName==Teachername) {
-
-			return;
-		}
-		cCourse = cCourse->next;
-	
-	}
-	
-}
-void deCourse(Course*&nCourse,string deID,string Teachername) {
-	for (Course* p = nCourse; p != nullptr; p = p->next) {
-		if (p->ID == deID &&p->TeacherName==Teachername) {
-			Course* q = new Course;
-			q = p;
-			p = q->next;
-			delete q;
-		}
-		}
-}
-
 
 void addStudent(Class* nClass, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid )
 {
@@ -176,19 +136,4 @@ void addStudent(Class* nClass, int no, std::string id, std::string firstname, st
 	}
 
 	tmp->next = newStudent;
-}
-void exportList(Student*& stu, Course* course1) {
-	while (stu != nullptr) {
-		if (stu->course->ID == course1->ID) {
-			cout << stu->No << " " << endl;
-			cout << stu->ID << " " << endl;
-			cout << stu->FirstName << " " << endl;
-			cout << stu->LastName << " " << endl;
-			cout << stu->gender << " " << endl;
-			cout << stu->DOB << " " << endl;
-			cout << stu->SocialID << " " << endl;
-
-		}
-		stu = stu->next;
-	}
 }

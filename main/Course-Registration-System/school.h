@@ -3,28 +3,27 @@
 #include<string>
 #include "time.h"
 
-using namespace std; 
-struct Course
-{
-	string TeacherName, ID, name;
-	int credit;
-	int max;
-	string session;
-
-	Course* next;
-};
+using namespace std;
 
 struct Student
 {
 	string ID, FirstName, LastName, SocialID, DOB;
 	int No;
 	bool gender;
-	Course *course;
+
 	Student* next;
 };
 
+struct Course
+{
+	string TeacherName, ID, name;
+	date start, end;
+	int credit;
+	int max = 50;
+	bool** session;
 
-
+	Course* next;
+};
 
 struct Sem
 {
@@ -66,11 +65,7 @@ Sem* createSemester(int type, Year* nYear, date start, date end);
 
 void createClass(Class*& nClass);
 
-void createCourse(Course*& nCourse, string TeacherName, string ID, string name, string session,
-	int credit, int max = 50);
-void viewList(Course* nCourse);
-void updateCourse(Course*& nCourse, string ID, string Teachername);
-void deCourse(Course*& nCourse, string deID, string Teachername);
+void createCourse(Course*& nCourse);
 
 void addStudent(Class* nClass,
 				int no,
@@ -93,4 +88,3 @@ int getSize(T* pHead)
 	}
 	return count;
 }
-void exportList(Student*& stu, Course* course1);

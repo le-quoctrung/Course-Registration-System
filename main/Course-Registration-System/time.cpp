@@ -19,9 +19,6 @@ int GetDay()
 	tm* ltm = localtime(&now);
 	return  ltm->tm_mday;
 }
-//<<<<<<< HEAD
-
-//=======
 
 date getDate()
 {
@@ -44,4 +41,3 @@ std::string displayDate(date d)
 
 	return write.str();
 }
-//>>>>>>> 76ec897d18d5a6eeee4552c6cc98d4d9af468734
