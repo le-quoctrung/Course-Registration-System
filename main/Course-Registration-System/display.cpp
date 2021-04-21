@@ -1,4 +1,5 @@
 #include "display.h"
+#include"Console.h"
 
 void home()
 {
@@ -97,5 +98,7 @@ void home()
 			cout << char(219);
 		}
 	}
+	
+	/*USER LOGIN*/
 	
 }

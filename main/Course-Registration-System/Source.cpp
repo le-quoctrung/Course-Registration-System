@@ -15,6 +15,7 @@ int main()
 {
 	Start();
     home();
+    login();
 	/*return 0;
  
         cout << "click anywhere in console window to write - hello world -\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -52,7 +53,7 @@ int main()
             }
             FlushConsoleInputBuffer(hin);
         }*/
-        return 0;
+      
 	/*Class* APCS = nullptr;
 
 	createClass(APCS);
@@ -67,10 +68,10 @@ int main()
 		cout << xypos.x << endl << xypos.y;
 		system("cls");
 	}*/
-	
+	/*
 	date today = getDate();
 
-	std::cout << displayDate(today);
+	std::cout << displayDate(today);*/
 
 	return 0;
 
