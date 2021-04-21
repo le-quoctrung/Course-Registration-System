@@ -88,6 +88,7 @@ struct NodeYear
 	//Node
 	NodeYear* next;
 };
+<<<<<<< Updated upstream
 
 struct ListYear
 {
@@ -97,6 +98,27 @@ struct ListYear
 
 //FUNCTIONS FOR SCHOOL.H
 void addYear(ListYear*& nYear);
+=======
+struct Score {
+	string No;
+	string StudentID;
+	string StudentFullName;
+	string TotalMark;
+	string FinalMark;
+	string MidTermMark;
+	string OtherMark;
+	Score* next;
+	Score* prev;
+};
+struct ScoreList {
+	string CourseCode;
+	Score* Head;
+};
+int createYear(Year*& nYear);			// createYear return:
+										// -1 - Invalid date
+										// 0 - Not September
+										// 1 - Created successfully
+>>>>>>> Stashed changes
 
 void addSemester(ListSem*& nSem,
 	int type,
