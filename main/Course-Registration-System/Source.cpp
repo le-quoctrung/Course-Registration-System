@@ -13,9 +13,16 @@
 
 int main()
 {
-	Start();
-    home();
-    login();
+    /*ListClass* classes = new ListClass;
+    createEmptyList(classes);
+    addClass(classes, 1, "CLC");
+    ReadListStudentToClass("allStudent.csv", getNode(classes->head, 1));
+    OutputListStudents(getNode(classes->head, 1));
+    system("pause");
+    CreateStudentAccounts(getNode(classes->head, 1));
+    ChangePassword("19127555", "1234", "1234newpass");*/
+
+
 	/*return 0;
  
         cout << "click anywhere in console window to write - hello world -\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -54,13 +61,6 @@ int main()
             FlushConsoleInputBuffer(hin);
         }*/
       
-	/*Class* APCS = nullptr;
-
-	createClass(APCS);
-
-	Read_List_to_Class("allStudent.csv", APCS);
-
-	Output_Student(APCS->Students);*/
 	
 	/*POINT xypos;
 	while (1) {
@@ -68,12 +68,8 @@ int main()
 		cout << xypos.x << endl << xypos.y;
 		system("cls");
 	}*/
-	/*
-	date today = getDate();
 
-	std::cout << displayDate(today);*/
-
-	return 0;
+	//return 0;
 
 }
 
