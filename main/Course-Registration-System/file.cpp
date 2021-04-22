@@ -49,13 +49,10 @@ int CheckLogin(std::string name, std::string pass)
 
 			line = split(check, ",");
 
-			if (name == line[0])
+			if (name == line[1])
 			{
 				//check password
-				if (pass != line[1])
-				{
-					return -1;
-				}
+				if (pass != line[6]) return -1;
 				else return 0;
 			}
 		}
@@ -86,8 +83,6 @@ int CheckLogin(std::string name, std::string pass)
 		}
 		file.close();
 	}
-
-	return 404;
 }
 
 void ReadListStudentToClass(std::string name, NodeClass* nClass)

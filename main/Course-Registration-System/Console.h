@@ -8,6 +8,9 @@
 #include<stdio.h>
 #include<ctime>
 
+#define xPos 307/42
+#define yPos 863/53
+
 
 using namespace std;
 

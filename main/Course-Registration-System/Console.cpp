@@ -110,7 +110,7 @@ void Start()
     DisableCtrButton(0, 1, 1);
     ShowScrollbar(0);
 
-    //DisableSelection();
+    
     AnTroChuot();
     DisableSelection();   
 }
@@ -135,9 +135,8 @@ bool CheckCurSorClick(int xPos1, int xPos2, int yPos1, int yPOs2) // max xPos 15
                 if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
                 {
                     GetCursorPos(&CursorPos);
-                    if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2)
-                        return true;
-                    return false;
+                    if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2) return true;
+                    else return false;
                 }
             }
         }

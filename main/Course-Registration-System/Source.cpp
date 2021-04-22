@@ -7,12 +7,15 @@
 #include "school.h"
 #include "file.h"
 #include "display.h"
-#define xPos 307/42
-#define yPos 863/53
-
 
 int main()
 {
+    //Start();
+    /*home();
+    login();
+    ShowOption();*/
+    if (CheckCurSorClick(0, 1000, 0, 500)) cout << 1;
+    else cout << 0;
     /*ListClass* classes = new ListClass;
     createEmptyList(classes);
     addClass(classes, 1, "CLC");

@@ -1,5 +1,6 @@
 #include "display.h"
 #include"Console.h"
+#include"file.h"
 
 void home()
 {
@@ -120,4 +121,32 @@ void home()
 
 	/*USER LOGIN*/
 
+}
+void ShowStudentInfo(std::string name, std::string pass)
+{
+	int x = 100, y = 10;
+	std::ifstream file(pathStudentAccounts, std::ios::in);
+	if (file.is_open())
+	{
+		std::string check;
+		std::vector<std::string> line;
+
+		while (!file.eof())
+		{
+			std::getline(file, check);
+
+			line = split(check, ",");
+			
+			if (name == line[1])
+			{
+				Gotoxy(x, y); cout << "FULL NAME: " << line[2] << " " << line[3] << endl;
+				Gotoxy(x, y+1); cout << "STUDENT ID:  " << line[1] << endl;
+				Gotoxy(x, y+2); cout << "DAY OF BIRTH: " << line[5] << endl;
+				Gotoxy(x, y+3); cout << "GENDER: " << line[4] << endl;
+				Gotoxy(x, y+4); cout << "SOCAIL ID: " << line[6] << endl;
+			}
+		}
+		file.close();
+	}
+	
 }

@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const std::string pathStudentAccounts = "db\\students.txt";
+const std::string pathStudentAccounts = "db\\allStudent.txt";
 const std::string pathStaffAccounts = "db\\staffs.txt";
 
 /*STRUCT TEMPORARY LIST FOR CHANGING PASSWORD*/

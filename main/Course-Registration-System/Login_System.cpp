@@ -1,11 +1,14 @@
 #include "Login_System.h"
+#include"file.h"
+#include"Console.h"
 
 void login()
 {
 	string name = "", pass = "";
 	char chpass, chname;
-
-	Gotoxy(80, 13);
+	int x = 155;
+	HienTroChuot();
+	Gotoxy(x, 13);
 	chname = _getch();
 	while (chname != 13) {//character 13 is enter
 		if (name.length() > 50 && chname != '\b') chname = '\0';
@@ -23,7 +26,7 @@ void login()
 		chname = _getch();
 	}
 
-	Gotoxy(80, 15);
+	Gotoxy(x, 15);
 	chpass = _getch();
 	while (chpass != 13) {//character 13 is enter
 		if (pass.length() > 16 && chpass != '\b') chpass = '\0';
@@ -61,13 +64,27 @@ void login()
 	{
 		Gotoxy(60, 17);
 		std::cout << "WELCOME BACK HCMUS STAFF! HAVE A NICE WEEK!";
+		Sleep(2000);
+		system("cls");
+		
 		break;
 	}
 	case 0:
 	{
 		Gotoxy(60, 17);
 		std::cout << "WELCOME BACK TO HELL STUDENT!";
+		Sleep(2000);
+		system("cls");
+		//ShowStudentInfo(name, pass);
 		break;
 	}
 	}
+}
+void ShowOption()
+{
+	cout << 1;
+}
+void ChooseOption()
+{
+	if (CheckCurSorClick(10, 100*xPos, 0, 10*yPos)) ShowOption();
 }
