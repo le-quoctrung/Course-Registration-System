@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="allStudent.csv" />
+    <None Include="courses.csv" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="db\students.txt" />
