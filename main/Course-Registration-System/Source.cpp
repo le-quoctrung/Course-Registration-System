@@ -11,11 +11,11 @@
 int main()
 {
     //Start();
-    /*home();
-    login();
-    ShowOption();*/
-    if (CheckCurSorClick(0, 1000, 0, 500)) cout << 1;
-    else cout << 0;
+    ///*home();
+    //login();
+    //ShowOption();*/
+    //if (CheckCurSorClick(0, 1000, 0, 500)) cout << 1;
+    //else cout << 0;
     /*ListClass* classes = new ListClass;
     createEmptyList(classes);
     addClass(classes, 1, "CLC");
@@ -72,7 +72,11 @@ int main()
 		system("cls");
 	}*/
 
-	//return 0;
+    ListCourse* list = new ListCourse;
+    createEmptyList(list);
+    ReadListToCourse("courses.csv",list);
+    OutputListCourse(list);
 
+    return 0;
 }
 
