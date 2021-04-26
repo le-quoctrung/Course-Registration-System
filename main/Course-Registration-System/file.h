@@ -42,7 +42,7 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 													//	404 - file not found
 
 //STUDENT
-void ReadListStudentToClass(std::string name, NodeClass* nClass);	// Read from .csv and parse students to Class
+void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
 void OutputListStudents(NodeClass* nClass);					// Output a list of students of a Class
 
 void CreateStudentAccounts(NodeClass* nClass);				// From an available Class, make accounts
@@ -54,8 +54,9 @@ int ChangePassword(std::string name, std::string pass, std::string newPass);	// 
 
 //CLASS
 
-//COURSE
-void ReadListToCourse(std::string name, NodeCourse* nCourse);
+
+//COURSE 
+void ReadListToCourse(std::string path, ListCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
 void UpdateCourse(ListCourse* nCourse, string ID, string Teachername);
 

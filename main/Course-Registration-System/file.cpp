@@ -85,10 +85,10 @@ int CheckLogin(std::string name, std::string pass)
 	}
 }
 
-void ReadListStudentToClass(std::string name, NodeClass* nClass)
+void ReadListStudentToClass(std::string path, NodeClass* nClass)
 {
 	if (!nClass) return;
-	ifstream file(name);
+	ifstream file(path, std::ios::in);
 
 	if (file.is_open())
 	{
@@ -101,13 +101,13 @@ void ReadListStudentToClass(std::string name, NodeClass* nClass)
 			read = split(tmp, ",");
 
 			addStudent(nClass->Students,		// Add into what class
-				stoi(read[0]),			// No
-				read[1],				// ID
-				read[2],				// First Name
-				read[3],				// Last Name
-				checkGender(read[4]),	// Gender (0 - female; 1 - male)
-				read[5],				// Date of birth
-				read[6]					// Social ID
+				stoi(read[0]),					// No
+				read[1],						// ID
+				read[2],						// First Name
+				read[3],						// Last Name
+				checkGender(read[4]),			// Gender (0 - female; 1 - male)
+				read[5],						// Date of birth
+				read[6]							// Social ID
 			);
 		}
 		file.close();
@@ -153,28 +153,6 @@ void CreateStudentAccounts(NodeClass* nClass)
 		write.close();
 	}
 }
-
-////fix this
-//void Read_a_Course(string file, Course*& C)
-//{
-//	ifstream fin(file, ios::in);
-//	while (fin.is_open()) {
-//		string line;
-//		vector<string>read;
-//
-//		fin >> line;
-//		read = split(line, ",");
-//
-//		C->ID = read[0];
-//		C->name = read[1];
-//		C->TeacherName = read[2];
-//		C->credit = stoi(read[3]);
-//		C->max = stoi(read[4]);
-//		fin.close();
-//	}
-//}
-
-
 
 void addAccount(ListAccount*& list, std::string name, std::string pass)
 {
@@ -274,6 +252,90 @@ int ChangePassword(std::string name, std::string pass, std::string newPass)
 	}
 
 	delete list;
+}
+
+void ReadListToCourse(std::string path, ListCourse* nCourse)
+{
+	ifstream file(path, std::ios::in);
+	if (file.is_open())
+	{
+		string tmp;
+		vector<string> read;
+
+		while (!file.eof())
+		{
+			if (!std::getline(file, tmp)) return;
+			read = split(tmp, ",");
+			int max = 50;
+			TimeTable* tb = new TimeTable;
+			CreateTable(tb);
+
+			if (read[4] != "") max = std::stoi(read[4]);
+			ParseTb(tb, read[5], read[6]);	//First session
+			ParseTb(tb, read[7], read[8]);	//Second session
+
+			addCourse(nCourse, 
+				read[0], 
+				read[1], 
+				read[2], 
+				std::stoi(read[3]), 
+				tb,
+				max);
+
+			DeleteTable(tb);
+		}
+
+		file.close();
+	}
+}
+
+void OutputListCourse(ListCourse* nCourse)
+{
+	if (!nCourse) return;
+
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		system("CLS");
+		std::cout << pCur->ID << "\n"
+			<< pCur->name << "\n"
+			<< pCur->TeacherName << "\n"
+			<< pCur->credit << "\n"
+			<< pCur->max << "\n\n";
+
+		DisplayTb(pCur->tb);
+
+		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
+
+	catch_exception:
+		if (!_kbhit())
+		{
+			char x = _getch();
+			if (x == 'a' || x == 'A')
+			{
+				if (pCur->prev)
+					pCur = pCur->prev;
+				else
+				{
+					std::cout << "\n\n\t\tThis is head of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 'd' || x == 'D')
+			{
+				if (pCur->next)
+					pCur = pCur->next;
+				else
+				{
+					std::cout << "\n\n\t\tThis is tail of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 's' || x == 'S')
+				break;
+			else goto catch_exception;
+		}
+	}
 }
 
 ////fix this
