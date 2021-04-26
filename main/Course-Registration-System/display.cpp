@@ -8,11 +8,8 @@ void home()
 
 	int  x = 140, y = 10;
 
-<<<<<<< Updated upstream
+
 	for (int i = x + 1; i < x + 60; i++)
-=======
-	for (int i = x+1; i < x + 60; i++)
->>>>>>> Stashed changes
 	{
 		Gotoxy(i, y);
 		cout << char(223);
@@ -41,11 +38,8 @@ void home()
 		Gotoxy(i, y1);
 		cout << char(223);
 	}
-<<<<<<< Updated upstream
+
 	for (int i = x1 + 2; i < x1 + 10; i++)
-=======
-	for (int i = x1+2; i < x1 + 10; i++)
->>>>>>> Stashed changes
 	{
 		Gotoxy(i, y1 + 3);
 		cout << char(223);
@@ -59,13 +53,8 @@ void home()
 		}
 	}
 	/*I*/
-<<<<<<< Updated upstream
 
 	for (int j = x1 + 17; j <= x1 + 18; j++)
-=======
-	
-	for (int j = x1+17; j <= x1 + 18; j++)
->>>>>>> Stashed changes
 	{
 		for (int i = y1; i < y1 + 7; i++)
 		{
@@ -79,11 +68,8 @@ void home()
 		Gotoxy(i, y1);
 		cout << char(223);
 	}
-<<<<<<< Updated upstream
+
 	for (int j = x1 + 32; j <= x1 + 33; j++)
-=======
-	for (int j = x1+32; j <= x1 + 33; j++)
->>>>>>> Stashed changes
 	{
 		for (int i = y1; i < y1 + 7; i++)
 		{
@@ -99,21 +85,15 @@ void home()
 	}
 	for (int j = x1; j <= x1 + 1; j++)
 	{
-<<<<<<< Updated upstream
 		for (int i = y1 + 13; i < y1 + 21; i++)
-=======
-		for (int i = y1+13; i < y1 + 21; i++)
->>>>>>> Stashed changes
 		{
 			Gotoxy(j, i);
 			cout << char(219);
 		}
 	}
-<<<<<<< Updated upstream
+
 	for (int j = x1 + 14; j <= x1 + 15; j++)
-=======
-	for (int j = x1+14; j <= x1 + 15; j++)
->>>>>>> Stashed changes
+
 	{
 		for (int i = y1 + 13; i < y1 + 21; i++)
 		{
@@ -122,21 +102,12 @@ void home()
 		}
 	}
 	/*C*/
-<<<<<<< Updated upstream
-
-=======
-	
->>>>>>> Stashed changes
 	for (int i = x1 + 21; i <= x1 + 31; i++)
 	{
 		Gotoxy(i, y1 + 13);
 		cout << char(223);
 	}
-<<<<<<< Updated upstream
 
-=======
-	
->>>>>>> Stashed changes
 	for (int i = x1 + 21; i <= x1 + 31; i++)
 	{
 		Gotoxy(i, y1 + 20);
@@ -155,6 +126,7 @@ void home()
 	/*USER LOGIN*/
 
 }
+
 void ShowStudentInfo(std::string name, std::string pass)
 {
 	int x = 100, y = 10;
