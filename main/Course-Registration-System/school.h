@@ -5,6 +5,19 @@
 
 using namespace std;
 
+struct TimeTable
+{
+	int** Week;
+};
+
+void CreateTable(TimeTable*& a);
+void DeleteTable(TimeTable*& a);
+void ParseTb(TimeTable*& tb, std::string day, std::string sess);
+bool CmpTb(TimeTable* a, TimeTable* b);
+void AddTb(TimeTable* source, TimeTable* add);
+void RemoveTb(TimeTable* source, TimeTable* sub);
+void DisplayTb(TimeTable* a);
+
 //STUDENT
 struct NodeStudent
 {
@@ -12,6 +25,7 @@ struct NodeStudent
 	int No;
 	bool gender;
 	date DOB;
+	TimeTable tb;
 
 	//Node
 	NodeStudent* next;
@@ -21,6 +35,15 @@ struct ListStudent
 	NodeStudent* head;
 	NodeStudent* tail;
 };
+
+void addStudent(ListStudent* nStudent,
+	int no,
+	std::string id,
+	std::string firstname,
+	std::string lastname,
+	bool gender,
+	std::string dob,
+	std::string socialid);
 
 
 //CLASS
@@ -39,6 +62,8 @@ struct ListClass
 	NodeClass* tail;
 };
 
+void addClass(ListClass*& nClass, int no, std::string name);
+
 
 //COURSE
 struct NodeCourse
@@ -47,16 +72,26 @@ struct NodeCourse
 	date start, end;
 	int credit;
 	int max = 50;
-	bool** session;
+	TimeTable* tb;
 
 	//Node
 	NodeCourse* next;
+	NodeCourse* prev;
 };
 struct ListCourse
 {
 	NodeCourse* head;
 	NodeCourse* tail;
 };
+
+void addCourse(ListCourse*& nCourse,
+	std::string id,
+	std::string name,
+	std::string teacher,
+	int credit,
+	TimeTable* tb,
+	int max);
+void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 
 //SEMESTER
@@ -75,6 +110,11 @@ struct ListSem
 	NodeSem* tail;
 };
 
+void addSemester(ListSem*& nSem,
+	int type,
+	date start,
+	date end);
+
 
 //YEAR
 struct NodeYear
@@ -88,17 +128,15 @@ struct NodeYear
 	//Node
 	NodeYear* next;
 };
-<<<<<<< Updated upstream
-
 struct ListYear
 {
 	NodeYear* head;
 	NodeYear* tail;
 };
 
-//FUNCTIONS FOR SCHOOL.H
 void addYear(ListYear*& nYear);
-=======
+
+
 struct Score {
 	string No;
 	string StudentID;
@@ -114,29 +152,7 @@ struct ScoreList {
 	string CourseCode;
 	Score* Head;
 };
-int createYear(Year*& nYear);			// createYear return:
-										// -1 - Invalid date
-										// 0 - Not September
-										// 1 - Created successfully
->>>>>>> Stashed changes
 
-void addSemester(ListSem*& nSem,
-	int type,
-	date start,
-	date end);
-
-void addClass(ListClass*& nClass, int no, std::string name);
-
-void addStudent(ListStudent* nStudent,
-	int no,
-	std::string id,
-	std::string firstname,
-	std::string lastname,
-	bool gender,
-	std::string dob,
-	std::string socialid);
-
-void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 //FUNCTIONS FOR LIST
 template<class T>
@@ -169,5 +185,21 @@ T* getNode(T* pHead, int n)
 template<class T>
 void createEmptyList(T*& List)
 {
+	List->head = List->tail = nullptr;
+}
+
+template<class T>
+void deleteList(T*& List)
+{
+	T* Cur = List->head;
+	T* next = nullptr;
+
+	while (Cur != nullptr)
+	{
+		next = Cur->next;
+		delete(Cur);
+		Cur = next;
+	}
+
 	List->head = List->tail = nullptr;
 }
