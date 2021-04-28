@@ -1,5 +1,3 @@
-
-
 #include "Login_System.h"
 #include "Console.h"
 #include "time.h"
@@ -72,11 +70,13 @@ int main()
 		system("cls");
 	}*/
 
-    ListCourse* list = new ListCourse;
+   /* ListCourse* list = new ListCourse;
     createEmptyList(list);
     ReadListToCourse("courses.csv",list);
-    OutputListCourse(list);
-
+    OutputListCourse(list);*/
+    ListCourse List;
+    NodeCourse* nCourse =new NodeCourse;
+    Create_a_Course_registration_session(List, nCourse);
     return 0;
 }
 

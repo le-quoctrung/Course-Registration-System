@@ -223,6 +223,18 @@ void addClass(ListClass*& nClass, int no, std::string name)
 	nClass->tail->next = newClass;
 	nClass->tail = newClass;
 }
+void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
+	cout << "input the date start: " << endl;
+	cin >> nCourse->start.day;
+	cin >> nCourse->start.month;
+	cin >> nCourse->start.year;
+	cout <<"the date start this course:"<< nCourse->start.day << "-" << nCourse->start.month << "-" << nCourse->start.year << endl;
+	cout << "input the date end:"<<endl;
+	cin >> nCourse->end.day;
+	cin >> nCourse->end.month;
+	cin >> nCourse->end.year;
+	cout <<"the date end this course:"<< nCourse->end.day << "-" << nCourse->end.month << "-" << nCourse->end.year << endl;
+}
 
 ////fix this
 //void createCourse(Course* &nCourse)
