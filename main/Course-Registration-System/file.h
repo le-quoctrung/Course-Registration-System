@@ -58,6 +58,7 @@ int ChangePassword(std::string name, std::string pass, std::string newPass);	// 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
-void UpdateCourse(ListCourse* nCourse, string ID, string Teachername);
+//void UpdateCourse(ListCourse* nCourse, string ID, string Teachername);
+void viewListofCourse(ListCourse* list, NodeCourse* cCourse);
 
 #endif // !_FILE_H_

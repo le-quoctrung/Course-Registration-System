@@ -337,6 +337,14 @@ void OutputListCourse(ListCourse* nCourse)
 		}
 	}
 }
+void viewListofCourse( ListCourse* list,NodeCourse*cCourse) {
+	createEmptyList(list);
+	while (cCourse != nullptr) {
+		ReadListToCourse("courses.csv", list);
+		OutputListCourse(list);
+		cCourse = cCourse->next;
+	}
+}
 
 ////fix this
 //void updateCourse(Course*& nCourse, string ID, string Teachername) {
