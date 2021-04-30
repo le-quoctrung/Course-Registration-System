@@ -60,5 +60,6 @@ void ReadListToCourse(std::string path, ListCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
 //void UpdateCourse(ListCourse* nCourse, string ID, string Teachername);
 void viewListofCourse(ListCourse* list, NodeCourse* cCourse);
+void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 #endif // !_FILE_H_

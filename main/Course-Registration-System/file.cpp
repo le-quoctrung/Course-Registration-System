@@ -345,6 +345,24 @@ void viewListofCourse( ListCourse* list,NodeCourse*cCourse) {
 		cCourse = cCourse->next;
 	}
 }
+void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher) {
+	if (nCourse->head == nullptr) {
+		return;
+	}
+	cout << "pls input the ID of Course :";
+
+	getline(cin, ID);
+	cout << "pls input the Teacher Name of the Course: ";
+	getline(cin, teacher);
+	NodeCourse* TmpCourse = nCourse->head;
+	while (TmpCourse != nullptr) {
+		if (TmpCourse->ID == ID &&TmpCourse->TeacherName== teacher) {
+			TmpCourse->next = TmpCourse->prev->next;
+			delete TmpCourse;
+		}
+		TmpCourse = TmpCourse->next;
+	}
+}
 
 ////fix this
 //void updateCourse(Course*& nCourse, string ID, string Teachername) {
