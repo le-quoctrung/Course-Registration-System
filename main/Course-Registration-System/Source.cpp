@@ -24,8 +24,8 @@ int main()
     ChangePassword("19127555", "1234", "1234newpass");*/
 
 
-	/*return 0;
- 
+    /*return 0;
+
         cout << "click anywhere in console window to write - hello world -\n\n\n\n\n\n\n\n\n\n\n\n\n"
             "Press Ctrl+C to Exit";
 
@@ -54,29 +54,27 @@ int main()
                     coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
                     SetConsoleCursorPosition(hout, coord);
                     SetConsoleTextAttribute(hout, rand() % 7 + 9);
-                    
+
                     cout << "Hello world";
 
                 }
             }
             FlushConsoleInputBuffer(hin);
         }*/
-      
-	
-	/*POINT xypos;
-	while (1) {
-		GetCursorPos(&xypos);
-		cout << xypos.x << endl << xypos.y;
-		system("cls");
-	}*/
 
-   /* ListCourse* list = new ListCourse;
-    createEmptyList(list);
-    ReadListToCourse("courses.csv",list);
-    OutputListCourse(list);*/
-    ListCourse List;
-    NodeCourse* nCourse =new NodeCourse;
-    Create_a_Course_registration_session(List, nCourse);
-    return 0;
+
+        /*POINT xypos;
+        while (1) {
+            GetCursorPos(&xypos);
+            cout << xypos.x << endl << xypos.y;
+            system("cls");
+        }*/
+    string ID;
+    string Teachername;
+    ListCourse* nCourse;
+    NodeCourse* cCourse;
+    createEmptyList(nCourse);
+    viewListofCourse(nCourse, cCourse);
+    deleteCourse(nCourse, ID, Teachername);
+    viewListofCourse(nCourse, cCourse);
 }
-
