@@ -30,6 +30,10 @@ struct ListAccount
 
 void addAccount(ListAccount*& list, std::string name, std::string pass);
 void deleteListAccount(ListAccount*& list);
+int ChangePassword(std::string name, std::string pass, std::string newPass);	// ChangePassword returns
+																				// 0 - failed to get account
+																				// 1 - changed sucessfully
+
 
 /*FUNCTIONS*/
 bool is_digits(std::string str);
@@ -42,23 +46,25 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 													//	404 - file not found
 
 //STUDENT
-void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
-void OutputListStudents(NodeClass* nClass);					// Output a list of students of a Class
+void OutputStudent(NodeStudent* nStudent);
+void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
+void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
+																	// with username is [ID] and password is [DOB (yyyymmdd)]
 
-void CreateStudentAccounts(NodeClass* nClass);				// From an available Class, make accounts
-															// with username is [ID] and password is [DOB (yyyymmdd)]
 
-int ChangePassword(std::string name, std::string pass, std::string newPass);	// ChangePassword returns
-																				// 0 - failed to get account
-																				// 1 - changed sucessfully
 
 //CLASS
-
+void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
+void OutputClass(NodeClass* nClass);
+void OutputListClass(ListClass* nClass);
 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
+void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
-//void UpdateCourse(ListCourse* nCourse, string ID, string Teachername);
+NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
+void UpdateCourse(ListCourse*& nCourse, string ID, string teacher);
+void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void viewListofCourse(ListCourse* list, NodeCourse* cCourse);
 void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 

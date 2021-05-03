@@ -69,12 +69,22 @@ int main()
             cout << xypos.x << endl << xypos.y;
             system("cls");
         }*/
-    string ID;
-    string Teachername;
-    ListCourse* nCourse;
-    NodeCourse* cCourse;
-    createEmptyList(nCourse);
-    viewListofCourse(nCourse, cCourse);
-    deleteCourse(nCourse, ID, Teachername);
-    viewListofCourse(nCourse, cCourse);
+
+    //Example for course
+    //ListCourse* nCourse = new ListCourse;
+    //createEmptyList(nCourse);
+    //ReadListToCourse("courses.csv", nCourse);
+    //OutputListCourse(nCourse);
+
+    //Example for students
+    ListClass* nClass = new ListClass;
+    createEmptyList(nClass);
+
+    addClass(nClass, 1, "20CLC");
+    addClass(nClass, 2, "20CLC");
+
+    OutputListClass(nClass);
+
+    //ReadListStudentToClass("allStudent.csv", nClass->tail);
+    //OutputClass(nClass->tail);
 }

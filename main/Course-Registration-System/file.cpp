@@ -85,79 +85,6 @@ int CheckLogin(std::string name, std::string pass)
 	}
 }
 
-void ReadListStudentToClass(std::string path, NodeClass* nClass)
-{
-	if (!nClass) return;
-	ifstream file(path, std::ios::in);
-
-	if (file.is_open())
-	{
-		string tmp;
-		vector<string> read;
-
-		while (!file.eof())
-		{
-			if (!std::getline(file, tmp)) return;
-			read = split(tmp, ",");
-
-			addStudent(nClass->Students,		// Add into what class
-				stoi(read[0]),					// No
-				read[1],						// ID
-				read[2],						// First Name
-				read[3],						// Last Name
-				checkGender(read[4]),			// Gender (0 - female; 1 - male)
-				read[5],						// Date of birth
-				read[6]							// Social ID
-			);
-		}
-		file.close();
-	}
-}
-
-void OutputListStudents(NodeClass* nClass)
-{
-	if (!nClass) return;
-
-	NodeStudent* pCur = nClass->Students->head;
-	while (pCur != nullptr)
-	{
-		OutputStudent(pCur);
-		pCur = pCur->next;
-	}
-}
-
-void OutputStudent(NodeStudent* nStudent)
-{
-	std::cout << nStudent->No << " "
-		<< nStudent->ID << " "
-		<< nStudent->FirstName << " "
-		<< nStudent->LastName << " "
-		<< getGender(nStudent->gender) << " "
-		<< displayDate(nStudent->DOB) << " "
-		<< nStudent->SocialID << std::endl;
-}
-
-void CreateStudentAccounts(NodeClass* nClass)
-{
-	if (!nClass) return;
-
-	std::ofstream write(pathStudentAccounts, std::ios::app);
-	if (write.is_open())
-	{
-		NodeStudent* pCur = nClass->Students->head;
-		while (pCur != nullptr)
-		{
-			write << pCur->ID << ","
-				<< pCur->DOB.year
-				<< pCur->DOB.month
-				<< pCur->DOB.day << std::endl;
-
-			pCur = pCur->next;
-		}
-		write.close();
-	}
-}
-
 void addAccount(ListAccount*& list, std::string name, std::string pass)
 {
 	if (!list) return;
@@ -258,6 +185,104 @@ int ChangePassword(std::string name, std::string pass, std::string newPass)
 	delete list;
 }
 
+
+
+void OutputListStudents(ListStudent* nStudent)
+{
+	if (!nStudent) return;
+
+	NodeStudent* pCur = nStudent->head;
+	while (pCur != nullptr)
+	{
+		OutputStudent(pCur);
+		pCur = pCur->next;
+	}
+}
+
+void OutputStudent(NodeStudent* nStudent)
+{
+	std::cout << nStudent->No << "  "
+		<< nStudent->ID << "  "
+		<< nStudent->FirstName << "  "
+		<< nStudent->LastName << "  "
+		<< getGender(nStudent->gender) << "  "
+		<< displayDate(nStudent->DOB) << "  "
+		<< nStudent->SocialID << std::endl;
+}
+
+void CreateStudentAccounts(NodeClass* nClass)
+{
+	if (!nClass) return;
+
+	std::ofstream write(pathStudentAccounts, std::ios::app);
+	if (write.is_open())
+	{
+		NodeStudent* pCur = nClass->Students->head;
+		while (pCur != nullptr)
+		{
+			write << pCur->ID << ","
+				<< pCur->DOB.year
+				<< pCur->DOB.month
+				<< pCur->DOB.day << std::endl;
+
+			pCur = pCur->next;
+		}
+		write.close();
+	}
+}
+
+
+
+void ReadListStudentToClass(std::string path, NodeClass* nClass)
+{
+	if (!nClass) return;
+	ifstream file(path, std::ios::in);
+
+	if (file.is_open())
+	{
+		string tmp;
+		vector<string> read;
+
+		while (!file.eof())
+		{
+			if (!std::getline(file, tmp)) return;
+			read = split(tmp, ",");
+
+			addStudent(nClass->Students,		// Add into what class
+				stoi(read[0]),					// No
+				read[1],						// ID
+				read[2],						// First Name
+				read[3],						// Last Name
+				checkGender(read[4]),			// Gender (0 - female; 1 - male)
+				read[5],						// Date of birth
+				read[6]							// Social ID
+			);
+		}
+		file.close();
+	}
+}
+
+void OutputClass(NodeClass* nClass)
+{
+	std::cout << nClass->name
+		<< nClass->no << " \n";
+	OutputListStudents(nClass->Students);
+	std::cout << "\n";
+}
+
+void OutputListClass(ListClass* nClass)
+{
+	if (!nClass) return;
+
+	NodeClass* pCur = nClass->head;
+	while (pCur != nullptr)
+	{
+		std::cout << pCur->name << pCur->no << "\n";
+		pCur = pCur->next;
+	}
+}
+
+
 void ReadListToCourse(std::string path, ListCourse* nCourse)
 {
 	ifstream file(path, std::ios::in);
@@ -334,32 +359,38 @@ void OutputListCourse(ListCourse* nCourse)
 		}
 	}
 }
-void viewListofCourse( ListCourse* list,NodeCourse*cCourse) {
-	createEmptyList(list);
-	while (cCourse != nullptr) {
-		ReadListToCourse("courses.csv", list);
-		OutputListCourse(list);
-		cCourse = cCourse->next;
-	}
-}
-void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher) {
-	if (nCourse->head == nullptr) {
-		return;
-	}
-	cout << "pls input the ID of Course :";
 
-	getline(cin, ID);
-	cout << "pls input the Teacher Name of the Course: ";
-	getline(cin, teacher);
-	NodeCourse* TmpCourse = nCourse->head;
-	while (TmpCourse != nullptr) {
-		if (TmpCourse->ID == ID &&TmpCourse->TeacherName== teacher) {
-			TmpCourse->next = TmpCourse->prev->next;
-			delete TmpCourse;
-		}
-		TmpCourse = TmpCourse->next;
-	}
-}
+//Nay anh code roi ma Duc
+// 
+//void viewListofCourse( ListCourse* list,NodeCourse*cCourse) {
+//	createEmptyList(list);
+//	while (cCourse != nullptr) {
+//		ReadListToCourse("courses.csv", list);
+//		OutputListCourse(list);
+//		cCourse = cCourse->next;
+//	}
+//}
+
+//Da nhan ID, name vao parameter roi thi khoi input nha Duc
+// 
+//void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher) {
+//	if (nCourse->head == nullptr) {
+//		return;
+//	}
+//	cout << "pls input the ID of Course :";
+//
+//	getline(cin, ID);
+//	cout << "pls input the Teacher Name of the Course: ";
+//	getline(cin, teacher);
+//	NodeCourse* TmpCourse = nCourse->head;
+//	while (TmpCourse != nullptr) {
+//		if (TmpCourse->ID == ID &&TmpCourse->TeacherName== teacher) {
+//			TmpCourse->next = TmpCourse->prev->next;
+//			delete TmpCourse;
+//		}
+//		TmpCourse = TmpCourse->next;
+//	}
+//}
 
 void OutputCourse(NodeCourse* nCourse)
 {
