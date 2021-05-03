@@ -49,7 +49,7 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 void OutputStudent(NodeStudent* nStudent);
 void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
 void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
-																	// with username is [ID] and password is [DOB (yyyymmdd)]
+void ExportListStudent(ListStudent ListSt, ofstream f);																	// with username is [ID] and password is [DOB (yyyymmdd)]
 
 
 

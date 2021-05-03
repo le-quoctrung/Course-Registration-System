@@ -497,3 +497,11 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 	else if (x == "N" || x == "n")
 		return;
 }
+//Export List Student to file Csv
+void ExportListStudent(ListStudent ListSt, ofstream f) {
+
+	f.open("test.csv");
+	for (NodeStudent* cur = ListSt.head; cur != nullptr; cur = cur->next) {
+		f << cur->LastName << endl;
+	}
+}
