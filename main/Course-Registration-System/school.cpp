@@ -279,3 +279,22 @@ void addStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	nStudent->tail->next = newStudent;
 	nStudent->tail = newStudent;
 }
+
+//ViewScoreBoard 
+void ViewScoreBoard( ScoreList listSc,ListStudent listSt) {
+	string input;
+	cout << "input your ID: ";
+	getline(cin, input);
+	for (Score* cur = listSc.Head; cur != nullptr; cur = cur->next) {
+		if (cur->StudentID == input) {
+			system("cls");
+			cout << "ScoreBoard" << "\n" << endl;
+			cout << "StudentID: " << cur->StudentID << endl;
+			cout << "Student FullName: " << cur->StudentFullName << endl;
+			cout << "MidTerm Mark: " << cur->MidTermMark << endl;
+			cout << "Final Mark: " << cur->FinalMark << endl;
+			cout << "Other Mark: " << cur->OtherMark << endl;
+			cout << "Total Mark: " << cur->TotalMark << endl;
+		}
+	}
+}
