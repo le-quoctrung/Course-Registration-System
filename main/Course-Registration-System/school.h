@@ -14,6 +14,7 @@ void CreateTable(TimeTable*& a);
 void DeleteTable(TimeTable*& a);
 void ParseTb(TimeTable*& tb, std::string day, std::string sess);
 bool CmpTb(TimeTable* a, TimeTable* b);
+void CopyTb(TimeTable* source, TimeTable* copyfrom);
 void AddTb(TimeTable* source, TimeTable* add);
 void RemoveTb(TimeTable* source, TimeTable* sub);
 void DisplayTb(TimeTable* a);
@@ -44,7 +45,7 @@ void addStudent(ListStudent* nStudent,
 	bool gender,
 	std::string dob,
 	std::string socialid);
-
+void DeleteListStudent(ListStudent* nStudent);
 
 //CLASS
 struct NodeClass
@@ -63,7 +64,7 @@ struct ListClass
 };
 
 void addClass(ListClass*& nClass, int no, std::string name);
-
+void DeleteListStudent(ListStudent*& nStudent);
 
 //COURSE
 struct NodeCourse
@@ -91,7 +92,6 @@ void addCourse(ListCourse*& nCourse,
 	int credit,
 	TimeTable* tb,
 	int max);
-void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 
 //SEMESTER
@@ -185,21 +185,5 @@ T* getNode(T* pHead, int n)
 template<class T>
 void createEmptyList(T*& List)
 {
-	List->head = List->tail = nullptr;
-}
-
-template<class T>
-void deleteList(T*& List)
-{
-	T* Cur = List->head;
-	T* next = nullptr;
-
-	while (Cur != nullptr)
-	{
-		next = Cur->next;
-		delete(Cur);
-		Cur = next;
-	}
-
 	List->head = List->tail = nullptr;
 }

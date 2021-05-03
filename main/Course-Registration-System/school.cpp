@@ -236,39 +236,22 @@ void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
 	cout <<"the date end this course:"<< nCourse->end.day << "-" << nCourse->end.month << "-" << nCourse->end.year << endl;
 }
 
-////fix this
-//void createCourse(Course* &nCourse)
-//{
-//	Course* newCourse = new Course;
-//	newCourse->max = 50;
-//	newCourse->session = nullptr;
-//	newCourse->next = nCourse;
-//	nCourse = newCourse;
-//}
-//
-////fix this
-//void viewList(Course*& nCourse) {
-//	while (nCourse != nullptr) {
-//		cout << nCourse->credit << endl;
-//		cout << nCourse->ID << endl;
-//		cout << nCourse->name << endl;
-//		cout << nCourse->TeacherName << endl;
-//		cout << nCourse->session << endl;
-//		nCourse = nCourse->next;
-//	}
-//}
+void DeleteListStudent(ListStudent*& nStudent)
+{
+	if (!nStudent) return;
 
-////fix this
-//void deCourse(Course*& nCourse, string deID, string Teachername) {
-//	for (Course* p = nCourse; p != nullptr; p = p->next) {
-//		if (p->ID == deID && p->TeacherName == Teachername) {
-//			Course* q = new Course;
-//			q = p;
-//			p = q->next;
-//			delete q;
-//		}
-//	}
-//}
+	NodeStudent* pCur = nStudent->head->next;
+	NodeStudent* next = nullptr;
+	while (pCur != nullptr)
+	{
+		next = pCur->next;
+		delete pCur;
+		pCur = next;
+	}
+	delete nStudent->head;
+	nStudent->head = nStudent->tail = nullptr;
+}
+
 
 void addStudent(ListStudent* nStudent, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid)
 {

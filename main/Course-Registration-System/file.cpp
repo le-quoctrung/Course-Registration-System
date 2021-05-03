@@ -121,16 +121,20 @@ void OutputListStudents(NodeClass* nClass)
 	NodeStudent* pCur = nClass->Students->head;
 	while (pCur != nullptr)
 	{
-		std::cout << pCur->No << " "
-			<< pCur->ID << " "
-			<< pCur->FirstName << " "
-			<< pCur->LastName << " "
-			<< getGender(pCur->gender) << " "
-			<< displayDate(pCur->DOB) << " "
-			<< pCur->SocialID << std::endl;
-
+		OutputStudent(pCur);
 		pCur = pCur->next;
 	}
+}
+
+void OutputStudent(NodeStudent* nStudent)
+{
+	std::cout << nStudent->No << " "
+		<< nStudent->ID << " "
+		<< nStudent->FirstName << " "
+		<< nStudent->LastName << " "
+		<< getGender(nStudent->gender) << " "
+		<< displayDate(nStudent->DOB) << " "
+		<< nStudent->SocialID << std::endl;
 }
 
 void CreateStudentAccounts(NodeClass* nClass)
@@ -297,14 +301,7 @@ void OutputListCourse(ListCourse* nCourse)
 	while (pCur != nullptr)
 	{
 		system("CLS");
-		std::cout << pCur->ID << "\n"
-			<< pCur->name << "\n"
-			<< pCur->TeacherName << "\n"
-			<< pCur->credit << "\n"
-			<< pCur->max << "\n\n";
-
-		DisplayTb(pCur->tb);
-
+		OutputCourse(pCur);
 		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
 
 	catch_exception:
@@ -332,7 +329,7 @@ void OutputListCourse(ListCourse* nCourse)
 				}
 			}
 			else if (x == 's' || x == 'S')
-				break;
+				return;
 			else goto catch_exception;
 		}
 	}
@@ -364,36 +361,108 @@ void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher) {
 	}
 }
 
-////fix this
-//void updateCourse(Course*& nCourse, string ID, string Teachername) {
-//	if (nCourse == nullptr) {
-//		cout << "The list hasn't been initialized!";
-//	}
-//	Course* cCourse = nCourse;
-//	while (cCourse != nullptr) {
-//		if (cCourse->ID == ID && cCourse->TeacherName == Teachername) {
-//
-//			return;
-//		}
-//		cCourse = cCourse->next;
-//
-//	}
-//
-//}
+void OutputCourse(NodeCourse* nCourse)
+{
+	std::cout << "ID: " << nCourse->ID << "\n"
+		<< "Course Name: " << nCourse->name << "\n"
+		<< "Course Teacer: " << nCourse->TeacherName << "\n"
+		<< "Credit: " << nCourse->credit << "\n"
+		<< "Max atendee: " << nCourse->max << "\n\n";
 
-////fix this
-//void exportList(Student*& stu, Course* course1) {
-//	while (stu != nullptr) {
-//		if (stu->course->ID == course1->ID) {
-//			cout << stu->No << " " << endl;
-//			cout << stu->ID << " " << endl;
-//			cout << stu->FirstName << " " << endl;
-//			cout << stu->LastName << " " << endl;
-//			cout << stu->gender << " " << endl;
-//			cout << stu->DOB << " " << endl;
-//			cout << stu->SocialID << " " << endl;
-//
-//		}
-//		stu = stu->next;
-//	}
-//}
+	DisplayTb(nCourse->tb);
+}
+
+NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
+{
+	if (!nCourse) return nullptr;
+
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		if (pCur->ID == ID && pCur->TeacherName == teacher)
+			return pCur;
+		pCur = pCur->next;
+	}
+
+	return nullptr;
+}
+
+void UpdateCourse(ListCourse*& nCourse, string ID, string teacher)
+{
+	if (!nCourse) return;
+
+	NodeCourse* pCur = FindCourse(nCourse, ID, teacher);
+	if (!pCur) return;
+	OutputCourse(pCur);
+	string str, str2;
+	int n;
+	TimeTable* tmp = new TimeTable;
+	CreateTable(tmp);
+	CopyTb(pCur->tb, tmp); //Reset table
+	std::cout << "ID (string): "; std::cin >> str; pCur->ID = str;
+	std::cout << "Name (string): "; std::cin >> str; pCur->name = str;
+	std::cout << "Teacher (string): "; std::cin >> str; pCur->TeacherName = str;
+	std::cout << "Credit (int): "; std::cin >> n; pCur->credit = n;
+	std::cout << "Max Antendee (int): "; std::cin >> n; pCur->max = n;
+
+	//HANDLE EXCEPTIONS
+	do
+	{
+		std::cout << "First class - Day [MON, TUE, WED, THU, FRI, SAT]: "; std::cin >> str;
+	} while (str != "MON" && str != "TUE" && str != "WED" && str !="THU" && str !="FRI" && str != "SAT");
+	do
+	{
+		std::cout << "First class - Period [S1, S2, S3, S4]: "; std::cin >> str2;
+	} while (str2 != "S1" && str2 != "S2" && str2 != "S3" && str2 != "S4");
+	ParseTb(pCur->tb, str, str2);
+
+	//HANDLE EXCEPTIONS
+	do
+	{
+		std::cout << "Second class - Day [MON, TUE, WED, THU, FRI, SAT]: "; std::cin >> str;
+	} while (str != "MON" && str != "TUE" && str != "WED" && str != "THU" && str != "FRI" && str != "SAT");
+	do
+	{
+		std::cout << "Second class - Period [S1, S2, S3, S4]: "; std::cin >> str2;
+	} while (str2 != "S1" && str2 != "S2" && str2 != "S3" && str2 != "S4");
+	ParseTb(pCur->tb, str, str2);
+
+	DeleteTable(tmp);
+	std::cout << "\n\n";
+	OutputCourse(pCur); //Debug
+}
+
+void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
+{
+	if (!nCourse) return;
+
+	NodeCourse* pCur = FindCourse(nCourse, ID, teacher);
+	if (!pCur) return;
+	OutputCourse(pCur);
+	std::string x;
+	std::cout << "\n\nDELETE THIS COURSE? Y/N"; std::cin >> x;
+
+	if (x == "Y" || x == "y")
+	{
+		//head
+		if (pCur->prev == nullptr)
+		{
+			pCur->next->prev = nullptr;
+			nCourse->head = pCur->next;
+		}
+		//tail
+		else if (pCur->next == nullptr)
+		{
+			pCur->prev->next = nullptr;
+			nCourse->tail = pCur->prev;
+		}
+		else
+		{
+			pCur->prev->next = pCur->next;
+			pCur->next->prev = pCur->prev;
+		}
+		delete(pCur);
+	}
+	else if (x == "N" || x == "n")
+		return;
+}
