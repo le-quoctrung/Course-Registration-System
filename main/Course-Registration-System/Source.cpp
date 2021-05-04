@@ -72,12 +72,13 @@ int main()
 
     //Example for course
     ListCourse* nCourse = new ListCourse;
+    ListCourse* eCourse = new ListCourse;
     createEmptyList(nCourse);
     ReadListToCourse("courses.csv", nCourse);
    // OutputListCourse(nCourse);
     NodeCourse* enrollCourse = new NodeCourse;
    // Enroll(nCourse, enrollCourse);
-    displayEnrollCourse(nCourse, enrollCourse);
+    displayEnrollCourse(nCourse, enrollCourse,eCourse);
 
     //Example for students
    /* ListClass* nClass = new ListClass;

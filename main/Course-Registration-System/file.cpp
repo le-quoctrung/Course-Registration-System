@@ -412,12 +412,11 @@ void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
 		}
 	}
 }
-void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse) {
+void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse) {
+	
 	Enroll(nCourse, EnrollCourse);
-	while (EnrollCourse != nullptr) {
-		OutputCourse(EnrollCourse);
-		EnrollCourse = EnrollCourse->next;
-	}
+	eCourse->head = EnrollCourse;
+	OutputListCourse(eCourse);
 }
 
 //Nay anh code roi ma Duc
