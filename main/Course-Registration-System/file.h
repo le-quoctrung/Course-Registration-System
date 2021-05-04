@@ -62,6 +62,8 @@ void OutputListClass(ListClass* nClass);
 void ReadListToCourse(std::string path, ListCourse* nCourse);
 void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
+void Enroll(ListCourse* nCourse, NodeCourse* EnrollCourse);
+void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse);
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
 void UpdateCourse(ListCourse*& nCourse, string ID, string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
