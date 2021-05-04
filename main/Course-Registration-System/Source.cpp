@@ -71,13 +71,16 @@ int main()
         }*/
 
     //Example for course
-    //ListCourse* nCourse = new ListCourse;
-    //createEmptyList(nCourse);
-    //ReadListToCourse("courses.csv", nCourse);
-    //OutputListCourse(nCourse);
+    ListCourse* nCourse = new ListCourse;
+    createEmptyList(nCourse);
+    ReadListToCourse("courses.csv", nCourse);
+   // OutputListCourse(nCourse);
+    NodeCourse* enrollCourse = new NodeCourse;
+   // Enroll(nCourse, enrollCourse);
+    displayEnrollCourse(nCourse, enrollCourse);
 
     //Example for students
-    ListClass* nClass = new ListClass;
+   /* ListClass* nClass = new ListClass;
     createEmptyList(nClass);
 
     addClass(nClass, 1, "20CLC");
@@ -85,6 +88,7 @@ int main()
 
     OutputListClass(nClass);
 
-    //ReadListStudentToClass("allStudent.csv", nClass->tail);
-    //OutputClass(nClass->tail);
+    ReadListStudentToClass("allStudent.csv", nClass->tail);
+    OutputClass(nClass->tail);*/
+    
 }
