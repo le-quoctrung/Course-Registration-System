@@ -320,6 +320,7 @@ void ReadListToCourse(std::string path, ListCourse* nCourse)
 
 void OutputListCourse(ListCourse* nCourse)
 {
+	//int n = 1;
 	if (!nCourse) return;
 
 	NodeCourse* pCur = nCourse->head;
@@ -328,13 +329,14 @@ void OutputListCourse(ListCourse* nCourse)
 		system("CLS");
 		OutputCourse(pCur);
 		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
-
+		
 	catch_exception:
 		if (!_kbhit())
 		{
 			char x = _getch();
 			if (x == 'a' || x == 'A')
 			{
+				//if (n > 1)n--;
 				if (pCur->prev)
 					pCur = pCur->prev;
 				else
@@ -345,6 +347,7 @@ void OutputListCourse(ListCourse* nCourse)
 			}
 			else if (x == 'd' || x == 'D')
 			{
+				//if (n < max)n++;
 				if (pCur->next)
 					pCur = pCur->next;
 				else
@@ -357,6 +360,63 @@ void OutputListCourse(ListCourse* nCourse)
 				return;
 			else goto catch_exception;
 		}
+	}
+}
+void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
+{
+	//int n = 1;
+	if (!nCourse) return;
+     EnrollCourse = new NodeCourse;
+
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		system("CLS");
+		OutputCourse(pCur);
+		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
+		std::cout << "\n----->Press R to enroll";
+	catch_exception:
+		if (!_kbhit())
+		{
+			char x = _getch();
+			if (x == 'a' || x == 'A')
+			{
+				//if (n > 1)n--;
+				if (pCur->prev)
+					pCur = pCur->prev;
+				else
+				{
+					std::cout << "\n\n\t\tThis is head of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 'd' || x == 'D')
+			{
+				//if (n < max)n++;
+				if (pCur->next)
+					pCur = pCur->next;
+				else
+				{
+					std::cout << "\n\n\t\tThis is tail of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 's' || x == 'S')
+				return;
+			else if (x == 'r' || x == 'R') {
+				std::cout << "\n\n\t\tEnrolled ";
+				EnrollCourse = pCur;
+				goto catch_exception;
+			}
+			else goto catch_exception;
+		}
+	}
+}
+void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse) {
+	Enroll(nCourse, EnrollCourse);
+	while (EnrollCourse != nullptr) {
+		OutputCourse(EnrollCourse);
+		EnrollCourse = EnrollCourse->next;
 	}
 }
 
@@ -401,6 +461,7 @@ void OutputCourse(NodeCourse* nCourse)
 		<< "Max atendee: " << nCourse->max << "\n\n";
 
 	DisplayTb(nCourse->tb);
+	nCourse = nCourse->next;
 }
 
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
@@ -498,10 +559,3 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 		return;
 }
 //Export List Student to file Csv
-void ExportListStudent(ListStudent ListSt, ofstream f) {
-
-	f.open("test.csv");
-	for (NodeStudent* cur = ListSt.head; cur != nullptr; cur = cur->next) {
-		f << cur->LastName << endl;
-	}
-}
