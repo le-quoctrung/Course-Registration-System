@@ -49,7 +49,8 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 void OutputStudent(NodeStudent* nStudent);
 void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
 void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
-void ExportListStudent(ListStudent ListSt, ofstream f);																	// with username is [ID] and password is [DOB (yyyymmdd)]
+																	// with username is [ID] and password is [DOB (yyyymmdd)]
+void ExportListStudent(ListStudent ListSt, ofstream f);				
 
 
 
@@ -67,7 +68,5 @@ void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCour
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
 void UpdateCourse(ListCourse*& nCourse, string ID, string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
-void viewListofCourse(ListCourse* list, NodeCourse* cCourse);
-void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 #endif // !_FILE_H_

@@ -37,7 +37,7 @@ struct ListStudent
 	NodeStudent* tail;
 };
 
-void addStudent(ListStudent* nStudent,
+void AddStudent(ListStudent* nStudent,
 	int no,
 	std::string id,
 	std::string firstname,
@@ -45,7 +45,7 @@ void addStudent(ListStudent* nStudent,
 	bool gender,
 	std::string dob,
 	std::string socialid);
-void DeleteListStudent(ListStudent* nStudent);
+void DeleteListStudent(ListStudent*& nStudent);
 
 //CLASS
 struct NodeClass
@@ -63,14 +63,14 @@ struct ListClass
 	NodeClass* tail;
 };
 
-void addClass(ListClass*& nClass, int no, std::string name);
-void DeleteListStudent(ListStudent*& nStudent);
+void AddClass(ListClass*& nClass, int no, std::string name);
+void DeleteListClass(ListClass*& nClass);
 
 //COURSE
 struct NodeCourse
 {
 	string TeacherName, ID, name;
-	date start, end;
+	//date start, end; //Khong co date start va end
 	int credit;
 	int max = 50;
 	TimeTable* tb;
@@ -85,14 +85,14 @@ struct ListCourse
 	NodeCourse* tail;
 };
 
-void addCourse(ListCourse*& nCourse,
+void AddCourse(ListCourse*& nCourse,
 	std::string id,
 	std::string name,
 	std::string teacher,
 	int credit,
 	TimeTable* tb,
 	int max);
-
+void DeleteListCourse(ListCourse*& nCourse);
 
 //SEMESTER
 struct NodeSem
@@ -110,11 +110,11 @@ struct ListSem
 	NodeSem* tail;
 };
 
-void addSemester(ListSem*& nSem,
+void AddSemester(ListSem*& nSem,
 	int type,
 	date start,
 	date end);
-
+void DeleteListSem(ListSem*& nSem);
 
 //YEAR
 struct NodeYear
@@ -134,8 +134,8 @@ struct ListYear
 	NodeYear* tail;
 };
 
-void addYear(ListYear*& nYear);
-
+void AddYear(ListYear*& nYear);
+void DeleteListYear(ListYear*& nYear);
 
 struct Score {
 	string No;
@@ -152,7 +152,6 @@ struct ScoreList {
 	string CourseCode;
 	Score* Head;
 };
-
 
 //FUNCTIONS FOR LIST
 template<class T>
@@ -185,5 +184,9 @@ T* getNode(T* pHead, int n)
 template<class T>
 void createEmptyList(T*& List)
 {
+	if (!List)
+	{
+		List = new T;
+	}
 	List->head = List->tail = nullptr;
 }

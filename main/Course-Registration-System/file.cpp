@@ -24,12 +24,14 @@ bool checkGender(std::string a)
 {
 	if (a == "Nu") return 0;
 	else if (a == "Nam") return 1;
+	return -1;
 }
 
 std::string getGender(bool a)
 {
 	if (a == 0) return "Nu";
 	else if (a == 1) return "Nam";
+	return "Null";
 }
 
 int CheckLogin(std::string name, std::string pass)
@@ -83,6 +85,8 @@ int CheckLogin(std::string name, std::string pass)
 		}
 		file.close();
 	}
+
+	return 404;
 }
 
 void addAccount(ListAccount*& list, std::string name, std::string pass)
@@ -185,8 +189,6 @@ int ChangePassword(std::string name, std::string pass, std::string newPass)
 	delete list;
 }
 
-
-
 void OutputListStudents(ListStudent* nStudent)
 {
 	if (!nStudent) return;
@@ -231,8 +233,6 @@ void CreateStudentAccounts(NodeClass* nClass)
 	}
 }
 
-
-
 void ReadListStudentToClass(std::string path, NodeClass* nClass)
 {
 	if (!nClass) return;
@@ -248,7 +248,7 @@ void ReadListStudentToClass(std::string path, NodeClass* nClass)
 			if (!std::getline(file, tmp)) return;
 			read = split(tmp, ",");
 
-			addStudent(nClass->Students,		// Add into what class
+			AddStudent(nClass->Students,		// Add into what class
 				stoi(read[0]),					// No
 				read[1],						// ID
 				read[2],						// First Name
@@ -282,7 +282,6 @@ void OutputListClass(ListClass* nClass)
 	}
 }
 
-
 void ReadListToCourse(std::string path, ListCourse* nCourse)
 {
 	ifstream file(path, std::ios::in);
@@ -303,7 +302,7 @@ void ReadListToCourse(std::string path, ListCourse* nCourse)
 			ParseTb(tb, read[5], read[6]);	//First session
 			ParseTb(tb, read[7], read[8]);	//Second session
 
-			addCourse(nCourse, 
+			AddCourse(nCourse, 
 				read[0], 
 				read[1], 
 				read[2], 
@@ -362,6 +361,7 @@ void OutputListCourse(ListCourse* nCourse)
 		}
 	}
 }
+
 void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
 {
 	//int n = 1;
@@ -418,38 +418,6 @@ void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCour
 	eCourse->head = EnrollCourse;
 	OutputListCourse(eCourse);
 }
-
-//Nay anh code roi ma Duc
-// 
-//void viewListofCourse( ListCourse* list,NodeCourse*cCourse) {
-//	createEmptyList(list);
-//	while (cCourse != nullptr) {
-//		ReadListToCourse("courses.csv", list);
-//		OutputListCourse(list);
-//		cCourse = cCourse->next;
-//	}
-//}
-
-//Da nhan ID, name vao parameter roi thi khoi input nha Duc
-// 
-//void deleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher) {
-//	if (nCourse->head == nullptr) {
-//		return;
-//	}
-//	cout << "pls input the ID of Course :";
-//
-//	getline(cin, ID);
-//	cout << "pls input the Teacher Name of the Course: ";
-//	getline(cin, teacher);
-//	NodeCourse* TmpCourse = nCourse->head;
-//	while (TmpCourse != nullptr) {
-//		if (TmpCourse->ID == ID &&TmpCourse->TeacherName== teacher) {
-//			TmpCourse->next = TmpCourse->prev->next;
-//			delete TmpCourse;
-//		}
-//		TmpCourse = TmpCourse->next;
-//	}
-//}
 
 void OutputCourse(NodeCourse* nCourse)
 {
@@ -557,4 +525,5 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 	else if (x == "N" || x == "n")
 		return;
 }
+
 //Export List Student to file Csv

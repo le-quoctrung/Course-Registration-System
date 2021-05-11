@@ -113,15 +113,30 @@ void DisplayTb(TimeTable* a)
 }
 
 //SCHOOL STRUCT
-void addYear(ListYear*& nYear)
+bool CanAddYear(ListYear* nYear, date today)
+{
+	NodeYear* pCur = nYear->head;
+
+	if (today.year < nYear->tail->endYear.year) return false; //Smaller than the lastest Node
+
+	while (pCur)
+	{
+		if (CmpDate(pCur->startYear, today) == 0)	//Existed
+			return false;
+	}
+
+
+
+	return true;
+}
+
+void AddYear(ListYear*& nYear)
 {
 	if (!nYear) return;
-	date today = getDate();
+	date today = GetDate();
 
 	//info
 	NodeYear* newYear = new NodeYear;
-	newYear->classes = new ListClass;
-	newYear->semesters = new ListSem;
 	createEmptyList(newYear->classes);
 	createEmptyList(newYear->semesters);
 
@@ -129,10 +144,10 @@ void addYear(ListYear*& nYear)
 	newYear->startYear.month = today.month;
 	newYear->startYear.day = today.day;
 
-	//School year ends in the next year after e
+	//School year ends in the next year
 	//with each semsester is 3 months
-	newYear->endYear.year = newYear->startYear.year;
-	newYear->endYear.month = newYear->startYear.month;
+	newYear->endYear.year = newYear->startYear.year + 1;
+	newYear->endYear.month = newYear->startYear.month + 3;
 	newYear->endYear.day = newYear->startYear.day;
 
 	newYear->next = nullptr;
@@ -148,21 +163,40 @@ void addYear(ListYear*& nYear)
 	nYear->tail = newYear;
 }
 
-void addSemester(ListSem*& nSem, int type, date start, date end)
+void DeleteListYear(ListYear*& nYear)
+{
+	if (!nYear) return;
+
+	NodeYear* pCur = nYear->head->next;
+	NodeYear* next = nullptr;
+
+	while (pCur)
+	{
+		next = pCur->next;
+		DeleteListClass(pCur->classes);
+		DeleteListSem(pCur->semesters);
+		delete pCur;
+		pCur = next;
+	}
+
+	delete nYear->head;
+	nYear->head = nYear->tail = nullptr;
+}
+
+void AddSemester(ListSem*& nSem, int type, date start, date end)
 {
 	if (!nSem) return;
 
 	//info
 	NodeSem* newSem = new NodeSem;
-	newSem->type = 1;
-	copyDate(newSem->start, start);
-	copyDate(newSem->end, end);
-	newSem->Courses = new ListCourse;
+	newSem->type = type;
+	CopyDate(newSem->start, start);
+	CopyDate(newSem->end, end);
 	createEmptyList(newSem->Courses);
 	newSem->next = nullptr;
 
 	//empty head? make new head
-	if (!nSem)
+	if (!nSem->head)
 	{
 		nSem->head = newSem;
 		return;
@@ -172,7 +206,26 @@ void addSemester(ListSem*& nSem, int type, date start, date end)
 	nSem->tail = newSem;
 }
 
-void addCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)
+void DeleteListSem(ListSem*& nSem)
+{
+	if (!nSem) return;
+
+	NodeSem* pCur = nSem->head->next;
+	NodeSem* next = nullptr;
+
+	while (pCur)
+	{
+		next = pCur->next;
+		DeleteListCourse(pCur->Courses);
+		delete pCur;
+		pCur = next;
+	}
+
+	delete nSem->head;
+	nSem->head = nSem->tail = nullptr;
+}
+
+void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)
 {
 	if (!nCourse) return;
 
@@ -200,7 +253,26 @@ void addCourse(ListCourse*& nCourse, std::string id, std::string name, std::stri
 	nCourse->tail = newCourse;
 }
 
-void addClass(ListClass*& nClass, int no, std::string name)
+void DeleteListCourse(ListCourse*& nCourse)
+{
+	if (!nCourse) return;
+
+	NodeCourse* pCur = nCourse->head->next;
+	NodeCourse* next = nullptr;
+
+	while (pCur)
+	{
+		next = pCur->next;
+		DeleteTable(pCur->tb);
+		delete pCur;
+		pCur = next;
+	}
+
+	delete nCourse->head;
+	nCourse->head = nCourse->tail = nullptr;
+}
+
+void AddClass(ListClass*& nClass, int no, std::string name)
 {
 	if (!nClass) return;
 
@@ -208,7 +280,6 @@ void addClass(ListClass*& nClass, int no, std::string name)
 	NodeClass* newClass = new NodeClass;
 	newClass->no = no;
 	newClass->name = name;
-	newClass->Students = new ListStudent;
 	createEmptyList(newClass->Students);
 
 	newClass->next = nullptr;
@@ -223,37 +294,27 @@ void addClass(ListClass*& nClass, int no, std::string name)
 	nClass->tail->next = newClass;
 	nClass->tail = newClass;
 }
-void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
-	cout << "input the date start: " << endl;
-	cin >> nCourse->start.day;
-	cin >> nCourse->start.month;
-	cin >> nCourse->start.year;
-	cout <<"the date start this course:"<< nCourse->start.day << "-" << nCourse->start.month << "-" << nCourse->start.year << endl;
-	cout << "input the date end:"<<endl;
-	cin >> nCourse->end.day;
-	cin >> nCourse->end.month;
-	cin >> nCourse->end.year;
-	cout <<"the date end this course:"<< nCourse->end.day << "-" << nCourse->end.month << "-" << nCourse->end.year << endl;
-}
 
-void DeleteListStudent(ListStudent*& nStudent)
+void DeleteListClass(ListClass*& nClass)
 {
-	if (!nStudent) return;
+	if (!nClass) return;
 
-	NodeStudent* pCur = nStudent->head->next;
-	NodeStudent* next = nullptr;
-	while (pCur != nullptr)
+	NodeClass* pCur = nClass->head->next;
+	NodeClass* next = nullptr;
+
+	while (pCur)
 	{
 		next = pCur->next;
+		DeleteListStudent(pCur->Students);
 		delete pCur;
 		pCur = next;
 	}
-	delete nStudent->head;
-	nStudent->head = nStudent->tail = nullptr;
+
+	delete nClass->head;
+	nClass->head = nClass->tail = nullptr;
 }
 
-
-void addStudent(ListStudent* nStudent, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid)
+void AddStudent(ListStudent* nStudent, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid)
 {
 	if (!nStudent) return;
 
@@ -264,7 +325,7 @@ void addStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	newStudent->FirstName = firstname;
 	newStudent->LastName = lastname;
 	newStudent->gender = gender;
-	copyDate(newStudent->DOB, parseDate(dob));
+	CopyDate(newStudent->DOB, ParseDate(dob));
 	newStudent->SocialID = socialid;
 
 	newStudent->next = nullptr;
@@ -278,6 +339,24 @@ void addStudent(ListStudent* nStudent, int no, std::string id, std::string first
 
 	nStudent->tail->next = newStudent;
 	nStudent->tail = newStudent;
+}
+
+void DeleteListStudent(ListStudent*& nStudent)
+{
+	if (!nStudent) return;
+
+	NodeStudent* pCur = nStudent->head->next;
+	NodeStudent* next = nullptr;
+
+	while (pCur)
+	{
+		next = pCur->next;
+		delete pCur;
+		pCur = next;
+	}
+
+	delete nStudent->head;
+	nStudent->head = nStudent->tail = nullptr;
 }
 
 //ViewScoreBoard 
@@ -298,3 +377,18 @@ void ViewScoreBoard( ScoreList listSc,ListStudent listSt) {
 		}
 	}
 }
+
+
+//Ham chua dung
+//void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
+//	cout << "input the date start: " << endl;
+//	cin >> nCourse->start.day;
+//	cin >> nCourse->start.month;
+//	cin >> nCourse->start.year;
+//	cout <<"the date start this course:"<< nCourse->start.day << "-" << nCourse->start.month << "-" << nCourse->start.year << endl;
+//	cout << "input the date end:"<<endl;
+//	cin >> nCourse->end.day;
+//	cin >> nCourse->end.month;
+//	cin >> nCourse->end.year;
+//	cout <<"the date end this course:"<< nCourse->end.day << "-" << nCourse->end.month << "-" << nCourse->end.year << endl;
+//}
