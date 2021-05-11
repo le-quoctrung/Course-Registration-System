@@ -143,11 +143,11 @@ int ChangePassword(std::string name, std::string pass, std::string newPass)
 	createEmptyList(list);
 
 	//READ DATABASE
-	ifstream file(path, std::ios::in);
+	std::ifstream file(path, std::ios::in);
 	if (file.is_open())
 	{
-		string tmp;
-		vector<string> read;
+		std::string tmp;
+		std::vector<std::string> read;
 
 		while (!file.eof())
 		{
@@ -208,7 +208,7 @@ void OutputStudent(NodeStudent* nStudent)
 		<< nStudent->FirstName << "  "
 		<< nStudent->LastName << "  "
 		<< getGender(nStudent->gender) << "  "
-		<< displayDate(nStudent->DOB) << "  "
+		<< DisplayDate(nStudent->DOB) << "  "
 		<< nStudent->SocialID << std::endl;
 }
 
@@ -236,12 +236,12 @@ void CreateStudentAccounts(NodeClass* nClass)
 void ReadListStudentToClass(std::string path, NodeClass* nClass)
 {
 	if (!nClass) return;
-	ifstream file(path, std::ios::in);
+	std::ifstream file(path, std::ios::in);
 
 	if (file.is_open())
 	{
-		string tmp;
-		vector<string> read;
+		std::string tmp;
+		std::vector<std::string> read;
 
 		while (!file.eof())
 		{
@@ -284,11 +284,11 @@ void OutputListClass(ListClass* nClass)
 
 void ReadListToCourse(std::string path, ListCourse* nCourse)
 {
-	ifstream file(path, std::ios::in);
+	std::ifstream file(path, std::ios::in);
 	if (file.is_open())
 	{
-		string tmp;
-		vector<string> read;
+		std::string tmp;
+		std::vector<std::string> read;
 
 		while (!file.eof())
 		{
@@ -446,14 +446,14 @@ NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
 	return nullptr;
 }
 
-void UpdateCourse(ListCourse*& nCourse, string ID, string teacher)
+void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 {
 	if (!nCourse) return;
 
 	NodeCourse* pCur = FindCourse(nCourse, ID, teacher);
 	if (!pCur) return;
 	OutputCourse(pCur);
-	string str, str2;
+	std::string str, str2;
 	int n;
 	TimeTable* tmp = new TimeTable;
 	CreateTable(tmp);

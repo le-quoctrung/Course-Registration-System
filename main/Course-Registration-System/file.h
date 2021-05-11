@@ -9,7 +9,6 @@
 #include "Tokenizer.h"
 #include "school.h"
 
-using namespace std;
 
 const std::string pathStudentAccounts = "db\\allStudent.txt";
 const std::string pathStaffAccounts = "db\\staffs.txt";
@@ -50,7 +49,7 @@ void OutputStudent(NodeStudent* nStudent);
 void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
 void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
 																	// with username is [ID] and password is [DOB (yyyymmdd)]
-void ExportListStudent(ListStudent ListSt, ofstream f);				
+void ExportListStudent(ListStudent ListSt, std::ofstream f);				
 
 
 
@@ -66,7 +65,7 @@ void OutputListCourse(ListCourse* nCourse);
 void Enroll(ListCourse* nCourse, NodeCourse* EnrollCourse);
 void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse);
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
-void UpdateCourse(ListCourse*& nCourse, string ID, string teacher);
+void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 
 #endif // !_FILE_H_

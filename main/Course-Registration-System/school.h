@@ -3,7 +3,7 @@
 #include<string>
 #include "time.h"
 
-using namespace std;
+
 
 struct TimeTable
 {
@@ -22,7 +22,7 @@ void DisplayTb(TimeTable* a);
 //STUDENT
 struct NodeStudent
 {
-	string ID, FirstName, LastName, SocialID;
+	std::string ID, FirstName, LastName, SocialID;
 	int No;
 	bool gender;
 	date DOB;
@@ -69,7 +69,7 @@ void DeleteListClass(ListClass*& nClass);
 //COURSE
 struct NodeCourse
 {
-	string TeacherName, ID, name;
+	std::string TeacherName, ID, name;
 	//date start, end; //Khong co date start va end
 	int credit;
 	int max = 50;
@@ -138,18 +138,13 @@ void AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
 
 struct Score {
-	string No;
-	string StudentID;
-	string StudentFullName;
-	string TotalMark;
-	string FinalMark;
-	string MidTermMark;
-	string OtherMark;
-	Score* next;
-	Score* prev;
+	std::string No, StudentID, StudentFullName, TotalMark, FinalMark, MidTermMark, OtherMark;
+
+	Score* next, * prev;
+	
 };
 struct ScoreList {
-	string CourseCode;
+	std::string CourseCode;
 	Score* Head;
 };
 
