@@ -70,26 +70,26 @@ int main()
             system("cls");
         }*/
 
-    //Example for course
-    ListCourse* nCourse = new ListCourse;
-    ListCourse* eCourse = new ListCourse;
-    createEmptyList(nCourse);
-    ReadListToCourse("courses.csv", nCourse);
-   // OutputListCourse(nCourse);
-    NodeCourse* enrollCourse = new NodeCourse;
-   // Enroll(nCourse, enrollCourse);
-    displayEnrollCourse(nCourse, enrollCourse,eCourse);
+   // //Example for course
+   // ListCourse* nCourse = new ListCourse;
+   // ListCourse* eCourse = new ListCourse;
+   // createEmptyList(nCourse);
+   // ReadListToCourse("courses.csv", nCourse);
+   //// OutputListCourse(nCourse);
+   // NodeCourse* enrollCourse = new NodeCourse;
+   //// Enroll(nCourse, enrollCourse);
+   // displayEnrollCourse(nCourse, enrollCourse,eCourse);
 
-    //Example for students
-   /* ListClass* nClass = new ListClass;
-    createEmptyList(nClass);
+    //Example a whole year
+    ListYear* Year = nullptr;
+    createEmptyList(Year);
+    AddYear(Year);
 
-    addClass(nClass, 1, "20CLC");
-    addClass(nClass, 2, "20CLC");
+    std::cout << getNode((Year->head), 1)->startYear.year;
 
-    OutputListClass(nClass);
+    AddSemester(getNode(Year->head,1)->semesters, 1, ParseDate("1/8/2021"), ParseDate("1/1/2022"));
 
-    ReadListStudentToClass("allStudent.csv", nClass->tail);
-    OutputClass(nClass->tail);*/
-    
+
+    DeleteListYear(Year);
+    return 0;
 }
