@@ -20,7 +20,7 @@ int GetDay()
 	return  ltm->tm_mday;
 }
 
-date getDate()
+date GetDate()
 {
 	date d;
 	time_t now = time(0);
@@ -33,7 +33,7 @@ date getDate()
 	return d;
 }
 
-std::string displayDate(date d)
+std::string DisplayDate(date d)
 {
 	std::stringstream write;
 
@@ -42,7 +42,7 @@ std::string displayDate(date d)
 	return write.str();
 }
 
-date parseDate(std::string str)
+date ParseDate(std::string str)
 {
 	date result;
 
@@ -55,14 +55,31 @@ date parseDate(std::string str)
 	return result;
 }
 
-void copyDate(date& a, date b)
+int CmpDate(date a, date b)
+{
+	if (a.year > b.year) return 1;
+	else if (a.year == b.year)
+	{
+		if (a.month > b.month) return 1;
+		else if (a.month == b.month)
+		{
+			if (a.day > b.day) return 1;
+			else if (a.day == b.day) return 0;
+			else return -1;
+		}
+		else return -1;
+	}
+	else return -1;
+}
+
+void CopyDate(date& a, date b)
 {
 	a.year = b.year;
 	a.month = b.month;
 	a.day = b.day;
 }
 
-bool checkValid(date D)
+bool CheckValid(date D)
 {
 	int d = D.day;
 	int m = D.month;

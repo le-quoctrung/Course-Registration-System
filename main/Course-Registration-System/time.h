@@ -14,12 +14,12 @@ struct date
 	int year, month, day;
 };
 
-date getDate();
-std::string displayDate(date d);
-date parseDate(std::string str);
-void copyDate(date& a, date b);
-
-bool checkValid(date d);
+date GetDate();
+std::string DisplayDate(date d);
+date ParseDate(std::string str);
+int CmpDate(date a, date b);
+void CopyDate(date& a, date b);
+bool CheckValid(date d);
 
 int GetDay();
 int GetMonth();
