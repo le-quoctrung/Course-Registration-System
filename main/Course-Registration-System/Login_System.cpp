@@ -29,7 +29,8 @@ void login()
 
 	Gotoxy(x, 15);
 	chpass = _getch();
-	while (chpass != 13) {//character 13 is enter
+	while (chpass != 13) //character 13 is enter
+	{
 		if (pass.length() > 16 && chpass != '\b') chpass = '\0';
 		else if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
 		{
@@ -41,51 +42,54 @@ void login()
 		{
 			pass.push_back(chpass);
 			std::cout << '*';
-		}
+		}	
 		chpass = _getch();
 	}
-	system("cls");
-	switch (CheckLogin(name, pass))
+	//system("cls");
+	while (1)
 	{
-	case 404:
-	{
-		home();
-		Gotoxy(80, 17);
-		std::cout << "Login failed. Account not found!";
-		break;
+		//std::cout << GetCursorClick().X<<"."<<GetCursorClick().Y; 
+		if (CheckCursorClick(140, 200, 35, 38))
+		{
+			switch (CheckLogin(name, pass))
+			{
+			case 404:
+			{
+				//home();
+				Gotoxy(80, 17);
+				std::cout << "Login failed. Account not found!";
+				break;
+			}
+			case -1:
+			{
+				//home();
+				Gotoxy(80, 17);
+				std::cout << "Login failed. Username and Password missmatch!";
+				break;
+			}
+			case 1:
+			{
+				system("cls");
+				Gotoxy(60, 17);
+				std::cout << "WELCOME BACK HCMUS STAFF! HAVE A NICE WEEK!";
+				Sleep(2000);
+				system("cls");
+				home_staff();
+				break;
+			}
+			case 0:
+			{
+				system("cls");
+				Gotoxy(60, 17);
+				std::cout << "WELCOME BACK TO HELL STUDENT!";
+				Sleep(1500);
+				system("cls");
+				home_student();
+				//ShowStudentInfo(name, pass);
+				break;
+			}
+			}
+			break;
+		}
 	}
-	case -1:
-	{
-		home();
-		Gotoxy(80, 17);
-		std::cout << "Login failed. Username and Password missmatch!";
-		break;
-	}
-	case 1:
-	{
-		Gotoxy(60, 17);
-		std::cout << "WELCOME BACK HCMUS STAFF! HAVE A NICE WEEK!";
-		Sleep(2000);
-		system("cls");
-		
-		break;
-	}
-	case 0:
-	{
-		Gotoxy(60, 17);
-		std::cout << "WELCOME BACK TO HELL STUDENT!";
-		Sleep(2000);
-		system("cls");
-		//ShowStudentInfo(name, pass);
-		break;
-	}
-	}
-}
-void ShowOption()
-{
-	std::cout << 1;
-}
-void ChooseOption()
-{
-	if (CheckCurSorClick(10, 100*xPos, 0, 10*yPos)) ShowOption();
 }

@@ -114,9 +114,9 @@ void Start()
     AnTroChuot();
     DisableSelection();   
 }
-bool CheckCurSorClick(int xPos1, int xPos2, int yPos1, int yPOs2) // max xPos 1535, max yPos 863
+bool CheckCursorClick(short xPos1, short xPos2, short yPos1, short yPos2) // same value with x,y in gotoxy() function
 {
-    POINT CursorPos;
+
     HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
     HANDLE hin = GetStdHandle(STD_INPUT_HANDLE);
     INPUT_RECORD InputRecord;
@@ -127,17 +127,48 @@ bool CheckCurSorClick(int xPos1, int xPos2, int yPos1, int yPOs2) // max xPos 15
     cci.bVisible = FALSE;
     SetConsoleCursorInfo(hout, &cci);
     SetConsoleMode(hin, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
-    ReadConsoleInput(hin, &InputRecord, 1, &Events);
+    
     while (1)
     {
+        ReadConsoleInput(hin, &InputRecord, 1, &Events);
         if (InputRecord.EventType == MOUSE_EVENT)
         {
             if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
             {
-                GetCursorPos(&CursorPos);
-                if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2) return true;
-                else return false;
+                coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
+                coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
+                if (coord.X > xPos1 && coord.X < xPos2 && coord.Y > yPos1 && coord.Y < yPos2)
+                    return true;
+                else
+                    return false;
             }
         }
+        FlushConsoleInputBuffer(hin);
+    }
+}
+COORD GetCursorClick()
+{
+    
+    HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hin = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD InputRecord;
+    DWORD Events;
+    COORD coord;
+    CONSOLE_CURSOR_INFO cci;
+    cci.dwSize = 25;
+    cci.bVisible = FALSE;
+    SetConsoleCursorInfo(hout, &cci);
+    SetConsoleMode(hin, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
+
+    while (1)
+    {
+        ReadConsoleInput(hin, &InputRecord, 1, &Events);
+        if (InputRecord.EventType == MOUSE_EVENT)
+            if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+            {
+                coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
+                coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
+                return coord;
+            }
     }
 }

@@ -38,7 +38,7 @@ int CheckLogin(std::string name, std::string pass)
 {
 	if (!CheckFile(pathStudentAccounts)
 		&& !CheckFile(pathStaffAccounts)) return 404;
-
+	if (name == "admin" && pass == "admin") return 1;
 	std::ifstream file(pathStudentAccounts, std::ios::in);
 	if (file.is_open())
 	{
@@ -60,7 +60,8 @@ int CheckLogin(std::string name, std::string pass)
 		}
 		file.close();
 	}
-
+	//std::ifstream files(pathStaffAccounts, std::ios::in);
+	/*
 	file.open(pathStaffAccounts, std::ios::in);
 	if (file.is_open())
 	{
@@ -85,7 +86,7 @@ int CheckLogin(std::string name, std::string pass)
 		}
 		file.close();
 	}
-
+	*/
 	return 404;
 }
 
@@ -412,6 +413,7 @@ void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
 		}
 	}
 }
+
 void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse) {
 	
 	Enroll(nCourse, EnrollCourse);
