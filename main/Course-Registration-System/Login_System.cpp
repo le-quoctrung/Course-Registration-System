@@ -4,7 +4,7 @@
 
 void login()
 {
-	string name = "", pass = "";
+	std::string name = "", pass = "";
 	char chpass, chname;
 	int x = 155;
 	HienTroChuot();
@@ -14,14 +14,14 @@ void login()
 		if (name.length() > 50 && chname != '\b') chname = '\0';
 		else if (chname == '\b' && name.length() >= 1)//if user typed backspace 
 		{
-			cout << "\b \b";//rub the character behind the cursor.
+			std::cout << "\b \b";//rub the character behind the cursor.
 			name.pop_back();
 		}
 		else if (chname == '\b' && name.length() == 0) chname = '\0';
 		else
 		{
 			name.push_back(chname);
-			cout << chname;
+			std::cout << chname;
 		}
 		chname = _getch();
 	}
@@ -32,14 +32,14 @@ void login()
 		if (pass.length() > 16 && chpass != '\b') chpass = '\0';
 		else if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
 		{
-			cout << "\b \b";//rub the character behind the cursor.
+			std::cout << "\b \b";//rub the character behind the cursor.
 			pass.pop_back();
 		}
 		else if (chpass == '\b' && pass.length() == 0) chpass = '\0';
 		else
 		{
 			pass.push_back(chpass);
-			cout << '*';
+			std::cout << '*';
 		}
 		chpass = _getch();
 	}
@@ -50,14 +50,14 @@ void login()
 	{
 		home();
 		Gotoxy(80, 17);
-		cout << "Login failed. Account not found!";
+		std::cout << "Login failed. Account not found!";
 		break;
 	}
 	case -1:
 	{
 		home();
 		Gotoxy(80, 17);
-		cout << "Login failed. Username and Password missmatch!";
+		std::cout << "Login failed. Username and Password missmatch!";
 		break;
 	}
 	case 1:
@@ -82,7 +82,7 @@ void login()
 }
 void ShowOption()
 {
-	cout << 1;
+	std::cout << 1;
 }
 void ChooseOption()
 {

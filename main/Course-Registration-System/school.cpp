@@ -361,19 +361,19 @@ void DeleteListStudent(ListStudent*& nStudent)
 
 //ViewScoreBoard 
 void ViewScoreBoard( ScoreList listSc,ListStudent listSt) {
-	string input;
-	cout << "input your ID: ";
-	getline(cin, input);
+	std::string input;
+	std::cout << "input your ID: ";
+	std::getline(std::cin, input);
 	for (Score* cur = listSc.Head; cur != nullptr; cur = cur->next) {
 		if (cur->StudentID == input) {
 			system("cls");
-			cout << "ScoreBoard" << "\n" << endl;
-			cout << "StudentID: " << cur->StudentID << endl;
-			cout << "Student FullName: " << cur->StudentFullName << endl;
-			cout << "MidTerm Mark: " << cur->MidTermMark << endl;
-			cout << "Final Mark: " << cur->FinalMark << endl;
-			cout << "Other Mark: " << cur->OtherMark << endl;
-			cout << "Total Mark: " << cur->TotalMark << endl;
+			std::cout << "ScoreBoard" << "\n" << std::endl;
+			std::cout << "StudentID: " << cur->StudentID << std::endl;
+			std::cout << "Student FullName: " << cur->StudentFullName << std::endl;
+			std::cout << "MidTerm Mark: " << cur->MidTermMark << std::endl;
+			std::cout << "Final Mark: " << cur->FinalMark << std::endl;
+			std::cout << "Other Mark: " << cur->OtherMark << std::endl;
+			std::cout << "Total Mark: " << cur->TotalMark << std::endl;
 		}
 	}
 }

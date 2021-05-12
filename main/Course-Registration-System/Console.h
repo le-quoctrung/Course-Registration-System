@@ -12,7 +12,7 @@
 #define yPos 863/53
 
 
-using namespace std;
+
 
 
 void Gotoxy(int x, int y); // x max 210, y max 53 in fullscreen mode  //x*307/42 and y*863/53
