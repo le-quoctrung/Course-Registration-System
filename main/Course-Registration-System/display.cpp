@@ -126,7 +126,10 @@ void home()
 	/*USER LOGIN*/
 
 }
-
+void Home()
+{
+		
+}
 void ShowStudentInfo(std::string name, std::string pass)
 {
 	int x = 100, y = 10;

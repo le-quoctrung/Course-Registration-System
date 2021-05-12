@@ -127,18 +127,17 @@ bool CheckCurSorClick(int xPos1, int xPos2, int yPos1, int yPOs2) // max xPos 15
     cci.bVisible = FALSE;
     SetConsoleCursorInfo(hout, &cci);
     SetConsoleMode(hin, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
-        ReadConsoleInput(hin, &InputRecord, 1, &Events);
-        while (1)
+    ReadConsoleInput(hin, &InputRecord, 1, &Events);
+    while (1)
+    {
+        if (InputRecord.EventType == MOUSE_EVENT)
         {
-            if (InputRecord.EventType == MOUSE_EVENT)
+            if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
             {
-                if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
-                {
-                    GetCursorPos(&CursorPos);
-                    if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2) return true;
-                    else return false;
-                }
+                GetCursorPos(&CursorPos);
+                if (CursorPos.x > xPos1 && CursorPos.x < xPos2 && CursorPos.y > yPos1 && CursorPos.y < yPOs2) return true;
+                else return false;
             }
         }
-  
+    }
 }

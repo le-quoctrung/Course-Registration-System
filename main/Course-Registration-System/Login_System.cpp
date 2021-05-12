@@ -10,7 +10,8 @@ void login()
 	HienTroChuot();
 	Gotoxy(x, 13);
 	chname = _getch();
-	while (chname != 13) {//character 13 is enter
+	while (chname != 13)
+	{
 		if (name.length() > 50 && chname != '\b') chname = '\0';
 		else if (chname == '\b' && name.length() >= 1)//if user typed backspace 
 		{
