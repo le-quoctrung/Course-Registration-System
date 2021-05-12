@@ -105,7 +105,7 @@ void DisplayTb(TimeTable* a)
 		}
 		for (int col = 0; col < 6; col++)
 		{
-			if (a->Week[row][col] == 0) std::cout << "  \t";
+			if (a->Week[row][col] == 0) std::cout << " \t";
 			else std::cout << " X\t";
 		}
 		std::cout << "\n";
