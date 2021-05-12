@@ -4,6 +4,8 @@
 #include"Console.h"
 #include<vector>
 
-void home();	
+void home_student();	
+void loginDisplay();
+void home_staff();
 void ShowStudentInfo(std::string name, std::string pass);
 
