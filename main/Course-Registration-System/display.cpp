@@ -140,6 +140,22 @@ void loginDisplay()
 	/*USER LOGIN*/
 
 }
+void hcmusfame()
+{
+	for (int i = 0; i <= 210; i++)
+	{
+		Gotoxy(i, 10);
+		std::cout << char(220);
+	}
+	for (int i = 0; i <= 10; i++)
+	{
+		Gotoxy(40, i);
+		std::cout << char(219);
+		Gotoxy(41, i);
+		std::cout << char(219);
+	}
+	Gotoxy(10, 5); std::cout << "HCMUS";
+}
 void home_staff()
 {
 	/*
@@ -170,34 +186,63 @@ Update a student result.
 View the scoreboard of a class, including final marks of all courses in the semester, GPA in this semester, and the overall GPA
 	*/
 	//public sroceboard for student can view
-	int y = 10;
-	for (int i = 0; i <= 210; i++)
-	{
-		Gotoxy(i, y);
-		std::cout << char(220);
-	}
+home: 
+
+	hcmusfame();
 	for (int i = 0; i <= 10; i++)
 	{
-		Gotoxy(40, i);
+		Gotoxy(98, i);
 		std::cout << char(219);
-		Gotoxy(41, i);
-		std::cout << char(219);
-		Gotoxy(125, i);
+		Gotoxy(155, i);
 		std::cout << char(219);
 	}
-	Gotoxy(10, 5); std::cout << "HCMUS";
-	Gotoxy(80, 5); std::cout << "create new";
-	Gotoxy(165, 5); std::cout << "course";
-	while (1)
+	Gotoxy(67, 5); std::cout << "YEAR";
+	Gotoxy(130, 5); std::cout << "CLASS";
+	Gotoxy(178, 5);  std::cout << "COURSE";
+
+	while (1)// remember to break out of while loop
 	{
-		if (CheckCursorClick(41, 125, 0, 10))
+		COORD coord = GetCursorClick();
+		if (coord.X > 40 && coord.X < 98 && coord.Y < 10) //year
 		{
-			std::cout << 1;
+			system("cls");
+			hcmusfame();
+			for (int i = 0; i <= 10; i++)
+			{
+				Gotoxy(127, i);
+				std::cout << char(219);
+			}
+			Gotoxy(75, 5); std::cout << "CREATE 1ST-YEAR";
+			Gotoxy(165, 5); std::cout << "SEMESTER";
+			/************************************/
+			while (1) // remember to break out of while loop
+			{
+				COORD year = GetCursorClick();
+				if (year.Y < 10 && year.X > 41 && year.X < 127) //create year
+				{
+					//create year functions here
+					Gotoxy(100, 29); std::cout << "created year";
+					break;
+				}
+				else if (year.X < 127 && year.Y < 10) //semester
+				{
+					Gotoxy(100, 29); std::cout << "semester";
+					break;
+				}
+				if (year.Y < 10 && year.X < 40)
+					goto home;
+			}	
 			break;
 		}
-		if (CheckCursorClick(41, 210, 0, 10))
+		else if (coord.X > 98 && coord.X < 155 && coord.Y < 10) //class
 		{
-			std::cout << 0;
+			
+			std::cout<< "class"; // for clicking test
+			break;
+		}
+		else if (coord.X > 155 && coord.Y < 10) //course
+		{
+			std::cout << "course"; //for cliking test
 			break;
 		}
 	}

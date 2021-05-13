@@ -170,5 +170,6 @@ COORD GetCursorClick()
                 coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
                 return coord;
             }
+        FlushConsoleInputBuffer(hin);
     }
 }
