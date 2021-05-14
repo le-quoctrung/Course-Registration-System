@@ -359,6 +359,113 @@ void DeleteListStudent(ListStudent*& nStudent)
 	nStudent->head = nStudent->tail = nullptr;
 }
 
+void OutputListStudents(ListStudent* nStudent)
+{
+	if (!nStudent) return;
+
+	NodeStudent* pCur = nStudent->head;
+	while (pCur != nullptr)
+	{
+		OutputStudent(pCur);
+		pCur = pCur->next;
+	}
+}
+
+std::string getGender(bool a)
+{
+	if (a == 0) return "Nu";
+	else if (a == 1) return "Nam";
+	return "Null";
+}
+
+void OutputStudent(NodeStudent* nStudent)
+{
+	std::cout << nStudent->No << "  "
+		<< nStudent->ID << "  "
+		<< nStudent->FirstName << "  "
+		<< nStudent->LastName << "  "
+		<< getGender(nStudent->gender) << "  "
+		<< DisplayDate(nStudent->DOB) << "  "
+		<< nStudent->SocialID << std::endl;
+}
+
+void OutputClass(NodeClass* nClass)
+{
+	std::cout << nClass->name
+		<< nClass->no << " \n";
+	OutputListStudents(nClass->Students);
+	std::cout << "\n";
+}
+
+void OutputListClass(ListClass* nClass)
+{
+	if (!nClass) return;
+
+	NodeClass* pCur = nClass->head;
+	while (pCur != nullptr)
+	{
+		std::cout << pCur->name << pCur->no << "\n";
+		pCur = pCur->next;
+	}
+}
+
+void OutputCourse(NodeCourse* nCourse)
+{
+	std::cout << "ID: " << nCourse->ID << "\n"
+		<< "Course Name: " << nCourse->name << "\n"
+		<< "Course Teacer: " << nCourse->TeacherName << "\n"
+		<< "Credit: " << nCourse->credit << "\n"
+		<< "Max atendee: " << nCourse->max << "\n\n";
+
+	DisplayTb(nCourse->tb);
+	nCourse = nCourse->next;
+}
+
+void OutputListCourse(ListCourse* nCourse)
+{
+	//int n = 1;
+	if (!nCourse) return;
+
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		system("CLS");
+		OutputCourse(pCur);
+		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
+
+	catch_exception:
+		if (!_kbhit())
+		{
+			char x = _getch();
+			if (x == 'a' || x == 'A')
+			{
+				//if (n > 1)n--;
+				if (pCur->prev)
+					pCur = pCur->prev;
+				else
+				{
+					std::cout << "\n\n\t\tThis is head of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 'd' || x == 'D')
+			{
+				//if (n < max)n++;
+				if (pCur->next)
+					pCur = pCur->next;
+				else
+				{
+					std::cout << "\n\n\t\tThis is tail of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 's' || x == 'S')
+				return;
+			else goto catch_exception;
+		}
+	}
+}
+
 //ViewScoreBoard 
 void ViewScoreBoard( ScoreList listSc,ListStudent listSt) {
 	std::string input;

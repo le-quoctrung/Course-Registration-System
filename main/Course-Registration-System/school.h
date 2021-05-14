@@ -46,6 +46,8 @@ void AddStudent(ListStudent* nStudent,
 	std::string dob,
 	std::string socialid);
 void DeleteListStudent(ListStudent*& nStudent);
+void OutputStudent(NodeStudent* nStudent);							// Output a node of student
+void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
 
 //CLASS
 struct NodeClass
@@ -65,6 +67,8 @@ struct ListClass
 
 void AddClass(ListClass*& nClass, int no, std::string name);
 void DeleteListClass(ListClass*& nClass);
+void OutputClass(NodeClass* nClass);
+void OutputListClass(ListClass* nClass);
 
 //COURSE
 struct NodeCourse
@@ -93,6 +97,8 @@ void AddCourse(ListCourse*& nCourse,
 	TimeTable* tb,
 	int max);
 void DeleteListCourse(ListCourse*& nCourse);
+void OutputCourse(NodeCourse* nCourse);
+void OutputListCourse(ListCourse* nCourse);
 
 //SEMESTER
 struct NodeSem

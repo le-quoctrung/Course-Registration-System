@@ -45,23 +45,16 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 													//	404 - file not found
 
 //STUDENT
-void OutputStudent(NodeStudent* nStudent);
-void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
 void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
 																	// with username is [ID] and password is [DOB (yyyymmdd)]
 void ExportListStudent(ListStudent ListSt, std::ofstream f);				
 
 
-
 //CLASS
 void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
-void OutputClass(NodeClass* nClass);
-void OutputListClass(ListClass* nClass);
 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
-void OutputCourse(NodeCourse* nCourse);
-void OutputListCourse(ListCourse* nCourse);
 void Enroll(ListCourse* nCourse, NodeCourse* EnrollCourse);
 void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse);
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
