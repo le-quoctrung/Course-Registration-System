@@ -26,7 +26,7 @@ struct NodeStudent
 	int No;
 	bool gender;
 	date DOB;
-	TimeTable tb;
+	TimeTable* tb;
 
 	//Node
 	NodeStudent* next;
@@ -121,6 +121,8 @@ void AddSemester(ListSem*& nSem,
 	date start,
 	date end);
 void DeleteListSem(ListSem*& nSem);
+void OutputSem(NodeSem* nSem);
+void OutputListSem(ListSem* nSem);
 
 //YEAR
 struct NodeYear
@@ -142,6 +144,8 @@ struct ListYear
 
 void AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
+void OutputYear(NodeYear* nYear);
+void OutputListYear(ListYear* nYear);
 
 struct Score {
 	std::string No, StudentID, StudentFullName, TotalMark, FinalMark, MidTermMark, OtherMark;

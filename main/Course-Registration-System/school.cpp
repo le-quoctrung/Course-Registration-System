@@ -327,6 +327,7 @@ void AddStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	newStudent->gender = gender;
 	CopyDate(newStudent->DOB, ParseDate(dob));
 	newStudent->SocialID = socialid;
+	CreateTable(newStudent->tb);
 
 	newStudent->next = nullptr;
 
