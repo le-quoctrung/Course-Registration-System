@@ -54,7 +54,7 @@ int main()
 
     //while (1)
     //{
-
+    //    index:
     //    ReadConsoleInput(hin, &InputRecord, 1, &Events);
 
     //    if (InputRecord.EventType == MOUSE_EVENT)
@@ -67,10 +67,10 @@ int main()
     //            //SetConsoleTextAttribute(hout, rand() % 7 + 9);
     //            GetCursorPos(&cursorPos);
     //            std::cout << coord.X << " " << coord.Y << std::endl << cursorPos.x << " " << cursorPos.y;
-
+    //             
     //        }
     //    }
     //    FlushConsoleInputBuffer(hin);
     //}
-    //return 0;
+    return 0;
 }

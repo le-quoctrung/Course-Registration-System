@@ -187,7 +187,7 @@ View the scoreboard of a class, including final marks of all courses in the seme
 	*/
 	//public sroceboard for student can view
 home: 
-
+	system("cls");
 	hcmusfame();
 	for (int i = 0; i <= 10; i++)
 	{
@@ -197,13 +197,15 @@ home:
 		std::cout << char(219);
 	}
 	Gotoxy(67, 5); std::cout << "YEAR";
-	Gotoxy(130, 5); std::cout << "CLASS";
-	Gotoxy(178, 5);  std::cout << "COURSE";
+	Gotoxy(124, 5); std::cout << "CLASS";
+	Gotoxy(180, 5);  std::cout << "COURSE";
 
 	while (1)// remember to break out of while loop
 	{
 		COORD coord = GetCursorClick();
-		if (coord.X > 40 && coord.X < 98 && coord.Y < 10) //year
+		
+		/********YEAR********/
+		if (coord.X > 40 && coord.X < 98 && coord.Y < 10) 
 		{
 			system("cls");
 			hcmusfame();
@@ -217,32 +219,236 @@ home:
 			/************************************/
 			while (1) // remember to break out of while loop
 			{
-				COORD year = GetCursorClick();
-				if (year.Y < 10 && year.X > 41 && year.X < 127) //create year
+				coord = GetCursorClick();
+				
+				/*******CREATE YEAR******/
+				if (coord.Y < 10 && coord.X > 41 && coord.X < 127) 
 				{
 					//create year functions here
-					Gotoxy(100, 29); std::cout << "created year";
+					Gotoxy(100, 29); std::cout << "created year"; // for test case
 					break;
 				}
-				else if (year.X < 127 && year.Y < 10) //semester
+				
+				/********SEMESTER********/
+				else if (coord.X > 127 && coord.Y < 10) 
 				{
-					Gotoxy(100, 29); std::cout << "semester";
+					system("cls");
+					hcmusfame();
+					for (int i = 0; i <= 10; i++)
+					{
+						Gotoxy(98, i);
+						std::cout << char(219);
+						Gotoxy(155, i);
+						std::cout << char(219);
+					}
+					Gotoxy(62, 5); std::cout << "CREATE SEMESTER";
+					Gotoxy(110, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
+					Gotoxy(173, 5);  std::cout << "ADD COURSE TO SEMESTER";
+					while (1)
+					{
+						coord = GetCursorClick();
+						/********HCMUS********/
+						if (coord.Y < 10 && coord.X < 40)
+							goto home;
+
+						/********CREATE SEMESTER********/
+						if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
+						{
+							std::cout << "CREATE SEMESTER";
+							break;
+						}
+
+						/*********CREATE COURSE REGISTATION SESSION********/
+						else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
+						{
+							std::cout << "CREATE COURSE REGISTATION SESSION";
+							break;
+						}
+
+						/************ADD COURSE TO SEMESTER************/
+						else if (coord.X > 155 && coord.Y < 10)
+						{
+							std::cout << "ADD COURSE TO SEMESTER";
+							break;
+						}
+					}
 					break;
 				}
-				if (year.Y < 10 && year.X < 40)
+				
+				/********HCMUS********/
+				if (coord.Y < 10 && coord.X < 40)
 					goto home;
 			}	
 			break;
 		}
+		
+		/**********CLASS********/
 		else if (coord.X > 98 && coord.X < 155 && coord.Y < 10) //class
 		{
-			
-			std::cout<< "class"; // for clicking test
+			system("cls");
+			hcmusfame();
+			for (int i = 0; i <= 10; i++)
+			{
+				Gotoxy(98, i);
+				std::cout << char(219);
+				Gotoxy(155, i);
+				std::cout << char(219);
+			}
+			Gotoxy(64, 5); std::cout << "CREATE CLASS";
+			Gotoxy(117, 5); std::cout << "ADD STUDENT TO CLASS";
+			Gotoxy(180, 5);  std::cout << "VIEW SCORE";
+			while (1)
+			{
+				coord = GetCursorClick();
+				/********HCMUS********/
+				if (coord.Y < 10 && coord.X < 40)
+					goto home;
+
+				/**********CREATE CLASS*******/
+				if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
+				{
+					std::cout << "create class";
+					break;
+				}
+
+				/*********ADD STUDENT TO CLASS********/
+				else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
+				{
+					std::cout << "added";
+					break;
+				}
+
+				/*************VIEW SCORE************/
+				else if (coord.X > 155 && coord.Y < 10)
+				{
+					system("cls");
+					hcmusfame();
+					Gotoxy(117, 5);
+					std::cout << "PUBLIC THIS SCORE BOARD";
+
+					// view scoreboard function here
+
+					while (1)
+					{
+						coord = GetCursorClick();
+						/********PUBLIC SCORE BOARD******/
+						if (coord.X > 41 && coord.Y < 10)
+						{
+							std::cout << "public";
+							break;
+						}
+
+						/**********HCMUS********/
+						if (coord.X < 40 && coord.Y < 10)
+							goto home;
+					}
+					break;
+				}
+			}
 			break;
 		}
+		
+		/********COURSE**********/
 		else if (coord.X > 155 && coord.Y < 10) //course
 		{
-			std::cout << "course"; //for cliking test
+		system("cls");
+		hcmusfame();
+		for (int i = 0; i <= 10; i++)
+		{
+			Gotoxy(98, i);
+			std::cout << char(219);
+			Gotoxy(155, i);
+			std::cout << char(219);
+		}
+		Gotoxy(62, 5); std::cout << "VIEW LIST OF COURSE";
+		Gotoxy(115, 5); std::cout << "UPDATE COURSE INFORMATION";
+		Gotoxy(180, 5);  std::cout << "DELETE COURSE";
+		while (1)
+		{
+			coord = GetCursorClick();
+			/********HCMUS********/
+			if (coord.Y < 10 && coord.X < 40)
+				goto home;
+
+			/*********VIEW LIST OF COURSE********/
+			if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
+			{
+				system("cls");
+				hcmusfame();
+				for (int i = 0; i <= 10; i++)
+				{
+					Gotoxy(98, i);
+					std::cout << char(219);
+					Gotoxy(155, i);
+					std::cout << char(219);
+				}
+				Gotoxy(66, 5); std::cout << "IMPORT";
+				Gotoxy(124, 5); std::cout << "EXPORT";
+				Gotoxy(178, 5);  std::cout << "VIEW COURSE SCORE";
+				while (1)
+				{
+					coord = GetCursorClick();
+					/********HCMUS********/
+					if (coord.Y < 10 && coord.X < 40)
+						goto home;
+
+					/********IMPORT********/
+					if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
+					{
+						std::cout << "import";
+						break;
+					}
+
+					/*********EXPORT********/
+					else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
+					{
+						std::cout << "export";
+						break;
+					}
+
+					/************VIEW COURSE SCORE************/
+					else if (coord.X > 155 && coord.Y < 10)
+					{
+						system("cls");
+						hcmusfame();
+						Gotoxy(117, 5);
+						std::cout << "UPDATE SCORE BOARD";
+
+						
+						while (1)
+						{
+							coord = GetCursorClick();
+							/********UPDATE SCORE BOARD******/
+							if (coord.X > 41 && coord.Y < 10)
+							{
+								std::cout << "UPDATE";
+								break;
+							}
+
+							/**********HCMUS********/
+							if (coord.X < 40 && coord.Y < 10)
+								goto home;
+						}
+						break;
+					}
+				}
+				break;
+			}
+
+			/*********UPDATE COURSE INFORMATION********/
+			else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
+			{
+				std::cout << "update";
+				break;
+			}
+
+			/*************DELETE COURSE***********/
+			else if (coord.X > 155 && coord.Y < 10)
+			{
+				std::cout << "deleted";
+				break;
+			}
+		}
 			break;
 		}
 	}

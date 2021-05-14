@@ -166,6 +166,7 @@ COORD GetCursorClick()
         if (InputRecord.EventType == MOUSE_EVENT)
             if (InputRecord.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
             {
+                
                 coord.X = InputRecord.Event.MouseEvent.dwMousePosition.X;
                 coord.Y = InputRecord.Event.MouseEvent.dwMousePosition.Y;
                 return coord;
