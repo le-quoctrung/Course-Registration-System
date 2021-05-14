@@ -16,7 +16,9 @@ struct date
 date GetDate();
 std::string DisplayDate(date d);
 date ParseDate(std::string str);
-int CmpDate(date a, date b);
+int CmpDate(date a, date b);// 1  - means a is later on
+							// 0  - means equal
+							// -1 - means a is sooner on
 void CopyDate(date& a, date b);
 bool CheckValid(date d);
 

@@ -123,9 +123,10 @@ bool CanAddYear(ListYear* nYear, date today)
 	{
 		if (CmpDate(pCur->startYear, today) == 0)	//Existed
 			return false;
+		pCur = pCur->next;
 	}
 
-
+	if (today.month != 10 && today.day < nYear->tail->endYear.day) return false;
 
 	return true;
 }
@@ -134,6 +135,7 @@ void AddYear(ListYear*& nYear)
 {
 	if (!nYear) return;
 	date today = GetDate();
+	if (!CanAddYear(nYear, today)) return;
 
 	//info
 	NodeYear* newYear = new NodeYear;
@@ -183,9 +185,31 @@ void DeleteListYear(ListYear*& nYear)
 	nYear->head = nYear->tail = nullptr;
 }
 
+bool CanAddSem(ListSem* nSem, int type, date start, date end)
+{
+	switch (type)
+	{
+	case 1: {if (start.month != 10) return false; break; }  //first sem start at d/10/20xx
+	case 2: {if (start.month != 1) return false; break; }	//second sem start at d/1/20xy
+	case 3: {if (start.month != 5) return false; break; }	//third sem start at  d/5/20xy
+	}
+
+	NodeSem* pCur = nSem->head;
+	if (getSize(pCur) == 3) return false; // 3 Semesters already
+	if (CmpDate(nSem->tail->end, start) == 1) return false; //Conflicted dates
+	while (pCur)
+	{
+		if (pCur->type == type) return false;	//Existed Semester
+		pCur = pCur->next;
+	}
+
+	return true;
+}
+
 void AddSemester(ListSem*& nSem, int type, date start, date end)
 {
 	if (!nSem) return;
+	if (!CanAddSem(nSem, type, start, end)) return;
 
 	//info
 	NodeSem* newSem = new NodeSem;

@@ -40,6 +40,7 @@ struct NodeStudent
 	date DOB;
 	TimeTable* tb;
 	ListCourse* enrolled;
+	
 
 	//Node
 	NodeStudent* next;
