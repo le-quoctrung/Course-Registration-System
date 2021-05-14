@@ -185,6 +185,25 @@ void DeleteListYear(ListYear*& nYear)
 	nYear->head = nYear->tail = nullptr;
 }
 
+void OutputYear(NodeYear* nYear)
+{
+	std::cout << "School Year: " << nYear->startYear.year << "-" << nYear->endYear.year;
+	OutputListSem(nYear->semesters);
+	std::cout << "\n";
+	OutputListClass(nYear->classes);
+}
+
+void OutputListYear(ListYear* nYear)
+{
+	if (!nYear) return;
+	NodeYear* pCur = nYear->head;
+	while (pCur)
+	{
+		OutputYear(pCur);
+		pCur = pCur->next;
+	}
+}
+
 bool CanAddSem(ListSem* nSem, int type, date start, date end)
 {
 	switch (type)
@@ -247,6 +266,25 @@ void DeleteListSem(ListSem*& nSem)
 
 	delete nSem->head;
 	nSem->head = nSem->tail = nullptr;
+}
+
+void OutputSem(NodeSem* nSem)
+{
+	std::cout << "Type: " << nSem->type << " "
+		<< "Start Date: " << DisplayDate(nSem->start)
+		<< "End Date: " << DisplayDate(nSem->end)
+		<< "Course in Semester: "; OutputListCourse(nSem->Courses);
+}
+
+void OutputListSem(ListSem* nSem)
+{
+	if (!nSem) return;
+	NodeSem* pCur = nSem->head;
+	while (pCur)
+	{
+		OutputSem(pCur);
+		pCur = pCur->next;
+	}
 }
 
 void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)

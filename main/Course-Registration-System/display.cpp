@@ -214,7 +214,7 @@ home:
 				Gotoxy(127, i);
 				std::cout << char(219);
 			}
-			Gotoxy(75, 5); std::cout << "CREATE 1ST-YEAR";
+			Gotoxy(75, 5); std::cout << "CREATE YEAR";
 			Gotoxy(165, 5); std::cout << "SEMESTER";
 			/************************************/
 			while (1) // remember to break out of while loop
