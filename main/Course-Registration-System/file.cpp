@@ -52,10 +52,10 @@ int CheckLogin(std::string name, std::string pass)
 			if (check == "") break;
 			line = split(check, ",");
 
-			if (name == line[1])
+			if (name == line[0])
 			{
 				//check password
-				if (pass == line[2]) return 0;
+				if (pass == line[1]) return 0;
 				else return -1;
 			}
 		}
