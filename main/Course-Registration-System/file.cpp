@@ -55,8 +55,8 @@ int CheckLogin(std::string name, std::string pass)
 			if (name == line[1])
 			{
 				//check password
-				if (pass != line[2]) return -1;
-				else return 0;
+				if (pass == line[2]) return 0;
+				else return -1;
 			}
 		}
 		file.close();
