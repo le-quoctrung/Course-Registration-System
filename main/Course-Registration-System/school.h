@@ -30,7 +30,6 @@ struct ListScore
 {
 	NodeScore* head, * tail;
 };
-
 //STUDENT
 struct NodeStudent
 {
@@ -39,8 +38,8 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 	TimeTable* tb;
-	ListCourse* enrolled;
-	
+	//ListCourse* enrolled;
+
 
 	//Node
 	NodeStudent* next;
@@ -62,27 +61,6 @@ void AddStudent(ListStudent* nStudent,
 void DeleteListStudent(ListStudent*& nStudent);
 void OutputStudent(NodeStudent* nStudent);							// Output a node of student
 void OutputListStudents(ListStudent* nStudent);						// Output a list of students of a Class
-
-//CLASS
-struct NodeClass
-{
-	ListStudent* Students;
-	int no;
-	std::string name;
-
-	//Node
-	NodeClass* next;
-};
-struct ListClass
-{
-	NodeClass* head;
-	NodeClass* tail;
-};
-
-void AddClass(ListClass*& nClass, int no, std::string name);
-void DeleteListClass(ListClass*& nClass);
-void OutputClass(NodeClass* nClass);
-void OutputListClass(ListClass* nClass);
 
 //COURSE
 struct NodeCourse
@@ -113,6 +91,29 @@ void AddCourse(ListCourse*& nCourse,
 void DeleteListCourse(ListCourse*& nCourse);
 void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
+
+
+//CLASS
+struct NodeClass
+{
+	ListStudent* Students;
+	int no;
+	std::string name;
+
+	//Node
+	NodeClass* next;
+};
+struct ListClass
+{
+	NodeClass* head;
+	NodeClass* tail;
+};
+
+void AddClass(ListClass*& nClass, int no, std::string name);
+void DeleteListClass(ListClass*& nClass);
+void OutputClass(NodeClass* nClass);
+void OutputListClass(ListClass* nClass);
+
 
 //SEMESTER
 struct NodeSem
