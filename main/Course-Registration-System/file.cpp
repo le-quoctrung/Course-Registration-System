@@ -204,6 +204,27 @@ void CreateStudentAccounts(NodeClass* nClass)
 	}
 }
 
+void ExportCourseScoreBoard(NodeCourse* nCourse)
+{
+	std::string path = "Score_" + nCourse->ID + "_" + nCourse->name + "_" + nCourse->TeacherName + ".csv";
+	NodeStudent* pCur = nCourse->cClass->head;
+
+	std::ofstream fout(path);
+	if (fout.is_open())
+	{
+		fout << "No,StudentID,FirstName,LastName,Total_Mark,Midterm_Mark,Other_Mark\n";
+		while (pCur)
+		{
+			fout << pCur->No << ","
+				<< pCur->ID << ","
+				<< pCur->FirstName << ","
+				<< pCur->LastName << ","
+				<< ",,,\n";
+			pCur = pCur->next;
+		}
+	}
+}
+
 void ReadListStudentToClass(std::string path, NodeClass* nClass)
 {
 	if (!nClass) return;
@@ -266,64 +287,6 @@ void ReadListToCourse(std::string path, ListCourse* nCourse)
 
 		file.close();
 	}
-}
-
-void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
-{
-	//int n = 1;
-	if (!nCourse) return;
-     EnrollCourse = new NodeCourse;
-
-	NodeCourse* pCur = nCourse->head;
-	while (pCur != nullptr)
-	{
-		system("CLS");
-		OutputCourse(pCur);
-		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
-		std::cout << "\n----->Press R to enroll";
-	catch_exception:
-		if (!_kbhit())
-		{
-			char x = _getch();
-			if (x == 'a' || x == 'A')
-			{
-				//if (n > 1)n--;
-				if (pCur->prev)
-					pCur = pCur->prev;
-				else
-				{
-					std::cout << "\n\n\t\tThis is head of a list";
-					goto catch_exception;
-				}
-			}
-			else if (x == 'd' || x == 'D')
-			{
-				//if (n < max)n++;
-				if (pCur->next)
-					pCur = pCur->next;
-				else
-				{
-					std::cout << "\n\n\t\tThis is tail of a list";
-					goto catch_exception;
-				}
-			}
-			else if (x == 's' || x == 'S')
-				return;
-			else if (x == 'r' || x == 'R') {
-				std::cout << "\n\n\t\tEnrolled ";
-				EnrollCourse = pCur;
-				goto catch_exception;
-			}
-			else goto catch_exception;
-		}
-	}
-}
-
-void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse) {
-	
-	Enroll(nCourse, EnrollCourse);
-	eCourse->head = EnrollCourse;
-	OutputListCourse(eCourse);
 }
 
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)

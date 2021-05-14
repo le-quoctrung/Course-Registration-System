@@ -44,14 +44,10 @@ int CheckLogin(std::string name, std::string pass);	//	CheckLogin returns
 													//	1	- staff
 													//	404 - file not found
 
-//STUDENT
+//CLASS STUDENT
+void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
 void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, make accounts
 																	// with username is [ID] and password is [DOB (yyyymmdd)]
-void ExportListStudent(ListStudent ListSt, std::ofstream f);				
-
-
-//CLASS
-void ReadListStudentToClass(std::string path, NodeClass* nClass);	// Read from .csv and parse students to Class
 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
@@ -60,5 +56,8 @@ void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCour
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
 void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
+void ExportCourseScoreBoard(NodeCourse* nCourse);
+void UpdateCourseScoreBoard();
+void ImportCourseScoreBoard();
 
 #endif // !_FILE_H_

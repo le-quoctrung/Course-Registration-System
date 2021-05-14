@@ -123,9 +123,10 @@ bool CanAddYear(ListYear* nYear, date today)
 	{
 		if (CmpDate(pCur->startYear, today) == 0)	//Existed
 			return false;
+		pCur = pCur->next;
 	}
 
-
+	if (today.month != 10 && today.day < nYear->tail->endYear.day) return false;
 
 	return true;
 }
@@ -134,6 +135,7 @@ void AddYear(ListYear*& nYear)
 {
 	if (!nYear) return;
 	date today = GetDate();
+	if (!CanAddYear(nYear, today)) return;
 
 	//info
 	NodeYear* newYear = new NodeYear;
@@ -183,9 +185,50 @@ void DeleteListYear(ListYear*& nYear)
 	nYear->head = nYear->tail = nullptr;
 }
 
+void OutputYear(NodeYear* nYear)
+{
+	std::cout << "School Year: " << nYear->startYear.year << "-" << nYear->endYear.year;
+	OutputListSem(nYear->semesters);
+	std::cout << "\n";
+	OutputListClass(nYear->classes);
+}
+
+void OutputListYear(ListYear* nYear)
+{
+	if (!nYear) return;
+	NodeYear* pCur = nYear->head;
+	while (pCur)
+	{
+		OutputYear(pCur);
+		pCur = pCur->next;
+	}
+}
+
+bool CanAddSem(ListSem* nSem, int type, date start, date end)
+{
+	switch (type)
+	{
+	case 1: {if (start.month != 10) return false; break; }  //first sem start at d/10/20xx
+	case 2: {if (start.month != 1) return false; break; }	//second sem start at d/1/20xy
+	case 3: {if (start.month != 5) return false; break; }	//third sem start at  d/5/20xy
+	}
+
+	NodeSem* pCur = nSem->head;
+	if (getSize(pCur) == 3) return false; // 3 Semesters already
+	if (CmpDate(nSem->tail->end, start) == 1) return false; //Conflicted dates
+	while (pCur)
+	{
+		if (pCur->type == type) return false;	//Existed Semester
+		pCur = pCur->next;
+	}
+
+	return true;
+}
+
 void AddSemester(ListSem*& nSem, int type, date start, date end)
 {
 	if (!nSem) return;
+	if (!CanAddSem(nSem, type, start, end)) return;
 
 	//info
 	NodeSem* newSem = new NodeSem;
@@ -223,6 +266,25 @@ void DeleteListSem(ListSem*& nSem)
 
 	delete nSem->head;
 	nSem->head = nSem->tail = nullptr;
+}
+
+void OutputSem(NodeSem* nSem)
+{
+	std::cout << "Type: " << nSem->type << " "
+		<< "Start Date: " << DisplayDate(nSem->start)
+		<< "End Date: " << DisplayDate(nSem->end)
+		<< "Course in Semester: "; OutputListCourse(nSem->Courses);
+}
+
+void OutputListSem(ListSem* nSem)
+{
+	if (!nSem) return;
+	NodeSem* pCur = nSem->head;
+	while (pCur)
+	{
+		OutputSem(pCur);
+		pCur = pCur->next;
+	}
 }
 
 void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)
@@ -465,6 +527,72 @@ void OutputListCourse(ListCourse* nCourse)
 			else goto catch_exception;
 		}
 	}
+}
+void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
+{
+
+	NodeCourse* EnrollCourse = new NodeCourse;
+	//int n = 1;
+	if (!nCourse) return;
+
+	NodeStudent* student = new NodeStudent;
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		system("CLS");
+		OutputCourse(pCur);
+		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
+		std::cout << "\n----->Press R to enroll";
+	catch_exception:
+		if (!_kbhit())
+		{
+			char x = _getch();
+			if (x == 'a' || x == 'A')
+			{
+				//if (n > 1)n--;
+				if (pCur->prev)
+					pCur = pCur->prev;
+				else
+				{
+					std::cout << "\n\n\t\tThis is head of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 'd' || x == 'D')
+			{
+				//if (n < max)n++;
+				if (pCur->next)
+					pCur = pCur->next;
+				else
+				{
+					std::cout << "\n\n\t\tThis is tail of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 's' || x == 'S')
+				return;
+			else if (x == 'r' || x == 'R') {
+			
+				std::cout << "\n\n\t\tEnrolled ";
+				EnrollCourse = pCur;
+				student = enStudent;
+				goto catch_exception;
+			}
+			else goto catch_exception;
+			}
+		
+	}
+}
+void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
+	NodeCourse* EnrollCourse = new NodeCourse;
+	Enroll(nCourse, enStudent);
+	eCourse->head = EnrollCourse;
+	OutputListCourse(eCourse);
+}
+void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent) {
+	Enroll(nCourse, enStudent);
+	nStudent->head = enStudent;
+	OutputListStudents(nStudent);
 }
 
 //ViewScoreBoard 
