@@ -267,13 +267,59 @@ void ReadListToCourse(std::string path, ListCourse* nCourse)
 		file.close();
 	}
 }
-
-void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
+void OutputListCourse(ListCourse* nCourse)
 {
 	//int n = 1;
 	if (!nCourse) return;
-     EnrollCourse = new NodeCourse;
 
+	NodeCourse* pCur = nCourse->head;
+	while (pCur != nullptr)
+	{
+		system("CLS");
+		OutputCourse(pCur);
+		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
+		
+	catch_exception:
+		if (!_kbhit())
+		{
+			char x = _getch();
+			if (x == 'a' || x == 'A')
+			{
+				//if (n > 1)n--;
+				if (pCur->prev)
+					pCur = pCur->prev;
+				else
+				{
+					std::cout << "\n\n\t\tThis is head of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 'd' || x == 'D')
+			{
+				//if (n < max)n++;
+				if (pCur->next)
+					pCur = pCur->next;
+				else
+				{
+					std::cout << "\n\n\t\tThis is tail of a list";
+					goto catch_exception;
+				}
+			}
+			else if (x == 's' || x == 'S')
+				return;
+			else goto catch_exception;
+		}
+	}
+}
+
+void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
+{
+
+	NodeCourse* EnrollCourse = new NodeCourse;
+	//int n = 1;
+	if (!nCourse) return;
+ 
+	NodeStudent* student = new NodeStudent;
 	NodeCourse* pCur = nCourse->head;
 	while (pCur != nullptr)
 	{
@@ -312,6 +358,7 @@ void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
 			else if (x == 'r' || x == 'R') {
 				std::cout << "\n\n\t\tEnrolled ";
 				EnrollCourse = pCur;
+				student = enStudent;
 				goto catch_exception;
 			}
 			else goto catch_exception;
@@ -319,11 +366,17 @@ void Enroll(ListCourse* nCourse,NodeCourse*EnrollCourse)
 	}
 }
 
-void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse) {
-	
-	Enroll(nCourse, EnrollCourse);
+
+void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
+	NodeCourse* EnrollCourse = new NodeCourse;
+	Enroll(nCourse,enStudent);
 	eCourse->head = EnrollCourse;
 	OutputListCourse(eCourse);
+}
+void viewListStudentinaCourse(ListCourse*nCourse,ListStudent*nStudent, NodeStudent* enStudent) {
+	Enroll(nCourse,enStudent);
+	nStudent->head = enStudent;
+	OutputListStudents(nStudent);
 }
 
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
