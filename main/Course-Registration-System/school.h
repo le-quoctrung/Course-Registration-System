@@ -145,7 +145,7 @@ struct ListYear
 void AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
-void OutputListYear(ListYear* nYear);
+void OutputListYear(ListYear* nYear); //not found function definition
 
 struct Score {
 	std::string No, StudentID, StudentFullName, TotalMark, FinalMark, MidTermMark, OtherMark;
