@@ -3,8 +3,6 @@
 #include<string>
 #include "time.h"
 
-
-
 struct TimeTable
 {
 	int** Week;
@@ -19,6 +17,20 @@ void AddTb(TimeTable* source, TimeTable* add);
 void RemoveTb(TimeTable* source, TimeTable* sub);
 void DisplayTb(TimeTable* a);
 
+struct NodeScore
+{
+	int No;
+	float TotalMark, Finalmark, MidtermMark, Othermark;
+	std::string ID, LastName, FirstName;
+
+	NodeScore* next, * prev;
+};
+
+struct ListScore
+{
+	NodeScore* head, * tail;
+};
+
 //STUDENT
 struct NodeStudent
 {
@@ -27,6 +39,7 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 	TimeTable* tb;
+	ListCourse* enrolled;
 
 	//Node
 	NodeStudent* next;
@@ -74,10 +87,10 @@ void OutputListClass(ListClass* nClass);
 struct NodeCourse
 {
 	std::string TeacherName, ID, name;
-	//date start, end; //Khong co date start va end
 	int credit;
 	int max = 50;
 	TimeTable* tb;
+	ListStudent* cClass;
 
 	//Node
 	NodeCourse* next;
@@ -146,17 +159,6 @@ void AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
 void OutputListYear(ListYear* nYear);
-
-struct Score {
-	std::string No, StudentID, StudentFullName, TotalMark, FinalMark, MidTermMark, OtherMark;
-
-	Score* next, * prev;
-	
-};
-struct ScoreList {
-	std::string CourseCode;
-	Score* Head;
-};
 
 //FUNCTIONS FOR LIST
 template<class T>

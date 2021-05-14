@@ -204,6 +204,27 @@ void CreateStudentAccounts(NodeClass* nClass)
 	}
 }
 
+void ExportCourseScoreBoard(NodeCourse* nCourse)
+{
+	std::string path = "Score_" + nCourse->ID + "_" + nCourse->name + "_" + nCourse->TeacherName + ".csv";
+	NodeStudent* pCur = nCourse->cClass->head;
+
+	std::ofstream fout(path);
+	if (fout.is_open())
+	{
+		fout << "No,StudentID,FirstName,LastName,Total_Mark,Midterm_Mark,Other_Mark\n";
+		while (pCur)
+		{
+			fout << pCur->No << ","
+				<< pCur->ID << ","
+				<< pCur->FirstName << ","
+				<< pCur->LastName << ","
+				<< ",,,\n";
+			pCur = pCur->next;
+		}
+	}
+}
+
 void ReadListStudentToClass(std::string path, NodeClass* nClass)
 {
 	if (!nClass) return;
@@ -267,10 +288,6 @@ void ReadListToCourse(std::string path, ListCourse* nCourse)
 		file.close();
 	}
 }
-
-
-
-
 
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
 {
