@@ -161,6 +161,7 @@
     <None Include="courses.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="db\staffs.txt" />
     <Text Include="db\students.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

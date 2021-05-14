@@ -75,5 +75,8 @@
     <Text Include="db\students.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="db\staffs.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

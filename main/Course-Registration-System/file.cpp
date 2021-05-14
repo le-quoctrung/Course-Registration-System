@@ -38,7 +38,8 @@ int CheckLogin(std::string name, std::string pass)
 {
 	if (!CheckFile(pathStudentAccounts)
 		&& !CheckFile(pathStaffAccounts)) return 404;
-	if (name == "admin" && pass == "admin") return 1;
+	//if (name == "admin" && pass == "admin") return 1;
+
 	std::ifstream file(pathStudentAccounts, std::ios::in);
 	if (file.is_open())
 	{
@@ -48,20 +49,19 @@ int CheckLogin(std::string name, std::string pass)
 		while (!file.eof())
 		{
 			std::getline(file, check);
-
+			if (check == "") break;
 			line = split(check, ",");
 
 			if (name == line[1])
 			{
 				//check password
-				if (pass != line[6]) return -1;
+				if (pass != line[2]) return -1;
 				else return 0;
 			}
 		}
 		file.close();
 	}
-	//std::ifstream files(pathStaffAccounts, std::ios::in);
-	/*
+
 	file.open(pathStaffAccounts, std::ios::in);
 	if (file.is_open())
 	{
@@ -71,12 +71,12 @@ int CheckLogin(std::string name, std::string pass)
 		while (!file.eof())
 		{
 			std::getline(file, check);
-
+			if (check == "") break;
 			line = split(check, ",");
 
 			if (name == line[0])
 			{
-				//check password
+				// password
 				if (pass != line[1])
 				{
 					return -1;
@@ -86,7 +86,7 @@ int CheckLogin(std::string name, std::string pass)
 		}
 		file.close();
 	}
-	*/
+	
 	return 404;
 }
 
