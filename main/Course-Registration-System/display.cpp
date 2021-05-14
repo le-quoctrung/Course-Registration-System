@@ -115,18 +115,18 @@ void loginDisplay()
 		}
 	}
 	/*C*/
-	for (int i = x1 + 21; i <= x1 + 31; i++)
+	for (int i = x1 + 22; i <= x1 + 32; i++)
 	{
 		Gotoxy(i, y1 + 13);
 		std::cout << char(223);
 	}
 
-	for (int i = x1 + 21; i <= x1 + 31; i++)
+	for (int i = x1 + 22; i <= x1 + 32; i++)
 	{
 		Gotoxy(i, y1 + 20);
-		std::cout << char(220);
+		std::cout << char(219);
 	}
-	for (int j = x1 + 19; j <= x1 + 20; j++)
+	for (int j = x1 + 20; j <= x1 + 21; j++)
 	{
 		for (int i = y1 + 13; i < y1 + 21; i++)
 		{
@@ -134,10 +134,44 @@ void loginDisplay()
 			std::cout << char(219);
 		}
 	}
-	/*m*/
+	/*mu*/
+	for (int i = y1 + 13; i <= y1 + 20; i++)
+	{
+		Gotoxy(x1 + 37, i);
+		std::cout << char(219);
+		Gotoxy(x1 + 38, i);
+		std::cout << char(219);
 
+		Gotoxy(x1 + 57, i);
+		std::cout << char(219);
+		Gotoxy(x1 + 58, i);
+		std::cout << char(219);
 
+		Gotoxy(x1 + 63, i);
+		std::cout << char(219);
+		Gotoxy(x1 + 64, i);
+		std::cout << char(219);
 
+		Gotoxy(x1 + 78, i);
+		std::cout << char(219);
+		Gotoxy(x1 + 79, i);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 65; i < x1 + 78; i++)
+	{
+		Gotoxy(i, y1 + 20);
+		std::cout << char(220);
+	}
+	/*s*/
+	for (int i = x1 + 83; i < 104; i++)
+	{
+		Gotoxy(i, y1 + 13);
+		std::cout << char(223);
+		Gotoxy(i, y1 + 20);
+		std::cout << char(220);
+		Gotoxy(i, y1 + 16);
+		std::cout << char(220);
+	}
 	/*USER LOGIN*/
 
 }
@@ -285,8 +319,8 @@ home:
 						std::cout << char(219);
 					}
 					Gotoxy(62, 5); std::cout << "CREATE SEMESTER";
-					Gotoxy(110, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
-					Gotoxy(173, 5);  std::cout << "ADD COURSE TO SEMESTER";
+					Gotoxy(111, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
+					Gotoxy(167, 5);  std::cout << "CREATE AND ADD COURSE TO SEMESTER";
 				
 					while (1)
 					{
@@ -371,12 +405,35 @@ home:
 				{
 					goto home;
 				}
-				
+			create:
+
 				/**********CREATE CLASS*******/
 				if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
 				{
-					std::cout << "create class";
-					goto Class;
+					system("cls");
+					hcmusfame();
+					Gotoxy(123, 5); std::cout << "IMPORT FILE";
+					while (1)
+					{
+						coord = GetCursorClick();
+						if (coord.Y < 3 && coord.X < 5)
+							exit(0);
+						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+						{
+							system("cls");
+							loginDisplay();
+							login();
+						}
+						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+							goto Class;
+						if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+							goto home;
+						if (coord.X > 40 && coord.Y < 10)
+						{
+							std::cout << "import";
+							goto create;
+						}
+					}
 				}
 
 				/*********ADD STUDENT TO CLASS********/
