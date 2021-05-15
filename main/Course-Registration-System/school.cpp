@@ -113,6 +113,20 @@ void DisplayTb(TimeTable* a)
 	}
 }
 
+int CountTb(TimeTable* a)
+{
+	int count = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 6; j++)
+		{
+			if (a->Week[i][j] == 1)
+				count++;
+		}
+	}
+	return count;
+}
+
 //SCHOOL STRUCT
 bool CanAddYear(ListYear* nYear, date today)
 {
@@ -136,7 +150,6 @@ bool AddYear(ListYear*& nYear)
 {
 	if (!nYear) return false;
 	date today = GetDate();
-	//if (!CanAddYear(nYear, today)) return false;
 
 	//info
 	NodeYear* newYear = new NodeYear;
@@ -234,8 +247,6 @@ bool CanAddSem(ListSem* nSem, int type, date start, date end)
 bool AddSemester(ListSem*& nSem, int type, date start, date end)
 {
 	if (!nSem) return false;
-	
-	//if (!CanAddSem(nSem, type, start, end)) return false;
 
 	//info
 	NodeSem* newSem = new NodeSem;
@@ -488,10 +499,8 @@ void OutputListStudents(ListStudent* nStudent)
 	if (!nStudent) return;
 
 	NodeStudent* pCur = nStudent->head;
-	int count = 1;
 	while (pCur != nullptr)
 	{
-		std::cout << count++;
 		OutputStudent(pCur);
 		pCur = pCur->next;
 	}

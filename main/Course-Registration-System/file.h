@@ -59,4 +59,8 @@ void ExportCourseScoreBoard(NodeCourse* nCourse);
 void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset);
 void writeScoreboard();
 
+//BINARY FILE
+bool WriteAll(std::string path, ListYear* nYear);
+bool ReadAll(std::string path, ListYear*& nYear);
+
 #endif // !_FILE_H_

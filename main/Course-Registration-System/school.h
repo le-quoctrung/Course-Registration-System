@@ -16,6 +16,7 @@ void CopyTb(TimeTable* source, TimeTable* copyfrom);
 void AddTb(TimeTable* source, TimeTable* add);
 void RemoveTb(TimeTable* source, TimeTable* sub);
 void DisplayTb(TimeTable* a);
+int CountTb(TimeTable* a);
 
 struct NodeScore
 {
@@ -135,6 +136,7 @@ struct ListSem
 	NodeSem* tail;
 };
 
+bool CanAddSem(ListSem* nSem, int type, date start, date end);
 bool AddSemester(ListSem*& nSem,
 	int type,
 	date start,
@@ -161,6 +163,7 @@ struct ListYear
 	NodeYear* tail;
 };
 
+bool CanAddYear(ListYear* nYear, date today);
 bool AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
