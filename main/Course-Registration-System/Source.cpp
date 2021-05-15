@@ -12,7 +12,7 @@ int main()
 login:
     loginDisplay();
     login();
-   
+ 
     
     /*POINT CursorPos;
     HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -111,7 +111,7 @@ login:
     NodeSem* CurSem = getNode(CurYear->semesters->head, y);
     OutputSem(CurSem);
     system("pause");
-
+        
     //Example for adding Class
     if (!AddClass(CurYear->classes, getSize(nYear->head), std::string(CurYear->startYear.year + "CLC"))) return 0;
     ReadListStudentToClass("allStudent.csv", CurYear->classes->head);

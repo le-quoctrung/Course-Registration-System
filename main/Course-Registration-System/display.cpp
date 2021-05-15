@@ -361,7 +361,40 @@ home:
 				if (coord.Y < 10 && coord.X > 41 && coord.X < 127) 
 				{
 					//create year functions here
-					Gotoxy(100, 29); std::cout << "created year"; // for test case
+					system("cls");
+					hcmusfame();
+					Gotoxy(120, 5); std::cout << "CREATE YEAR";
+					Gotoxy(100, 29); std::cout << "START YEAR: ";
+					Gotoxy(100, 32); std::cout << "NOTE: END YEAR WILL BE THE NEXT YEAR OF THE FIRST YEAR";
+					Gotoxy(123, 29);
+					int startYear;
+					std::cin >> startYear;
+					while (1)
+					{
+						coord = GetCursorClick();
+						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
+							exit(0);
+						}
+						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+						{
+							system("cls");
+							loginDisplay();
+							login();
+						}
+						if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+							goto home;
+						if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+							goto year;
+						if (coord.X > 40 && coord.Y < 10)
+						{
+							// create year function here 
+							Gotoxy(100, 34); std::cout << "YEAR " << startYear <<" - "<<startYear +1<<" HAS BEEN CREATED";
+							Sleep(1000);
+							goto year;
+						}
+					}
 					goto year;
 				}
 				
@@ -480,6 +513,15 @@ home:
 					system("cls");
 					hcmusfame();
 					Gotoxy(123, 5); std::cout << "IMPORT FILE";
+					Gotoxy(100, 25); std::cout << "FILE NAME:";
+					Gotoxy(114, 25); std::cout << ". . .";
+					for (int i = 113; i < 130; i++)
+					{
+						Gotoxy(i, 24);
+						std::cout << char(205);
+						Gotoxy(i, 26);
+						std::cout << char(205);
+					}
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -498,9 +540,48 @@ home:
 							goto Class;
 						if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 							goto home;
+						if(coord.X < 130 && coord.X >113 && coord.Y == 25)
+						{
+							Gotoxy(114, 25); std::cout << "     ";
+							Gotoxy(113, 25);
+							char fileName[20];
+							std::cin.get(fileName, 20);
+							while (1)
+							{
+								coord = GetCursorClick();
+								if (coord.Y < 3 && coord.X < 5)
+								{
+									Gotoxy(0, 50);
+									exit(0);
+								}
+								if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+								{
+									system("cls");
+									loginDisplay();
+									login();
+								}
+								if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+									goto Class;
+								if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+									goto home;
+								if (coord.X > 40 && coord.Y < 10)
+								{
+									Gotoxy(107, 28);
+									// import file function here 
+									std::cout << fileName << ".cvs IMPORTED TO THE CLASS";
+									Sleep(2000);
+									goto create;
+								}
+							}
+						}
 						if (coord.X > 40 && coord.Y < 10)
 						{
-							std::cout << "import";
+							Gotoxy(107, 28);
+							// import file function here 
+							std::cout << "PLEASE ENTER FILE NAME";
+							Sleep(2000);
+							Gotoxy(107, 28);
+							std::cout << "                      ";
 							goto create;
 						}
 					}
@@ -733,7 +814,10 @@ home:
 	{
 		COORD coord = GetCursorClick();
 		if (coord.Y < 3 && coord.X < 5)
+		{
+			Gotoxy(0, 50);
 			exit(0);
+		}
 		if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 		{
 			system("cls");
@@ -752,7 +836,10 @@ home:
 			{
 				coord = GetCursorClick();
 				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
 					exit(0);
+				}
 				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 				{
 					system("cls");
@@ -782,7 +869,10 @@ home:
 			{
 				coord = GetCursorClick();
 				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
 					exit(0);
+				}
 				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 				{
 					system("cls");
@@ -810,7 +900,10 @@ home:
 			{
 				coord = GetCursorClick();
 				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
 					exit(0);
+				}
 				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 				{
 					system("cls");
