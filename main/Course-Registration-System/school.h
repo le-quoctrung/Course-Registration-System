@@ -39,6 +39,8 @@ struct NodeStudent
 	date DOB;
 	TimeTable* tb;
 	//ListCourse* enrolled;
+//	ListCourse* enrolled;
+
 
 
 	//Node
@@ -113,7 +115,6 @@ void AddClass(ListClass*& nClass, int no, std::string name);
 void DeleteListClass(ListClass*& nClass);
 void OutputClass(NodeClass* nClass);
 void OutputListClass(ListClass* nClass);
-
 
 //SEMESTER
 struct NodeSem
