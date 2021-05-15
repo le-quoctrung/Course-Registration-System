@@ -74,6 +74,38 @@ login:
     //    }
     //    FlushConsoleInputBuffer(hin);
     //}
-    writeScoreboard();
+    
+    //This is an
+    //example for enrolling system
+    //Please comment this later
+    ListCourse* nCourse = nullptr;
+    NodeStudent* A = new NodeStudent;
+
+    //Student's info
+    A->ID = "19127555";
+    A->FirstName = "Thien";
+    A->LastName = "Hoang";
+    A->DOB = ParseDate("16/12/2001");
+    A->gender = 1;
+    A->SocialID = "12345678910";
+    A->No = 1;
+    A->tb = nullptr;
+    CreateTable(A->tb);
+    //Demo, show Student's info
+    std::cout << "Student Information:\n";
+    OutputStudent(A);
+
+    std::cout << "\n\n";
+    system("pause");
+
+    createEmptyList(nCourse);
+    //ReadListToCourse("courses.csv", nCourse); //Neu test khong duoc thi do file courses.csv nam o sai path, uncomment dong nay roi test thu
+    ReadListToCourse("db\\courses.csv", nCourse);
+    Enroll(nCourse, A);
+    DeleteListCourse(nCourse);
+    DeleteTable(A->tb);
+    delete A;
+
+
     return 0;
 }

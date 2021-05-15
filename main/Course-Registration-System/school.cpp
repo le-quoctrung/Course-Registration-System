@@ -2,6 +2,7 @@
 
 void CreateTable(TimeTable*& a)
 {
+	if (a == nullptr) a = new TimeTable;
 	a->Week = new int* [4](); //S1 S2 S3 S4 = row
 
 	for (int i = 0; i < 4; i++)
@@ -300,6 +301,8 @@ void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::stri
 	newCourse->credit = credit;
 	CopyTb(newCourse->tb, tb);
 	newCourse->max = max;
+	newCourse->cClass = nullptr;
+	createEmptyList(newCourse->cClass); //Course class
 
 	newCourse->next = nullptr;
 	newCourse->prev = nullptr;
@@ -389,6 +392,7 @@ void AddStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	newStudent->gender = gender;
 	CopyDate(newStudent->DOB, ParseDate(dob));
 	newStudent->SocialID = socialid;
+	newStudent->tb = nullptr;
 	CreateTable(newStudent->tb);
 
 	newStudent->next = nullptr;
@@ -449,7 +453,7 @@ void OutputStudent(NodeStudent* nStudent)
 		<< nStudent->LastName << "  "
 		<< getGender(nStudent->gender) << "  "
 		<< DisplayDate(nStudent->DOB) << "  "
-		<< nStudent->SocialID << std::endl;
+		<< nStudent->SocialID << "\n";
 }
 
 void OutputClass(NodeClass* nClass)
@@ -478,15 +482,16 @@ void OutputCourse(NodeCourse* nCourse)
 		<< "Course Name: " << nCourse->name << "\n"
 		<< "Course Teacer: " << nCourse->TeacherName << "\n"
 		<< "Credit: " << nCourse->credit << "\n"
-		<< "Max atendee: " << nCourse->max << "\n\n";
+		<< "Max atendee: " << getSize(nCourse->cClass->head) << "/" << nCourse->max << "\n\n";
 
 	DisplayTb(nCourse->tb);
+	std::cout << "\n\n";
+	OutputListStudents(nCourse->cClass);
 	nCourse = nCourse->next;
 }
 
 void OutputListCourse(ListCourse* nCourse)
 {
-	//int n = 1;
 	if (!nCourse) return;
 
 	NodeCourse* pCur = nCourse->head;
@@ -528,19 +533,18 @@ void OutputListCourse(ListCourse* nCourse)
 		}
 	}
 }
-void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
+
+void Enroll(ListCourse* nCourse, NodeStudent* nStudent)
 {
-	ListCourse* eCourse;
-	NodeCourse* EnrollCourse = new NodeCourse;
-	//int n = 1;
 	if (!nCourse) return;
 
-	NodeStudent* student = new NodeStudent;
 	NodeCourse* pCur = nCourse->head;
 	while (pCur != nullptr)
 	{
 		system("CLS");
 		OutputCourse(pCur);
+		std::cout << "\n\n---------STUDENT'S TIME TABLE---------\n\n";
+		DisplayTb(nStudent->tb);
 		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
 		std::cout << "\n----->Press R to enroll";
 	catch_exception:
@@ -573,16 +577,34 @@ void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
 				return;
 			else if (x == 'r' || x == 'R') {
 
-				std::cout << "\n\n\t\tEnrolled ";
-		
-				EnrollCourse = pCur;
-				student = enStudent;
-
+				if (CmpTb(nStudent->tb, pCur->tb))
+				{
+					//Check if course reached max capacity
+					//Get the current size of class to compare with capacity
+					if (getSize(pCur->cClass->head) == pCur->max)
+					{
+						std::cout << "Course is full!";
+					}
+					else //Enroll 
+					{
+						AddStudent(pCur->cClass,			//Add into cClass (Course class)
+							getSize(pCur->cClass->head) + 1,//Add No as the size of the class
+							nStudent->ID,					//Student infos
+							nStudent->FirstName,
+							nStudent->LastName,
+							nStudent->gender,
+							DisplayDate(nStudent->DOB),
+							nStudent->SocialID);
+						AddTb(nStudent->tb, pCur->tb);	//Add in student timetable
+					}
+					
+					std::cout << "\n\n\t\tEnrolled! ";
+				}
+				else std::cout << "\n\n\t\tConflicted session(s)! ";
 				goto catch_exception;
 			}
 			else goto catch_exception;
-			}
-		
+			}	
 	}
 }
 //void enrollanddisplay(ListCourse* nCourse,NodeStudent*student) {
@@ -656,17 +678,17 @@ void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
 //	OutputListStudents(eStudent);
 //}
 
-void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
-	NodeCourse* EnrollCourse = new NodeCourse;
-	Enroll(nCourse, enStudent);
-	eCourse->head = EnrollCourse;
-	OutputListCourse(eCourse);
-}
-void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent) {
-	Enroll(nCourse, enStudent);
-	nStudent->head = enStudent;
-	OutputListStudents(nStudent);
-}
+//void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
+//	NodeCourse* EnrollCourse = new NodeCourse;
+//	Enroll(nCourse, enStudent);
+//	eCourse->head = EnrollCourse;
+//	OutputListCourse(eCourse);
+//}
+//void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent) {
+//	Enroll(nCourse, enStudent);
+//	nStudent->head = enStudent;
+//	OutputListStudents(nStudent);
+//}
 
 //ViewScoreBoard 
 // 
@@ -689,6 +711,7 @@ void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeSt
 //		}
 //	}
 //
+
 void ViewScoreBoard( ListScore listSc,ListStudent listSt) {
 	std::string input;
 	std::cout << "input your ID: ";
@@ -707,8 +730,7 @@ void ViewScoreBoard( ListScore listSc,ListStudent listSt) {
 	}
 }
 
-
-//Ham chua dung
+//Incorrect function purpose
 //void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
 //	cout << "input the date start: " << endl;
 //	cin >> nCourse->start.day;

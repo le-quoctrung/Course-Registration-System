@@ -67,7 +67,7 @@
     <None Include="allStudent.csv">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="courses.csv">
+    <None Include="db\courses.csv">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

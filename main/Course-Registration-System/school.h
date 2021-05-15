@@ -30,6 +30,7 @@ struct ListScore
 {
 	NodeScore* head, * tail;
 };
+
 //STUDENT
 struct NodeStudent
 {
@@ -38,9 +39,6 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 	TimeTable* tb;
-	//ListCourse* enrolled;
-//	ListCourse* enrolled;
-
 
 
 	//Node
@@ -94,8 +92,8 @@ void DeleteListCourse(ListCourse*& nCourse);
 void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
 void Enroll(ListCourse* nCourse, NodeStudent* enStudent);
-void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent);
-void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent);
+//void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent);
+//void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent);
 void ViewScoreBoard(ListScore listSc, ListStudent listSt);
 
 //CLASS
