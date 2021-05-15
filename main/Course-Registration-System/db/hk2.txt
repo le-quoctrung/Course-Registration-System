@@ -1,0 +1,2 @@
+020,MonHocKi2,HoTuanThanh,20,,TUE,S1,TUE,S2
+021,MonHocKhacCungTrongHocKi2,HoTuanThanh,10,,FRI,S4,MON,S4

@@ -78,5 +78,14 @@
     <Text Include="db\staffs.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="db\hk1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="db\hk2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="db\hk3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
