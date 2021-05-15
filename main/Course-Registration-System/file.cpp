@@ -384,4 +384,41 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 		return;
 }
 
-//Export List Student to file Csv
+
+void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
+	std::ofstream myFile(filename);
+
+	for (int j = 0; j < dataset.size(); ++j)
+	{
+		myFile << dataset.at(j).first;
+		if (j != dataset.size() - 1) myFile << ","; 
+	}
+	myFile << "\n";
+
+	
+	for (int i = 0; i < dataset.at(0).second.size(); ++i)
+	{
+		for (int j = 0; j < dataset.size(); ++j)
+		{
+			myFile << dataset.at(j).second.at(i);
+			if (j != dataset.size() - 1) myFile << ","; 
+		}
+		myFile << "\n";
+	}
+
+	
+	myFile.close();
+}
+void writeScoreboard() {
+	
+	std::vector<int> vec1(10, 0);
+	std::vector<int> vec2(10, 0);
+	std::vector<int > vec3(10, 0);
+
+	std::vector<int> vec4(10, 0);
+	std::vector<int> vec5(10, 0);
+	std::vector<int> vec6(10, 0);
+	std::vector<int> vec7(10, 0);
+	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"NO", vec1}, {"ID", vec2}, {"FULL NAME", vec3}, {"MID MARK", vec4} ,{"FINAL MARK", vec5} ,{"OTHER MARK", vec6} ,{"TOTAL MARK", vec7} };
+	write_csv("7_cols.csv", vals);
+}

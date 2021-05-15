@@ -5,7 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+#include <string>
+#include <utility>
 #include "Tokenizer.h"
 #include "school.h"
 
@@ -59,5 +60,7 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void ExportCourseScoreBoard(NodeCourse* nCourse);
 void UpdateCourseScoreBoard();
 void ImportCourseScoreBoard();
+void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset);
+void writeScoreboard();
 
 #endif // !_FILE_H_
