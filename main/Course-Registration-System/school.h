@@ -206,3 +206,16 @@ void createEmptyList(T*& List)
 	}
 	List->head = List->tail = nullptr;
 }
+//struct courseScore
+//{
+//	int total, final, mid;
+//	courseScore* nextCourse;
+//};
+//struct listScore
+//{
+//	courseScore* node;
+//};
+//struct student
+//{
+//	listScore profile;
+//};
