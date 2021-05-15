@@ -8,11 +8,11 @@
 
 int main()
 {
- /*   Start();
+    Start();
 login:
     loginDisplay();
     login();
-   */
+   
     
     /*POINT CursorPos;
     HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);

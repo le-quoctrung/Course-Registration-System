@@ -6,13 +6,13 @@ void login()
 {
 	std::string name = "", pass = "";
 	char chpass, chname;
-	int x = 155;
+	int x = 152;
 	HienTroChuot();
-	Gotoxy(x, 13);
+	Gotoxy(x, 16);
 	chname = _getch();
 	while (chname != 13)
 	{
-		if (name.length() > 50 && chname != '\b') chname = '\0';
+		if (name.length() > 10 && chname != '\b') chname = '\0';
 		else if (chname == '\b' && name.length() >= 1)//if user typed backspace 
 		{
 			std::cout << "\b \b";//rub the character behind the cursor.
@@ -27,11 +27,11 @@ void login()
 		chname = _getch();
 	}
 
-	Gotoxy(x, 15);
+	Gotoxy(x, 21);
 	chpass = _getch();
 	while (chpass != 13) //character 13 is enter
 	{
-		if (pass.length() > 16 && chpass != '\b') chpass = '\0';
+		if (pass.length() > 10 && chpass != '\b') chpass = '\0';
 		else if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
 		{
 			std::cout << "\b \b";//rub the character behind the cursor.
@@ -46,26 +46,40 @@ void login()
 		chpass = _getch();
 	}
 	//system("cls");
+	COORD coord;
 	while (1)
 	{
-		//std::cout << GetCursorClick().X<<"."<<GetCursorClick().Y; 
-		if (CheckCursorClick(140, 200, 35, 38))
+		coord = GetCursorClick();
+		if (coord.X < 5 && coord.Y < 3)
+		{
+			Gotoxy(0, 50);
+			exit(0);
+		}
+		else if (coord.X < 200 && coord.X > 140 && coord.Y < 38 && coord.Y > 35)
 		{
 			switch (CheckLogin(name, pass))
 			{
 			case 404:
 			{
 				//home();
-				Gotoxy(80, 17);
+				Gotoxy(155, 40);
 				std::cout << "Login failed. Account not found!";
-				break;
+				Sleep(1500);
+				Gotoxy(x, 16); std::cout << "              ";
+				Gotoxy(x, 21); std::cout << "              ";
+				login();
+				
 			}
 			case -1:
 			{
 				//home();
-				Gotoxy(80, 17);
+				Gotoxy(148, 40);
 				std::cout << "Login failed. Username and Password missmatch!";
-				break;
+				Sleep(1500);
+				Gotoxy(x, 16); std::cout << "              ";
+				Gotoxy(x, 21); std::cout << "              ";
+				login();
+				
 			}
 			case 1:
 			{
@@ -75,7 +89,7 @@ void login()
 				Sleep(2000);
 				system("cls");
 				home_staff();
-				break;
+				
 			}
 			case 0:
 			{
@@ -86,7 +100,7 @@ void login()
 				system("cls");
 				home_student();
 				//ShowStudentInfo(name, pass);
-				break;
+				
 			}
 			}
 			break;

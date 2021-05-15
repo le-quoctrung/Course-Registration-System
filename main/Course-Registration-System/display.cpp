@@ -5,6 +5,45 @@
 
 void loginDisplay()
 {
+	for (int i = 0; i < 6; i++)
+	{
+		Gotoxy(i, 3);
+		std::cout << char(223);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		Gotoxy(5, i);
+		std::cout << char(219);
+	}
+	Gotoxy(2, 1); std::cout << "X";
+	/***********/
+	Gotoxy(150, 14); std::cout << "USER NAME";
+	Gotoxy(150, 19); std::cout << "PASSWORD";
+	for (int i = 150; i < 190; i++)
+	{
+		Gotoxy(i, 15); 
+		std::cout << char(205);
+		Gotoxy(i, 17);
+		std::cout << char(205);
+		Gotoxy(i, 20);
+		std::cout << char(205);
+		Gotoxy(i, 22);
+		std::cout << char(205);
+	}
+	/*for (int i = 16; i < 18; i++)
+	{
+		Gotoxy(150, i);
+		std::cout << char(219);
+		Gotoxy(189, i);
+		std::cout << char(219);
+	}
+	for (int i = 21; i < 23; i++)
+	{
+		Gotoxy(150, i);
+		std::cout << char(219);
+		Gotoxy(189, i);
+		std::cout << char(219);
+	}*/
 	/***********LOGIN BOX***********/
 
 	int  x = 140, y = 10;
@@ -41,7 +80,7 @@ void loginDisplay()
 		Gotoxy(i, y + 28);
 		std::cout << char(220);
 	}
-	Gotoxy(x + 27, y + 27); std::cout << "LOGIN";
+	Gotoxy(x + 28, y + 27); std::cout << "LOG IN";
 	/***************LOGO****************/
 
 	int x1 = 10, y1 = 16;
@@ -172,6 +211,21 @@ void loginDisplay()
 		Gotoxy(i, y1 + 16);
 		std::cout << char(220);
 	}
+	for (int i = y1 + 13; i < y1 + 17; i++)
+	{
+		Gotoxy(x1 + 83, i);
+		std::cout << char(219);
+		Gotoxy(x1 + 84, i);
+		std::cout << char(219);
+	}
+	for (int i = y1 + 17; i < y1 + 21; i++)
+	{
+		Gotoxy(103, i);
+		std::cout << char(219);
+		Gotoxy(102, i);
+		std::cout << char(219);
+	}
+	
 	/*USER LOGIN*/
 
 }
@@ -257,7 +311,11 @@ home:
 	{
 		COORD coord = GetCursorClick();
 		if (coord.Y < 3 && coord.X < 5)
+		{
+			Gotoxy(0, 50);
 			exit(0);
+		}
+			
 		if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 		{
 			system("cls");
@@ -284,7 +342,10 @@ home:
 			{
 				coord = GetCursorClick();
 				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
 					exit(0);
+				}
 				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 				{
 					system("cls");
@@ -326,7 +387,10 @@ home:
 					{
 						coord = GetCursorClick();
 						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
 							exit(0);
+						}
 						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 						{
 							system("cls");
@@ -393,7 +457,10 @@ home:
 			{
 				coord = GetCursorClick();
 				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
 					exit(0);
+				}
 				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 				{
 					system("cls");
@@ -417,7 +484,10 @@ home:
 					{
 						coord = GetCursorClick();
 						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
 							exit(0);
+						}
 						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 						{
 							system("cls");
@@ -458,7 +528,10 @@ home:
 					{
 						coord = GetCursorClick();
 						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
 							exit(0);
+						}
 						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 						{
 							system("cls");
@@ -508,7 +581,10 @@ home:
 		{
 			coord = GetCursorClick();
 			if (coord.Y < 3 && coord.X < 5)
+			{
+				Gotoxy(0, 50);
 				exit(0);
+			}
 			if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 			{
 				system("cls");
@@ -542,7 +618,10 @@ home:
 				{
 					coord = GetCursorClick();
 					if (coord.Y < 3 && coord.X < 5)
+					{
+						Gotoxy(0, 50);
 						exit(0);
+					}
 					if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 					{
 						system("cls");
@@ -585,7 +664,10 @@ home:
 						{
 							coord = GetCursorClick();
 							if (coord.Y < 3 && coord.X < 5)
+							{
+								Gotoxy(0, 50);
 								exit(0);
+							}
 							if (coord.Y < 3 && coord.X < 23 && coord.X >5)
 							{
 								system("cls");
