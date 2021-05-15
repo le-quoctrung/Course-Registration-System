@@ -2,6 +2,7 @@
 
 void CreateTable(TimeTable*& a)
 {
+	if (a == nullptr) a = new TimeTable;
 	a->Week = new int* [4](); //S1 S2 S3 S4 = row
 
 	for (int i = 0; i < 4; i++)
@@ -131,14 +132,16 @@ bool CanAddYear(ListYear* nYear, date today)
 	return true;
 }
 
-void AddYear(ListYear*& nYear)
+bool AddYear(ListYear*& nYear)
 {
-	if (!nYear) return;
+	if (!nYear) return false;
 	date today = GetDate();
-	if (!CanAddYear(nYear, today)) return;
+	//if (!CanAddYear(nYear, today)) return false;
 
 	//info
 	NodeYear* newYear = new NodeYear;
+	newYear->classes = nullptr;
+	newYear->semesters = nullptr;
 	createEmptyList(newYear->classes);
 	createEmptyList(newYear->semesters);
 
@@ -157,12 +160,13 @@ void AddYear(ListYear*& nYear)
 	//empty head? make new head
 	if (!nYear->head)
 	{
-		nYear->head = newYear;
-		return;
+		nYear->head = nYear->tail = newYear;
+		return true;
 	}
 
 	nYear->tail->next = newYear;
 	nYear->tail = newYear;
+	return true;
 }
 
 void DeleteListYear(ListYear*& nYear)
@@ -197,8 +201,10 @@ void OutputListYear(ListYear* nYear)
 {
 	if (!nYear) return;
 	NodeYear* pCur = nYear->head;
+	int count = 1;
 	while (pCur)
 	{
+		std::cout << count++ << ". ";
 		OutputYear(pCur);
 		pCur = pCur->next;
 	}
@@ -225,28 +231,31 @@ bool CanAddSem(ListSem* nSem, int type, date start, date end)
 	return true;
 }
 
-void AddSemester(ListSem*& nSem, int type, date start, date end)
+bool AddSemester(ListSem*& nSem, int type, date start, date end)
 {
-	if (!nSem) return;
-	if (!CanAddSem(nSem, type, start, end)) return;
+	if (!nSem) return false;
+	
+	//if (!CanAddSem(nSem, type, start, end)) return false;
 
 	//info
 	NodeSem* newSem = new NodeSem;
 	newSem->type = type;
 	CopyDate(newSem->start, start);
 	CopyDate(newSem->end, end);
+	newSem->Courses = nullptr;
 	createEmptyList(newSem->Courses);
 	newSem->next = nullptr;
 
 	//empty head? make new head
 	if (!nSem->head)
 	{
-		nSem->head = newSem;
-		return;
+		nSem->head = nSem->tail = newSem;
+		return true;
 	}
 
 	nSem->tail->next = newSem;
 	nSem->tail = newSem;
+	return true;
 }
 
 void DeleteListSem(ListSem*& nSem)
@@ -270,26 +279,31 @@ void DeleteListSem(ListSem*& nSem)
 
 void OutputSem(NodeSem* nSem)
 {
-	std::cout << "Type: " << nSem->type << " "
-		<< "Start Date: " << DisplayDate(nSem->start)
-		<< "End Date: " << DisplayDate(nSem->end)
-		<< "Course in Semester: "; OutputListCourse(nSem->Courses);
+	std::cout << "Type: " << nSem->type << "\t"
+		<< "Start Date: " << DisplayDate(nSem->start) << "\t"
+		<< "End Date: " << DisplayDate(nSem->end) << "\n"
+		<< "Course in Semester: \n\n"; OutputHeaderListCourse(nSem->Courses);
+	std::cout << "\n";
 }
 
 void OutputListSem(ListSem* nSem)
 {
 	if (!nSem) return;
 	NodeSem* pCur = nSem->head;
+	int count = 1;
 	while (pCur)
 	{
-		OutputSem(pCur);
+		std::cout << count++ << ". ";
+		std::cout << "Type: " << pCur->type << "\t"
+			<< "Start Date: " << DisplayDate(pCur->start) << "\t"
+			<< "End Date: " << DisplayDate(pCur->end) << "\n";
 		pCur = pCur->next;
 	}
 }
 
-void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)
+bool AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::string teacher, int credit, TimeTable* tb, int max)
 {
-	if (!nCourse) return;
+	if (!nCourse) return false;
 
 	NodeCourse* newCourse = new NodeCourse;
 	newCourse->tb = new TimeTable;
@@ -300,6 +314,8 @@ void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::stri
 	newCourse->credit = credit;
 	CopyTb(newCourse->tb, tb);
 	newCourse->max = max;
+	newCourse->cClass = nullptr;
+	createEmptyList(newCourse->cClass); //Course class
 
 	newCourse->next = nullptr;
 	newCourse->prev = nullptr;
@@ -307,12 +323,13 @@ void AddCourse(ListCourse*& nCourse, std::string id, std::string name, std::stri
 	if (!nCourse->head)
 	{
 		nCourse->head = nCourse->tail = newCourse;
-		return;
+		return true;
 	}
 
 	nCourse->tail->next = newCourse;
 	newCourse->prev = nCourse->tail;
 	nCourse->tail = newCourse;
+	return true;
 }
 
 void DeleteListCourse(ListCourse*& nCourse)
@@ -334,14 +351,15 @@ void DeleteListCourse(ListCourse*& nCourse)
 	nCourse->head = nCourse->tail = nullptr;
 }
 
-void AddClass(ListClass*& nClass, int no, std::string name)
+bool AddClass(ListClass*& nClass, int no, std::string name)
 {
-	if (!nClass) return;
+	if (!nClass) return false;
 
 	//info
 	NodeClass* newClass = new NodeClass;
 	newClass->no = no;
 	newClass->name = name;
+	newClass->Students = nullptr;
 	createEmptyList(newClass->Students);
 
 	newClass->next = nullptr;
@@ -350,11 +368,12 @@ void AddClass(ListClass*& nClass, int no, std::string name)
 	if (!nClass->head)
 	{
 		nClass->head = nClass->tail = newClass;
-		return;
+		return true;
 	}
 
 	nClass->tail->next = newClass;
 	nClass->tail = newClass;
+	return true;
 }
 
 void DeleteListClass(ListClass*& nClass)
@@ -376,9 +395,49 @@ void DeleteListClass(ListClass*& nClass)
 	nClass->head = nClass->tail = nullptr;
 }
 
-void AddStudent(ListStudent* nStudent, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid)
+void OutputClass(NodeClass* nClass)
 {
-	if (!nStudent) return;
+	std::cout << nClass->name
+		<< nClass->no << " \n";
+	OutputListStudents(nClass->Students);
+	std::cout << "\n";
+}
+
+void OutputListClass(ListClass* nClass)
+{
+	if (!nClass) return;
+	
+	NodeClass* pCur = nClass->head;
+	int count = 1;
+	while (pCur != nullptr)
+	{
+		std::cout << count++ <<". ";
+		std::cout << pCur->name << pCur->no << "\n";
+		pCur = pCur->next;
+	}
+}
+
+NodeStudent* FindStudent(ListClass* nClass, std::string ID)
+{
+	if (!nClass) return nullptr;
+
+	NodeClass* Class = nClass->head;
+	while (Class)
+	{
+		NodeStudent* pCur = Class->Students->head;
+		while (pCur)
+		{
+			if (pCur->ID == ID) return pCur;
+			pCur = pCur->next;
+		}
+		Class = Class->next;
+	}
+	return nullptr; //Not found!
+}
+
+bool AddStudent(ListStudent* nStudent, int no, std::string id, std::string firstname, std::string lastname, bool gender, std::string dob, std::string socialid)
+{
+	if (!nStudent) return false;
 
 	//info
 	NodeStudent* newStudent = new NodeStudent;
@@ -389,6 +448,7 @@ void AddStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	newStudent->gender = gender;
 	CopyDate(newStudent->DOB, ParseDate(dob));
 	newStudent->SocialID = socialid;
+	newStudent->tb = nullptr;
 	CreateTable(newStudent->tb);
 
 	newStudent->next = nullptr;
@@ -397,11 +457,12 @@ void AddStudent(ListStudent* nStudent, int no, std::string id, std::string first
 	if (nStudent->head == nullptr)
 	{
 		nStudent->head = nStudent->tail = newStudent;
-		return;
+		return true;
 	}
 
 	nStudent->tail->next = newStudent;
 	nStudent->tail = newStudent;
+	return true;
 }
 
 void DeleteListStudent(ListStudent*& nStudent)
@@ -427,8 +488,10 @@ void OutputListStudents(ListStudent* nStudent)
 	if (!nStudent) return;
 
 	NodeStudent* pCur = nStudent->head;
+	int count = 1;
 	while (pCur != nullptr)
 	{
+		std::cout << count++;
 		OutputStudent(pCur);
 		pCur = pCur->next;
 	}
@@ -449,27 +512,7 @@ void OutputStudent(NodeStudent* nStudent)
 		<< nStudent->LastName << "  "
 		<< getGender(nStudent->gender) << "  "
 		<< DisplayDate(nStudent->DOB) << "  "
-		<< nStudent->SocialID << std::endl;
-}
-
-void OutputClass(NodeClass* nClass)
-{
-	std::cout << nClass->name
-		<< nClass->no << " \n";
-	OutputListStudents(nClass->Students);
-	std::cout << "\n";
-}
-
-void OutputListClass(ListClass* nClass)
-{
-	if (!nClass) return;
-
-	NodeClass* pCur = nClass->head;
-	while (pCur != nullptr)
-	{
-		std::cout << pCur->name << pCur->no << "\n";
-		pCur = pCur->next;
-	}
+		<< nStudent->SocialID << "\n";
 }
 
 void OutputCourse(NodeCourse* nCourse)
@@ -478,15 +521,16 @@ void OutputCourse(NodeCourse* nCourse)
 		<< "Course Name: " << nCourse->name << "\n"
 		<< "Course Teacer: " << nCourse->TeacherName << "\n"
 		<< "Credit: " << nCourse->credit << "\n"
-		<< "Max atendee: " << nCourse->max << "\n\n";
+		<< "Max atendee: " << getSize(nCourse->cClass->head) << "/" << nCourse->max << "\n\n";
 
 	DisplayTb(nCourse->tb);
+	std::cout << "\n\n";
+	OutputListStudents(nCourse->cClass);
 	nCourse = nCourse->next;
 }
 
 void OutputListCourse(ListCourse* nCourse)
 {
-	//int n = 1;
 	if (!nCourse) return;
 
 	NodeCourse* pCur = nCourse->head;
@@ -528,19 +572,35 @@ void OutputListCourse(ListCourse* nCourse)
 		}
 	}
 }
-void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
+
+void OutputHeaderListCourse(ListCourse* nCourse)
 {
-	ListCourse* eCourse;
-	NodeCourse* EnrollCourse = new NodeCourse;
-	//int n = 1;
+	if (!nCourse) return;
+	NodeCourse* pCur = nCourse->head;
+	int count = 1;
+	while (pCur)
+	{
+		std::cout << count++ << " .";
+		std::cout << "ID: " << pCur->ID << "  "
+			<< "Course Name: " << pCur->name << "  "
+			<< "Course Teacer: " << pCur->TeacherName <<  "  "
+			<< "Credit: " << pCur->credit <<  "  "
+			<< "Max atendee: " << getSize(pCur->cClass->head) << "/" << pCur->max << "\n";
+		pCur = pCur->next;
+	}
+}
+
+void Enroll(ListCourse* nCourse, NodeStudent* nStudent)
+{
 	if (!nCourse) return;
 
-	NodeStudent* student = new NodeStudent;
 	NodeCourse* pCur = nCourse->head;
 	while (pCur != nullptr)
 	{
 		system("CLS");
 		OutputCourse(pCur);
+		std::cout << "\n\n---------STUDENT'S TIME TABLE---------\n\n";
+		DisplayTb(nStudent->tb);
 		std::cout << "\n\n\n<--Press A\t\tPress S to exit\t\tPress D-->";
 		std::cout << "\n----->Press R to enroll";
 	catch_exception:
@@ -573,18 +633,37 @@ void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
 				return;
 			else if (x == 'r' || x == 'R') {
 
-				std::cout << "\n\n\t\tEnrolled ";
-		
-				EnrollCourse = pCur;
-				student = enStudent;
-
+				if (CmpTb(nStudent->tb, pCur->tb))
+				{
+					//Check if course reached max capacity
+					//Get the current size of class to compare with capacity
+					if (getSize(pCur->cClass->head) == pCur->max)
+					{
+						std::cout << "Course is full!";
+					}
+					else //Enroll 
+					{
+						AddStudent(pCur->cClass,			//Add into cClass (Course class)
+							getSize(pCur->cClass->head) + 1,//Add No as the size of the class
+							nStudent->ID,					//Student infos
+							nStudent->FirstName,
+							nStudent->LastName,
+							nStudent->gender,
+							DisplayDate(nStudent->DOB),
+							nStudent->SocialID);
+						AddTb(nStudent->tb, pCur->tb);	//Add in student timetable
+					}
+					
+					std::cout << "\n\n\t\tEnrolled! ";
+				}
+				else std::cout << "\n\n\t\tConflicted session(s)! ";
 				goto catch_exception;
 			}
 			else goto catch_exception;
-			}
-		
+			}	
 	}
 }
+
 //void enrollanddisplay(ListCourse* nCourse,NodeStudent*student) {
 //
 //	ListCourse* eCourse;
@@ -656,17 +735,17 @@ void Enroll(ListCourse* nCourse, NodeStudent* enStudent)
 //	OutputListStudents(eStudent);
 //}
 
-void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
-	NodeCourse* EnrollCourse = new NodeCourse;
-	Enroll(nCourse, enStudent);
-	eCourse->head = EnrollCourse;
-	OutputListCourse(eCourse);
-}
-void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent) {
-	Enroll(nCourse, enStudent);
-	nStudent->head = enStudent;
-	OutputListStudents(nStudent);
-}
+//void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent) {
+//	NodeCourse* EnrollCourse = new NodeCourse;
+//	Enroll(nCourse, enStudent);
+//	eCourse->head = EnrollCourse;
+//	OutputListCourse(eCourse);
+//}
+//void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent) {
+//	Enroll(nCourse, enStudent);
+//	nStudent->head = enStudent;
+//	OutputListStudents(nStudent);
+//}
 
 //ViewScoreBoard 
 // 
@@ -689,6 +768,7 @@ void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeSt
 //		}
 //	}
 //
+
 void ViewScoreBoard( ListScore listSc,ListStudent listSt) {
 	std::string input;
 	std::cout << "input your ID: ";
@@ -707,8 +787,7 @@ void ViewScoreBoard( ListScore listSc,ListStudent listSt) {
 	}
 }
 
-
-//Ham chua dung
+//Incorrect function purpose
 //void Create_a_Course_registration_session(ListCourse& List,NodeCourse*nCourse) {
 //	cout << "input the date start: " << endl;
 //	cin >> nCourse->start.day;

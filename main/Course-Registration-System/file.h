@@ -52,14 +52,10 @@ void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, 
 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
-void Enroll(ListCourse* nCourse, NodeCourse* EnrollCourse);
-void displayEnrollCourse(ListCourse* nCourse, NodeCourse* EnrollCourse, ListCourse* eCourse);
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
 void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void ExportCourseScoreBoard(NodeCourse* nCourse);
-void UpdateCourseScoreBoard();
-void ImportCourseScoreBoard();
 void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset);
 void writeScoreboard();
 

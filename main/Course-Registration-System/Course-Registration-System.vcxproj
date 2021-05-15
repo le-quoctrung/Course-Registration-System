@@ -158,9 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="allStudent.csv" />
-    <None Include="courses.csv" />
+    <None Include="db\courses.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="db\hk1.txt" />
+    <Text Include="db\hk2.txt" />
+    <Text Include="db\hk3.txt" />
     <Text Include="db\staffs.txt" />
     <Text Include="db\students.txt" />
   </ItemGroup>

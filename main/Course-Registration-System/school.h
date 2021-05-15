@@ -30,6 +30,7 @@ struct ListScore
 {
 	NodeScore* head, * tail;
 };
+
 //STUDENT
 struct NodeStudent
 {
@@ -38,9 +39,6 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 	TimeTable* tb;
-	//ListCourse* enrolled;
-//	ListCourse* enrolled;
-
 
 
 	//Node
@@ -52,7 +50,7 @@ struct ListStudent
 	NodeStudent* tail;
 };
 
-void AddStudent(ListStudent* nStudent,
+bool AddStudent(ListStudent* nStudent,
 	int no,
 	std::string id,
 	std::string firstname,
@@ -83,7 +81,7 @@ struct ListCourse
 	NodeCourse* tail;
 };
 
-void AddCourse(ListCourse*& nCourse,
+bool AddCourse(ListCourse*& nCourse,
 	std::string id,
 	std::string name,
 	std::string teacher,
@@ -93,9 +91,10 @@ void AddCourse(ListCourse*& nCourse,
 void DeleteListCourse(ListCourse*& nCourse);
 void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
+void OutputHeaderListCourse(ListCourse* nCourse); //Only show the course header
 void Enroll(ListCourse* nCourse, NodeStudent* enStudent);
-void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent);
-void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent);
+//void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent);
+//void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent);
 void ViewScoreBoard(ListScore listSc, ListStudent listSt);
 
 //CLASS
@@ -114,10 +113,11 @@ struct ListClass
 	NodeClass* tail;
 };
 
-void AddClass(ListClass*& nClass, int no, std::string name);
+bool AddClass(ListClass*& nClass, int no, std::string name);
 void DeleteListClass(ListClass*& nClass);
 void OutputClass(NodeClass* nClass);
 void OutputListClass(ListClass* nClass);
+NodeStudent* FindStudent(ListClass* nClass, std::string ID);
 
 //SEMESTER
 struct NodeSem
@@ -135,7 +135,7 @@ struct ListSem
 	NodeSem* tail;
 };
 
-void AddSemester(ListSem*& nSem,
+bool AddSemester(ListSem*& nSem,
 	int type,
 	date start,
 	date end);
@@ -161,7 +161,7 @@ struct ListYear
 	NodeYear* tail;
 };
 
-void AddYear(ListYear*& nYear);
+bool AddYear(ListYear*& nYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
 void OutputListYear(ListYear* nYear); //not found function definition
