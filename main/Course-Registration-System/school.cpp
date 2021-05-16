@@ -469,20 +469,25 @@ void OutputListClass(ListClass* nClass)
 	}
 }
 
-NodeStudent* FindStudent(ListClass* nClass, std::string ID)
+NodeStudent* FindStudent(ListYear* nYear, std::string ID)
 {
-	if (!nClass) return nullptr;
+	if (!nYear) return nullptr;
 
-	NodeClass* Class = nClass->head;
-	while (Class)
+	NodeYear* pCur = nYear->head;
+	while (pCur)
 	{
-		NodeStudent* pCur = Class->Students->head;
-		while (pCur)
+		NodeClass* pCurClass = pCur->classes->head;
+		while (pCurClass)
 		{
-			if (pCur->ID == ID) return pCur;
-			pCur = pCur->next;
+			NodeStudent* pCurStu = pCurClass->Students->head;
+			while (pCurStu)
+			{
+				if (pCurStu->ID == ID) return pCurStu;
+				pCurStu = pCurStu->next;
+			}
+			pCurClass = pCurClass->next;
 		}
-		Class = Class->next;
+		pCur = pCur->next;
 	}
 	return nullptr; //Not found!
 }
@@ -713,5 +718,32 @@ void Enroll(ListCourse* nCourse, NodeStudent* nStudent)
 			else goto catch_exception;
 			}	
 	}
+}
+
+bool Enroll(NodeCourse* nCourse, NodeStudent* nStudent)
+{
+	if (CmpTb(nStudent->tb, nCourse->tb))
+	{
+		//Check if course reached max capacity
+		//Get the current size of class to compare with capacity
+		if (getSize(nCourse->cClass->head) == nCourse->max)
+		{
+			std::cout << "Course is full!";
+		}
+		else //Enroll 
+		{
+			AddStudent(nCourse->cClass,			//Add into cClass (Course class)
+				getSize(nCourse->cClass->head) + 1,//Add No as the size of the class
+				nStudent->ID,					//Student infos
+				nStudent->FirstName,
+				nStudent->LastName,
+				nStudent->gender,
+				DisplayDate(nStudent->DOB),
+				nStudent->SocialID);
+			AddTb(nStudent->tb, nCourse->tb);	//Add in student timetable
+		}
+		return true;
+	}
+	return false;
 }
 

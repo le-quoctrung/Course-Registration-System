@@ -520,7 +520,9 @@ bool WriteAll(std::string path, ListYear* nYear)
 					//NodeCourse info
 					NodeCourse* CurCourse = getNode(CurSem->Courses->head, course);
 					fout.write((char*)&CurCourse->ID, sizeof(std::string));
-					fout.write((char*)&CurCourse->name, sizeof(std::string));
+					size_t strsize = CurCourse->name.size();
+					fout.write((char*)&strsize, sizeof(size_t));
+					fout.write(CurCourse->name.c_str(), strsize);
 					fout.write((char*)&CurCourse->TeacherName, sizeof(std::string));
 					fout.write((char*)&CurCourse->credit, sizeof(int));
 					fout.write((char*)&CurCourse->max, sizeof(int));
@@ -597,6 +599,10 @@ bool ReadAll(std::string path, ListYear*& nYear)
 		//TimeTable Info
 		int numTb, row, col;
 
+		//Str fix
+		size_t strsize = 0;
+		char* temp = nullptr;
+
 		fin.read((char*)&numYear, sizeof(int));
 		for (int i = 0; i < numYear; i++)
 		{
@@ -622,13 +628,12 @@ bool ReadAll(std::string path, ListYear*& nYear)
 					fin.read((char*)&stuNo, sizeof(int));
 					fin.read((char*)&stuID, sizeof(std::string));
 					fin.read((char*)&FirstName, sizeof(std::string));
-					size_t strsize = 0;
 					fin.read((char*)&strsize, sizeof(size_t));
-					char* temp = new char[strsize + 1];
+					temp = new char[strsize + 1];
 					fin.read(temp, strsize);
 					temp[strsize] = '\0';
 					LastName = temp;
-					delete[]temp;
+					delete[]temp; temp = nullptr;
 					fin.read((char*)&gender, sizeof(bool));
 					fin.read((char*)&DOB, sizeof(date));
 					fin.read((char*)&SocialID, sizeof(std::string));
@@ -664,7 +669,12 @@ bool ReadAll(std::string path, ListYear*& nYear)
 					CreateTable(tb);
 
 					fin.read((char*)&ID, sizeof(std::string));
-					fin.read((char*)&cName, sizeof(std::string));
+					fin.read((char*)&strsize, sizeof(size_t));
+					temp = new char[strsize + 1];
+					fin.read(temp, strsize);
+					temp[strsize] = '\0';
+					cName = temp;
+					delete[]temp; temp = nullptr;
 					fin.read((char*)&TeacherName, sizeof(std::string));
 					fin.read((char*)&credit, sizeof(int));
 					fin.read((char*)&max, sizeof(int));
@@ -685,13 +695,12 @@ bool ReadAll(std::string path, ListYear*& nYear)
 						fin.read((char*)&stuNo, sizeof(int));
 						fin.read((char*)&stuID, sizeof(std::string));
 						fin.read((char*)&FirstName, sizeof(std::string));
-						size_t strsize = 0;
 						fin.read((char*)&strsize, sizeof(size_t));
-						char* temp = new char[strsize + 1];
+						temp = new char[strsize + 1];
 						fin.read(temp, strsize);
 						temp[strsize] = '\0';
 						LastName = temp;
-						delete[]temp;
+						delete[]temp; temp = nullptr;
 						fin.read((char*)&gender, sizeof(bool));
 						fin.read((char*)&DOB, sizeof(date));
 						fin.read((char*)&SocialID, sizeof(std::string));
@@ -701,7 +710,7 @@ bool ReadAll(std::string path, ListYear*& nYear)
 				}
 			}
 		}
-		fin.close();
 	}
+	fin.close();
 	return true;
 }

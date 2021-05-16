@@ -114,6 +114,7 @@ void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
 void OutputHeaderListCourse(ListCourse* nCourse); //Only show the course header
 void Enroll(ListCourse* nCourse, NodeStudent* enStudent);
+bool Enroll(NodeCourse* nCourse, NodeStudent* nStudent);
 
 //CLASS
 struct NodeClass
@@ -135,7 +136,6 @@ bool AddClass(ListClass*& nClass, int no, std::string name);
 void DeleteListClass(ListClass*& nClass);
 void OutputClass(NodeClass* nClass);
 void OutputListClass(ListClass* nClass);
-NodeStudent* FindStudent(ListClass* nClass, std::string ID);
 
 //SEMESTER
 struct NodeSem
@@ -193,6 +193,7 @@ bool AddYear(ListYear*& nYear, date startYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
 void OutputListYear(ListYear* nYear); //not found function definition
+NodeStudent* FindStudent(ListYear* nYear, std::string ID);
 
 //FUNCTIONS FOR LIST
 template<class T>

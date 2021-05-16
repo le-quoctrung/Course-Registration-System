@@ -87,5 +87,8 @@
     <Text Include="db\hk3.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="db\scoreboard.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
