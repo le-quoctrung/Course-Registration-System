@@ -560,8 +560,69 @@ home:
 						/*********CREATE COURSE REGISTATION SESSION********/
 						else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
 						{
-							std::cout << "CREATE COURSE REGISTATION SESSION";
-							goto sem;
+							system("cls");
+							hcmusfame();
+							Gotoxy(105, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
+							
+							date start, end;
+							Gotoxy(65, 20);
+							std::cout << "START:   ";
+							Gotoxy(80, 20); std::cout << "DAY:";
+							Gotoxy(90, 20); std::cout << "MONTH:";
+							Gotoxy(105, 20); std::cout << "YEAR:";
+							
+							Gotoxy(65, 23);
+							std::cout << "END: ";
+							Gotoxy(80, 23); std::cout << "DAY:";
+							Gotoxy(90, 23); std::cout << "MONTH:";
+							Gotoxy(105, 23); std::cout << "YEAR:";
+							
+						checkvalid:
+
+							HienTroChuot();
+							Gotoxy(86, 20); std::cin >> start.day;
+							Gotoxy(98, 20); std::cin >> start.month;
+							Gotoxy(111, 20); std::cin >> start.year;
+							Gotoxy(86, 23); std::cin >> end.day;
+							Gotoxy(98, 23); std::cin >> end.month;
+							Gotoxy(111, 23); std::cin >> end.year;
+							AnTroChuot();
+							if ((!CheckValid(start) || !CheckValid(end)) || CmpDate(start,end))
+							{
+								Gotoxy(85, 27);
+								std::cout << "INVAIL DATE";
+								Gotoxy(86, 20); std::cout << "   ";
+								Gotoxy(98, 20); std::cout << "   ";
+								Gotoxy(111, 20); std::cout << "   ";
+								Gotoxy(86, 23); std::cout << "   ";
+								Gotoxy(98, 23); std::cout << "     ";
+								Gotoxy(111, 23); std::cout << "     ";
+								goto checkvalid;
+							}
+							while (1)
+							{
+								coord = GetCursorClick();
+								if (coord.Y < 3 && coord.X < 5)
+								{
+									Gotoxy(0, 50);
+									exit(0);
+								}
+								if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+								{
+									system("cls");
+									loginDisplay();
+									login();
+								}
+								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+									goto home;
+								if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+									goto year;
+								if (coord.X > 40 && coord.Y < 10)
+								{
+				// create course registation session function here (use date start and end to control)				
+								goto sem;
+								}
+							}
 						}
 
 						/************ADD COURSE TO SEMESTER************/
@@ -597,9 +658,10 @@ home:
 							controlTyping(courseName, 20);
 							
 							Gotoxy(102, 24);
+							HienTroChuot();
 							int sem;
 							std::cin >> sem;
-							
+							AnTroChuot();
 							while (sem > 3 || sem < 1)
 							{
 								Gotoxy(103, 27);
@@ -637,7 +699,7 @@ home:
 									goto sem;
 								}
 							}
-							goto sem;
+							
 						}
 					}			
 					//break;

@@ -1,4 +1,5 @@
 #include "Tokenizer.h"
+#include"Console.h"
 
 std::vector<std::string> split(std::string haystack, std::string needle)
 {
@@ -27,6 +28,7 @@ std::vector<std::string> split(std::string haystack, std::string needle)
 }
 void controlTyping(std::string &name, short limit)
 {
+	HienTroChuot();
 	name = "";
 	char chname = _getch();
 	while (chname != ENTER) //character 13 is enter
@@ -45,4 +47,5 @@ void controlTyping(std::string &name, short limit)
 		}
 		chname = _getch();
 	}
+	AnTroChuot();
 }

@@ -64,12 +64,12 @@ int CmpDate(date a, date b)
 		else if (a.month == b.month)
 		{
 			if (a.day > b.day) return 1;
-			else if (a.day == b.day) return 0;
+			else if (a.day == b.day) return -1;
 			else return -1;
 		}
-		else return -1;
+		else return 0;
 	}
-	else return -1;
+	else return 0;
 }
 
 void CopyDate(date& a, date b)
