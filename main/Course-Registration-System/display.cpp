@@ -980,8 +980,8 @@ home:
 			std::cout << char(219);
 		}
 		Gotoxy(62, 5); std::cout << "VIEW LIST OF COURSE";
-		Gotoxy(115, 5); std::cout << "UPDATE COURSE INFORMATION";
-		Gotoxy(180, 5);  std::cout << "DELETE COURSE";
+		Gotoxy(120, 5); std::cout << "CREATE COURSE";
+		Gotoxy(177, 5);  std::cout << "DELETE COURSE";
 	
 		while (1)
 		{
@@ -1101,11 +1101,92 @@ home:
 				//break;
 			}
 
-			/*********UPDATE COURSE INFORMATION********/
+			/*********CREATE COURSE INFORMATION********/
 			else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
 			{
-				std::cout << "update";
-				goto course;
+			system("cls");
+			hcmusfame();
+			Gotoxy(123, 5); std::cout << "IMPORT FILE";
+		
+			Gotoxy(100, 30); std::cout << "FILE NAME:";
+			for (int i = 113; i < 130; i++)
+			{
+				
+				Gotoxy(i, 29);
+				std::cout << char(205);
+				Gotoxy(i, 31);
+				std::cout << char(205);
+			}
+		createcourse:
+		
+			Gotoxy(114, 30); std::cout << "...           ";
+			while (1)
+			{
+				coord = GetCursorClick();
+				if (coord.Y < 3 && coord.X < 5)
+				{
+					Gotoxy(0, 50);
+					exit(0);
+				}
+				if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+				{
+					system("cls");
+					loginDisplay();
+					login();
+				}
+				if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+					goto Class;
+				if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+					goto home;
+				if (coord.X < 130 && coord.X >113 && coord.Y < 32 && coord.Y > 28)
+				{
+					std::string fileName;
+
+					Gotoxy(114, 30); std::cout << "    ";
+					Gotoxy(114, 30);
+					controlTyping(fileName, 20);
+					while (1)
+					{
+						coord = GetCursorClick();
+						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
+							exit(0);
+						}
+						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+						{
+							system("cls");
+							loginDisplay();
+							login();
+						}
+						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+							goto Class;
+						if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+							goto home;
+						if (coord.X > 40 && coord.Y < 10)
+						{
+							Gotoxy(104, 34);
+							// import file function here 
+							std::cout << "CREATED SUCCESSFULLY!";
+							Gotoxy(90, 36);
+							
+							
+							Sleep(2500);
+							goto course;
+						}
+					}
+				}
+				if (coord.X > 40 && coord.Y < 10)
+				{
+					Gotoxy(104, 23);
+					// import file function here 
+					std::cout << "PLEASE IMPORT FILE TO CREATE COURSE";
+					Sleep(2000);
+					Gotoxy(104, 28);
+					std::cout << "                                       ";
+					goto createcourse;
+				}
+			}
 			}
 
 			/*************DELETE COURSE***********/
