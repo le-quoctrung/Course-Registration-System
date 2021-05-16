@@ -512,10 +512,6 @@ home:
 							Gotoxy(134, 29);
 							short sem;
 							std::cin >> sem;
-							
-							Gotoxy(134, 33);
-							short year;
-							std::cin >> year;
 							while (sem > 3 || sem < 1)
 							{
 								Gotoxy(123, 27);
@@ -523,11 +519,15 @@ home:
 								Sleep(1500);
 								Gotoxy(123, 27);
 								std::cout << "                               ";
-								Gotoxy(123, 29);
+								Gotoxy(134, 29);
 								std::cout << "        ";
-								Gotoxy(123, 29);
+								Gotoxy(134, 29);
 								std::cin >> sem;
 							}
+							Gotoxy(134, 33);
+							short year;
+							std::cin >> year;
+							
 							while (1)
 							{
 								coord = GetCursorClick();
