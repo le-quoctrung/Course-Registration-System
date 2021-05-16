@@ -792,7 +792,7 @@ home:
 			Gotoxy(64, 5); std::cout << "CREATE CLASS";
 			Gotoxy(117, 5); std::cout << "ADD STUDENT TO CLASS";
 			Gotoxy(180, 5);  std::cout << "VIEW SCORE";
-
+			Gotoxy(0, 15); OutputListYear(nYear);
 			while (1)
 			{
 				coord = GetCursorClick();
@@ -812,18 +812,20 @@ home:
 				{
 					goto home;
 				}
-			
 
 				/**********CREATE CLASS*******/
 				if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
 				{
-				
+					std::string fileName, type, no;
+					std::stringstream className;
 
 					system("cls");
 					hcmusfame();
 					Gotoxy(123, 5); std::cout << "IMPORT FILE";
-					Gotoxy(100, 25); std::cout << "CLASS NAME:";
-					Gotoxy(100, 30); std::cout << "FILE NAME:";
+					Gotoxy(100, 25); std::cout << "CLASS NO:";
+					Gotoxy(100, 30); std::cout << "CLASS TYPE:";
+					Gotoxy(100, 35); std::cout << "FILE NAME:";
+					Gotoxy(0, 15); OutputListYear(nYear);
 					for (int i = 113; i < 130; i++)
 					{
 						Gotoxy(i, 24);
@@ -834,10 +836,15 @@ home:
 						std::cout << char(205);
 						Gotoxy(i, 31);
 						std::cout << char(205);
+						Gotoxy(i, 34);
+						std::cout << char(205);
+						Gotoxy(i, 36);
+						std::cout << char(205);
 					}
 				create:
 					Gotoxy(114, 25); std::cout << "...           ";
 					Gotoxy(114, 30); std::cout << "...           ";
+					Gotoxy(114, 35); std::cout << "...           ";
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -856,17 +863,21 @@ home:
 							goto Class;
 						if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 							goto home;
-						if(coord.X < 130 && coord.X >113 && coord.Y < 27 && coord.Y >23)
+						if (coord.X < 130 && coord.X >113 && coord.Y < 27 && coord.Y >23)
 						{
-							std::string fileName, className;
 
 							Gotoxy(114, 25); std::cout << "    ";
 							Gotoxy(114, 25);
-							controlTyping(className, 10);
+							controlTyping(no, 5);
 
 							Gotoxy(114, 30); std::cout << "    ";
 							Gotoxy(114, 30);
+							controlTyping(type, 10);
+
+							Gotoxy(114, 35); std::cout << "    ";
+							Gotoxy(114, 35);
 							controlTyping(fileName, 20);
+
 							while (1)
 							{
 								coord = GetCursorClick();
@@ -887,33 +898,53 @@ home:
 									goto home;
 								if (coord.X > 40 && coord.Y < 10)
 								{
-									Gotoxy(104, 34);
+									Gotoxy(104, 40);
+									className << std::to_string(nYear->tail->startYear.year).substr(2, 2) << type;
 									// import file function here 
+									std::ifstream check(fileName);
+									if (!check)
+									{
+										std::cout << "CAN'T OPEN FILE";
+										Sleep(2000);
+										goto Class;
+									}
+
+									if (!AddClass(nYear->tail->classes, std::stoi(no), className.str()))
+									{
+										std::cout << "CAN'T ADD CLASS";
+										Sleep(2000);
+										goto Class;
+									}
+
 									std::cout << "CREATED SUCCESSFULLY!";
-									Gotoxy(90, 36);
-									std::cout << fileName << ".cvs IMPORTED TO THE CLASS " << className;
+									Gotoxy(90, 45);
+									ReadListStudentToClass(fileName, nYear->tail->classes->tail);
+									std::cout << fileName << " WAS IMPORTED TO THE CLASS " << className.str() << no;
 									//std::cout << "                                                         ";
-									Sleep(2500);
+									OutputClass(nYear->tail->classes->tail);
+									Sleep(3500);
 									goto Class;
 								}
 							}
 						}
-						if (coord.X > 40 && coord.Y < 10)
-						{
-							Gotoxy(104, 23);
-							// import file function here 
-							std::cout << "PLEASE ENTER CLASS NAME AND FILE NAME";
-							Sleep(2000);
-							Gotoxy(104, 28);
-							std::cout << "                      ";
-							goto create;
-						}
+						//what's this for
+						//if (coord.X > 40 && coord.Y < 10)
+						//{
+						//	Gotoxy(104, 23);
+						//	// import file function here 
+						//	std::cout << "PLEASE ENTER CLASS NAME AND FILE NAME";
+						//	Sleep(2000);
+						//	Gotoxy(104, 28);
+						//	std::cout << "                      ";
+						//	goto create;
+						//}
 					}
 				}
 
 				/*********ADD STUDENT TO CLASS********/
 				else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
 				{
+					if (nYear->tail->classes->head == nullptr) { std::cout << "NONE CLASS IS AVAILABLE!"; Sleep(1000); goto Class; }
 					std::cout << "added";
 					goto Class;
 				}
@@ -921,6 +952,7 @@ home:
 				/*************VIEW SCORE************/
 				else if (coord.X > 155 && coord.Y < 10)
 				{
+					if (nYear->tail->classes->head == nullptr) { std::cout << "NONE CLASS IS AVAILABLE!"; Sleep(1000); goto Class; }
 				scoreboard:
 					system("cls");
 					hcmusfame();
@@ -928,7 +960,6 @@ home:
 					std::cout << "PUBLIC THIS SCORE BOARD";
 
 					// view scoreboard function here
-			
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -982,7 +1013,22 @@ home:
 		Gotoxy(62, 5); std::cout << "VIEW LIST OF COURSE";
 		Gotoxy(120, 5); std::cout << "CREATE COURSE";
 		Gotoxy(177, 5);  std::cout << "DELETE COURSE";
-	
+		Gotoxy(0, 15); OutputListYear(nYear);
+
+		Gotoxy(100, 29); std::cout << "YEAR INDEX:";
+		std::string yearIndex;
+		for (int i = 122; i < 128; i++)
+		{
+			Gotoxy(i, 28);
+			std::cout << char(205);
+			Gotoxy(i, 30);
+			std::cout << char(205);
+		}
+		Gotoxy(122, 29);
+		controlTyping(yearIndex, 2);
+		NodeYear* CurYear = getNode(nYear->head, std::stoi(yearIndex));
+		if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto course; }
+
 		while (1)
 		{
 			coord = GetCursorClick();
@@ -1019,7 +1065,8 @@ home:
 				Gotoxy(66, 5); std::cout << "IMPORT";
 				Gotoxy(124, 5); std::cout << "EXPORT";
 				Gotoxy(178, 5);  std::cout << "VIEW COURSE SCORE";
-			
+				Gotoxy(0, 15); OutputListCourse(CurYear->semesters->tail->Courses);
+
 				while (1)
 				{
 					coord = GetCursorClick();
@@ -1107,7 +1154,7 @@ home:
 			system("cls");
 			hcmusfame();
 			Gotoxy(123, 5); std::cout << "IMPORT FILE";
-		
+			Gotoxy(0, 15); OutputSem(CurYear->semesters->tail);
 			Gotoxy(100, 30); std::cout << "FILE NAME:";
 			for (int i = 113; i < 130; i++)
 			{
@@ -1135,7 +1182,7 @@ home:
 					login();
 				}
 				if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
-					goto Class;
+					goto course;
 				if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 					goto home;
 				if (coord.X < 130 && coord.X >113 && coord.Y < 32 && coord.Y > 28)
@@ -1166,11 +1213,19 @@ home:
 						if (coord.X > 40 && coord.Y < 10)
 						{
 							Gotoxy(104, 34);
-							// import file function here 
+							// import file function here
+							std::ifstream check(fileName);
+							if (!check)
+							{
+								std::cout << "CAN'T OPEN FILE";
+								Sleep(2000);
+								goto Class;
+							}
+
+							ReadListToCourse(fileName,CurYear->semesters->tail->Courses);						
 							std::cout << "CREATED SUCCESSFULLY!";
-							Gotoxy(90, 36);
-							
-							
+							OutputSem(CurYear->semesters->tail);
+							Gotoxy(90, 36);											
 							Sleep(2500);
 							goto course;
 						}

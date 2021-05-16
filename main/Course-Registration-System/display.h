@@ -1,8 +1,8 @@
 #pragma once
-#include<iostream>
-#include<fstream>
-#include"Console.h"
-#include<vector>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include "Console.h"
 #include "school.h"
 #include "Login_System.h"
 
