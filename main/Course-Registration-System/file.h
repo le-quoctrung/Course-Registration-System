@@ -53,11 +53,13 @@ void CreateStudentAccounts(NodeClass* nClass);						// From an available Class, 
 //COURSE 
 void ReadListToCourse(std::string path, ListCourse* nCourse);
 NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher);
+bool UpdateCourse(NodeCourse*& nCourse, std::string ID, std::string name, std::string teacher, int credit, int max,
+	std::string str, std::string str2, std::string str3, std::string str4);
 void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher);
 void ExportCourseScoreBoard(NodeCourse* nCourse);
-void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset);
-void writeScoreboard();
+//void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset);
+//void writeScoreboard();
 
 //BINARY FILE
 bool WriteAll(std::string path, ListYear* nYear);

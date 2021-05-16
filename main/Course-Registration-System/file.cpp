@@ -304,6 +304,28 @@ NodeCourse* FindCourse(ListCourse* nCourse, std::string ID, std::string teacher)
 	return nullptr;
 }
 
+bool UpdateCourse(NodeCourse*& nCourse, std::string ID, std::string name, std::string teacher, int credit, int max, 
+	std::string str, std::string str2, std::string str3, std::string str4)
+{
+	if (!nCourse) return false;
+
+	nCourse->ID = ID;
+	nCourse->name = name;
+	nCourse->TeacherName = teacher;
+	nCourse->credit = credit;
+	nCourse->max = max;
+
+	if (str != "MON" || str != "TUE" || str != "WED" || str != "THU" || str != "FRI" || str != "SAT") return false;
+	if (str2 != "S1" || str2 != "S2" || str2 != "S3" || str2 != "S4") return false;
+	ParseTb(nCourse->tb, str, str2);
+
+	if (str3 != "MON" || str3 != "TUE" || str3 != "WED" || str3 != "THU" || str3 != "FRI" || str3 != "SAT") return false;
+	if (str4 != "S1" || str4 != "S2" || str4 != "S3" || str4 != "S4") return false;
+	ParseTb(nCourse->tb, str3, str4);
+
+	return true;
+}
+
 void UpdateCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 {
 	if (!nCourse) return;
@@ -355,33 +377,25 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 
 	NodeCourse* pCur = FindCourse(nCourse, ID, teacher);
 	if (!pCur) return;
-	OutputCourse(pCur);
-	std::string x;
-	std::cout << "\n\nDELETE THIS COURSE? Y/N"; std::cin >> x;
 
-	if (x == "Y" || x == "y")
+	//head
+	if (pCur->prev == nullptr)
 	{
-		//head
-		if (pCur->prev == nullptr)
-		{
-			pCur->next->prev = nullptr;
-			nCourse->head = pCur->next;
-		}
-		//tail
-		else if (pCur->next == nullptr)
-		{
-			pCur->prev->next = nullptr;
-			nCourse->tail = pCur->prev;
-		}
-		else
-		{
-			pCur->prev->next = pCur->next;
-			pCur->next->prev = pCur->prev;
-		}
-		delete(pCur);
+		pCur->next->prev = nullptr;
+		nCourse->head = pCur->next;
 	}
-	else if (x == "N" || x == "n")
-		return;
+	//tail
+	else if (pCur->next == nullptr)
+	{
+		pCur->prev->next = nullptr;
+		nCourse->tail = pCur->prev;
+	}
+	else
+	{
+		pCur->prev->next = pCur->next;
+		pCur->next->prev = pCur->prev;
+	}
+	delete(pCur);
 }
 
 //void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
