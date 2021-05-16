@@ -1012,6 +1012,7 @@ home:
 		}
 		Gotoxy(62, 5); std::cout << "VIEW LIST OF COURSE";
 		Gotoxy(120, 5); std::cout << "CREATE COURSE";
+<<<<<<< Updated upstream
 		Gotoxy(177, 5);  std::cout << "DELETE COURSE";
 		Gotoxy(0, 15); OutputListYear(nYear);
 
@@ -1029,6 +1030,10 @@ home:
 		NodeYear* CurYear = getNode(nYear->head, std::stoi(yearIndex));
 		if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto course; }
 
+=======
+		Gotoxy(177, 5);  std::cout << "UPDATE COURSE";
+	
+>>>>>>> Stashed changes
 		while (1)
 		{
 			coord = GetCursorClick();
@@ -1244,11 +1249,230 @@ home:
 			}
 			}
 
-			/*************DELETE COURSE***********/
+			/*************UPDATE AND DELETE COURSE***********/
 			else if (coord.X > 155 && coord.Y < 10)
 			{
-				std::cout << "deleted";
-				goto course;
+				system("cls");
+				hcmusfame();
+				for (int i = 0; i <= 10; i++)
+				{
+					Gotoxy(127, i);
+					std::cout << char(219);
+				}
+				Gotoxy(75, 5); std::cout << "UPDATE COURSE INFORMATION";
+				Gotoxy(165, 5); std::cout << "DELETE COURSE";
+				std::string courseID, teacherName;
+				while (1)
+				{
+					coord = GetCursorClick();
+					if (coord.Y < 3 && coord.X < 5)
+					{
+						Gotoxy(0, 50);
+						exit(0);
+					}
+					if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+					{
+						system("cls");
+						loginDisplay();
+						login();
+					}
+					if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+					{
+						goto course;
+					}
+					/********HCMUS********/
+					if (coord.Y < 10 && coord.X < 40 && coord.Y >3)
+						goto home;
+					/*********DELETE************/
+					if (coord.X > 127 && coord.Y < 10)
+					{
+						Gotoxy(30, 22); std::cout << "COURSE INFORMATION: ";
+						Gotoxy(30, 25); std::cout << "COURSE ID:";
+						Gotoxy(30, 30); std::cout << "TEACHER:";
+						for (int i = 43; i < 60; i++)
+						{
+							Gotoxy(i, 24);
+							std::cout << char(205);
+							Gotoxy(i, 26);
+							std::cout << char(205);
+							Gotoxy(i, 29);
+							std::cout << char(205);
+							Gotoxy(i, 31);
+							std::cout << char(205);
+						}
+					
+						Gotoxy(44, 25); std::cout << "...           ";
+						Gotoxy(44, 30); std::cout << "...           ";
+						while (1)
+						{
+							coord = GetCursorClick();
+							if (coord.Y < 3 && coord.X < 5)
+							{
+								Gotoxy(0, 50);
+								exit(0);
+							}
+							if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+							{
+								system("cls");
+								loginDisplay();
+								login();
+							}
+							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+								goto Class;
+							if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+								goto home;
+							if (coord.X < 60 && coord.X >43 && coord.Y < 27 && coord.Y >23)
+							{
+								std::string courseID, teacherName;
+
+								Gotoxy(44, 25); std::cout << "    ";
+								Gotoxy(44, 25);
+								controlTyping(teacherName, 10);
+
+								Gotoxy(44, 30); std::cout << "    ";
+								Gotoxy(44, 30);
+								controlTyping(courseID, 20);
+								while (1)
+								{
+									coord = GetCursorClick();
+									if (coord.Y < 3 && coord.X < 5)
+									{
+										Gotoxy(0, 50);
+										exit(0);
+									}
+									if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+									{
+										system("cls");
+										loginDisplay();
+										login();
+									}
+									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+										goto Class;
+									if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+										goto home;
+									if (coord.X > 127 && coord.Y < 10)
+									{
+										Gotoxy(104, 34);
+										// import file function here 
+										std::cout << "DELETE SUCCESSFULLY!";
+										Sleep(2500);
+										goto course;
+									}
+								}
+							}
+							
+						}
+					}
+					/*********UPDATE************/
+					if (coord.Y < 10 && coord.X > 41 && coord.X < 127)
+					{
+						Gotoxy(30, 22); std::cout << "CURRENT COURSE INFORMATION (for searching): ";
+						Gotoxy(30, 25); std::cout << "COURSE ID:";
+						Gotoxy(30, 30); std::cout << "TEACHER:";
+
+						Gotoxy(110, 22); std::cout << "NEW COURSE INFORMATION: ";
+						Gotoxy(110, 27); std::cout << "COURSE ID:";
+						Gotoxy(110, 31); std::cout << "COURSE NAME:";
+						Gotoxy(110, 35); std::cout << "TEACHER NAME:";
+						Gotoxy(110, 39); std::cout << "NUMBER OF CREDITS:";
+						Gotoxy(110, 43); std::cout << "DAY OF WEEK       1:        2:";
+						Gotoxy(110, 47); std::cout << "SESSION OF DAY    1:        2:";
+						for (int i = 43; i < 60; i++)
+						{
+						
+
+							std::cout << char(205);
+							Gotoxy(i, 24);
+							std::cout << char(205);
+							Gotoxy(i, 26);
+							std::cout << char(205);
+							Gotoxy(i, 29);
+							std::cout << char(205);
+							Gotoxy(i, 31);
+							std::cout << char(205);
+						}
+
+						Gotoxy(44, 25); std::cout << "...           ";
+						Gotoxy(44, 30); std::cout << "...           ";
+						while (1)
+						{
+							coord = GetCursorClick();
+							if (coord.Y < 3 && coord.X < 5)
+							{
+								Gotoxy(0, 50);
+								exit(0);
+							}
+							if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+							{
+								system("cls");
+								loginDisplay();
+								login();
+							}
+							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+								goto Class;
+							if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+								goto home;
+							if (coord.X < 60 && coord.X >43 && coord.Y < 27 && coord.Y >23)
+							{
+								std::string courseID, teacherName;
+								std::string nCourseID, nTeacherName, nCourseName, credit, DOW1, DOW2, Session1, Session2;
+								Gotoxy(44, 25); std::cout << "    ";
+								Gotoxy(44, 25);
+								controlTyping(teacherName, 10);
+
+								Gotoxy(44, 30); std::cout << "    ";
+								Gotoxy(44, 30);
+								controlTyping(courseID, 20);
+
+								Gotoxy(130, 27);
+								controlTyping(nCourseID, 30);
+								Gotoxy(130, 31);
+								controlTyping(nCourseName, 30);
+								Gotoxy(130, 35);
+								controlTyping(nTeacherName, 30);
+								Gotoxy(130, 39);
+								controlTyping(credit, 30);
+								Gotoxy(130, 43);
+								controlTyping(DOW1, 30);
+								Gotoxy(140, 43);
+								controlTyping(courseID, 30);
+								Gotoxy(130, 47);
+								controlTyping(Session1, 30);
+								Gotoxy(140, 47);
+								controlTyping(Session2, 30);
+
+								while (1)
+								{
+									coord = GetCursorClick();
+									if (coord.Y < 3 && coord.X < 5)
+									{
+										Gotoxy(0, 50);
+										exit(0);
+									}
+									if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+									{
+										system("cls");
+										loginDisplay();
+										login();
+									}
+									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
+										goto Class;
+									if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
+										goto home;
+									if (coord.X > 40 && coord.X < 127 && coord.Y < 10)
+									{
+										Gotoxy(104, 34);
+										// import file function here 
+										std::cout << "UPDATE SUCCESSFULLY!";
+										Sleep(2500);
+										goto course;
+									}
+								}
+							}
+
+						}
+					}
+				}
 			}
 		}
 			//break;
