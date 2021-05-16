@@ -10,7 +10,7 @@ void login()
 	HienTroChuot();
 	Gotoxy(x, 16);
 	chname = _getch();
-	while (chname != 13)
+	while (chname != ENTER)
 	{
 		if (name.length() > 10 && chname != '\b') chname = '\0';
 		else if (chname == '\b' && name.length() >= 1)//if user typed backspace 
@@ -29,7 +29,7 @@ void login()
 
 	Gotoxy(x, 21);
 	chpass = _getch();
-	while (chpass != 13) //character 13 is enter
+	while (chpass != ENTER) //character 13 is enter
 	{
 		if (pass.length() > 10 && chpass != '\b') chpass = '\0';
 		else if (chpass == '\b' && pass.length() >= 1)//if user typed backspace 
@@ -63,6 +63,8 @@ void login()
 			{
 				//home();
 				Gotoxy(155, 40);
+				std::cout << "                                            ";
+				Gotoxy(155, 40);
 				std::cout << "Login failed. Account not found!";
 				Sleep(1500);
 				Gotoxy(x, 16); std::cout << "              ";
@@ -84,8 +86,8 @@ void login()
 			case 1:
 			{
 				system("cls");
-				Gotoxy(60, 17);
-				std::cout << "WELCOME BACK HCMUS STAFF! HAVE A NICE WEEK!";
+				Gotoxy(87, 23);
+				std::cout << "WELCOME BACK STAFF! HAVE A NICE WEEK!";
 				Sleep(2000);
 				system("cls");
 				home_staff();
@@ -94,12 +96,12 @@ void login()
 			case 0:
 			{
 				system("cls");
-				Gotoxy(60, 17);
+				Gotoxy(90, 23);
 				std::cout << "WELCOME BACK TO HELL STUDENT!";
 				Sleep(1500);
 				system("cls");
-				home_student();
-				//ShowStudentInfo(name, pass);
+				home_student(name);
+				//ShowStudentInfo(name);
 				
 			}
 			}

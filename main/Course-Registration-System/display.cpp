@@ -2,6 +2,7 @@
 #include"Console.h"
 #include"file.h"
 #include"Login_System.h"
+#include"Tokenizer.h"
 
 void loginDisplay()
 {
@@ -552,17 +553,22 @@ home:
 					system("cls");
 					hcmusfame();
 					Gotoxy(123, 5); std::cout << "IMPORT FILE";
-					Gotoxy(100, 25); std::cout << "FILE NAME:";
-					
+					Gotoxy(100, 25); std::cout << "CLASS NAME:";
+					Gotoxy(100, 30); std::cout << "FILE NAME:";
 					for (int i = 113; i < 130; i++)
 					{
 						Gotoxy(i, 24);
 						std::cout << char(205);
 						Gotoxy(i, 26);
 						std::cout << char(205);
+						Gotoxy(i, 29);
+						std::cout << char(205);
+						Gotoxy(i, 31);
+						std::cout << char(205);
 					}
 				create:
-					Gotoxy(114, 25); std::cout << "...";
+					Gotoxy(114, 25); std::cout << "...           ";
+					Gotoxy(114, 30); std::cout << "...           ";
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -583,13 +589,15 @@ home:
 							goto home;
 						if(coord.X < 130 && coord.X >113 && coord.Y < 27 && coord.Y >23)
 						{
-							Gotoxy(114, 25); std::cout << "     ";
-							Gotoxy(113, 25);
-							/*std::string fileName;
-							std::cin.ignore();
-							std::getline(std::cin, fileName);*/
-							int fileName;
-							std::cin >> fileName;
+							std::string fileName, className;
+
+							Gotoxy(114, 25); std::cout << "    ";
+							Gotoxy(114, 25);
+							controlTyping(className, 10);
+
+							Gotoxy(114, 30); std::cout << "    ";
+							Gotoxy(114, 30);
+							controlTyping(fileName, 20);
 							while (1)
 							{
 								coord = GetCursorClick();
@@ -610,13 +618,14 @@ home:
 									goto home;
 								if (coord.X > 40 && coord.Y < 10)
 								{
-									Gotoxy(107, 28);
+									Gotoxy(107, 34);
 									// import file function here 
-									std::cout << fileName << ".cvs IMPORTED TO THE CLASS";
-									Gotoxy(107, 28);
-									std::cout << "                                              ";
-									Sleep(1500);
-									goto create;
+									std::cout << "CREATED SUCCESSFULLY!";
+									Gotoxy(100, 36);
+									std::cout << fileName << ".cvs IMPORTED TO THE CLASS " << className;
+									//std::cout << "                                                         ";
+									Sleep(2500);
+									goto Class;
 								}
 							}
 						}
@@ -624,8 +633,8 @@ home:
 						{
 							Gotoxy(107, 28);
 							// import file function here 
-							std::cout << "PLEASE ENTER FILE NAME";
-							Sleep(1500);
+							std::cout << "PLEASE ENTER CLASS NAME AND FILE NAME";
+							Sleep(2000);
 							Gotoxy(107, 28);
 							std::cout << "                      ";
 							goto create;
@@ -840,7 +849,7 @@ home:
 		}
 	}
 }
-void home_student() // vẽ giao diện sau khi login thành công
+void home_student(std::string name) // vẽ giao diện sau khi login thành công
 {
 home:
 
@@ -856,6 +865,7 @@ home:
 	Gotoxy(62, 5); std::cout << "ENROLLED COURSE";
 	Gotoxy(120, 5); std::cout << "ENROLL COURSE";
 	Gotoxy(176, 5);  std::cout << "VIEW SCORE BOARD";
+	ShowStudentInfo(name);
 	while (1)
 	{
 		COORD coord = GetCursorClick();
@@ -904,6 +914,7 @@ home:
 				}
 			}
 		}
+		/**********ENROLL COURSE**********/
 		else if (coord.Y < 10 && coord.X>98 && coord.X < 155)
 		{
 		enroll:
@@ -937,6 +948,7 @@ home:
 				}
 			}
 		}
+		/*******8***VIEW SCOREBOARD***********/
 		else if (coord.Y < 10 && coord.X>155)
 		{
 			system("cls");
@@ -964,10 +976,34 @@ home:
 		}
 	}
 }
-void ShowStudentInfo(std::string name, std::string pass)
+void ShowStudentInfo(std::string name)
 {
-	int x = 100, y = 10;
-	std::ifstream file(pathStudentAccounts, std::ios::in);
+	int x = 95, y = 20;
+	std::ifstream file("allStudent.csv", std::ios::in);
+	for (int i = 70; i <= 140; i++)
+	{
+		Gotoxy(i, 18);
+		std::cout << char(205);
+		Gotoxy(i, 38);
+		std::cout << char(205);
+	}
+	for (int i = 19; i < 38; i++)
+	{
+		Gotoxy(69, i);
+		std::cout << char(186);
+		Gotoxy(141, i);
+		std::cout << char(186);
+	}
+	Gotoxy(69, 18); std::cout << char(201);
+	Gotoxy(69, 38); std::cout << char(200);
+	Gotoxy(141, 38); std::cout << char(188);
+	Gotoxy(141, 18); std::cout << char(187);
+	Gotoxy(x, y); std::cout << "STUDENT INFORMATION";
+	for (int i = x-1; i <= x + 19; i++)
+	{
+		Gotoxy(i, y + 1); std::cout << char(223);
+	}
+	
 	if (file.is_open())
 	{
 		std::string check;
@@ -976,16 +1012,16 @@ void ShowStudentInfo(std::string name, std::string pass)
 		while (!file.eof())
 		{
 			std::getline(file, check);
-
+			if (check == "") break;
 			line = split(check, ",");
 			
 			if (name == line[1])
 			{
-				Gotoxy(x, y); std::cout << "FULL NAME: " << line[2] << " " << line[3] << std::endl;
-				Gotoxy(x, y+1); std::cout << "STUDENT ID:  " << line[1] << std::endl;
-				Gotoxy(x, y+2); std::cout << "DAY OF BIRTH: " << line[5] << std::endl;
-				Gotoxy(x, y+3); std::cout << "GENDER: " << line[4] << std::endl;
-				Gotoxy(x, y+4); std::cout << "SOCAIL ID: " << line[6] << std::endl;
+				Gotoxy(x-10, y+5); std::cout <<  "FULL NAME:       " << line[2] << " " << line[3] << std::endl;
+				Gotoxy(x-10, y+7); std::cout <<  "STUDENT ID:      " << line[1] << std::endl;
+				Gotoxy(x-10, y+9); std::cout <<  "DAY OF BIRTH:    " << line[5] << std::endl;
+				Gotoxy(x-10, y+11); std::cout << "GENDER:          " << line[4] << std::endl;
+				Gotoxy(x-10, y+13); std::cout << "SOCAIL ID:       " << line[6] << std::endl;
 			}
 		}
 		file.close();

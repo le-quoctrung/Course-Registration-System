@@ -216,6 +216,6 @@ void createEmptyList(T*& List)
 //	courseScore* node;
 //};
 //struct student
-//{
-//	listScore profile;
+//{	
+//	listScore profile;	
 //};
