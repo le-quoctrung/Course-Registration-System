@@ -1577,9 +1577,9 @@ home:
 					Gotoxy(92, 14);
 					std::cout << "    ";
 					Gotoxy(93, 14);
-					std::string course;
-					controlTyping(course, 2);
-					int course = std::stoi(course);
+					std::string remove;
+					controlTyping(remove, 2);
+					int n = std::stoi(remove);
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -1606,7 +1606,6 @@ home:
 						}
 					}
 				}
-				
 			}
 		}
 		/**********ENROLL COURSE**********/
@@ -1654,7 +1653,7 @@ home:
 					Gotoxy(93, 14);
 					std::string course;
 					controlTyping(course, 2);
-					int course = std::stoi(course);
+					int n = std::stoi(course);
 					while (1)
 					{
 						coord = GetCursorClick();
