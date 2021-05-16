@@ -401,8 +401,8 @@ home:
 					system("cls");
 					hcmusfame();
 					Gotoxy(120, 5); std::cout << "CREATE YEAR";
-					Gotoxy(100, 29); std::cout << "START YEAR DATE (dd/mm/yyyy): ";
-					Gotoxy(100, 32); std::cout << "NOTE: END YEAR DATE WILL BE 11 MONTHS AWAY FROM START YEAR DATE";
+					Gotoxy(90, 29); std::cout << "START YEAR DATE (dd/mm/yyyy): ";
+					Gotoxy(90, 32); std::cout << "NOTE: END YEAR DATE WILL BE 11 MONTHS AWAY FROM START YEAR DATE";
 					Gotoxy(0,15); OutputListYear(nYear);
 					for (int i = 122; i < 138; i++)
 					{
@@ -411,7 +411,7 @@ home:
 						Gotoxy(i, 30);
 						std::cout << char(205);
 					}
-					Gotoxy(135, 29);
+					Gotoxy(125, 29);
 					std::string startYearDate;
 					std::cin >> startYearDate;
 
@@ -1220,12 +1220,12 @@ home:
 							{
 								std::cout << "CAN'T OPEN FILE";
 								Sleep(2000);
-								goto Class;
+								goto course;
 							}
 
 							ReadListToCourse(fileName,CurYear->semesters->tail->Courses);						
 							std::cout << "CREATED SUCCESSFULLY!";
-							Gotoxy(0, 50);
+							Gotoxy(0, 40);
 							OutputSem(CurYear->semesters->tail);															
 							Sleep(2500);
 							goto course;
@@ -1576,6 +1576,7 @@ home:
 			system("cls");
 			hcmusfame();
 			Gotoxy(123, 5); std::cout << "ENROLL COURSE";
+			Gotoxy(50, 14); std::wcout << "COURSE-NUMBER YOU WANT TO ENROLL: ";
 			while (1)
 			{
 				coord = GetCursorClick();
@@ -1703,18 +1704,18 @@ void showScoreBoard(std::string courseName, std::string fileName)
 }
 void importScoreBoard(std::string fileName, NodeStudent* pHead)
 {
-	std::ifstream file(fileName, std::ios::in);
-	NodeScore* pCur = nullptr;
+	std::ifstream file("scoreboard.txt", std::ios::in);
+	//NodeScore* pCur = nullptr;
 	NodeStudent* Cur = pHead;
 	//test
-	/*while (Cur)
+	/*while (pHead)
 	{
-		std::cout << Cur->ID << " " << Cur->LastName;
-		Cur = Cur->next;
+		std::cout << pHead->ID << " " << pHead->LastName;
+		pHead = pHead->next;
 	}*/
 	if (file.is_open())
 	{
-		
+		std::cout << 999;
 		std::string check;
 		std::vector<std::string> line;
 
@@ -1730,30 +1731,33 @@ void importScoreBoard(std::string fileName, NodeStudent* pHead)
 				float final = std::stof(line[4]);
 				float mid = std::stof(line[5]);
 				float other = std::stof(line[6]);
-				
-				pCur = new NodeScore;
-				Cur->profile = pCur;
-				pCur->TotalMark = total;
-				pCur->Finalmark = final;
-				pCur->MidtermMark = mid;
-				pCur->Othermark = other;
+					
+				//pCur = new NodeScore;
+				Cur->profile = new NodeScore;
+				Cur->profile->TotalMark = total;
+				Cur->profile->Finalmark = final;
+				Cur->profile->MidtermMark = mid;
+				Cur->profile->Othermark = other;
 			}
 			Cur = Cur->next;
-
 		}
 		file.close();
 	}
+	else
+		std::cout << 888;
+
 	//test output
-	/*Cur = pHead;
+	Cur = pHead;
 	while (Cur)
 	{
 		std::cout << Cur->ID << " " << Cur->profile->TotalMark << " " << Cur->profile->Finalmark << Cur->profile->MidtermMark << Cur->profile->Othermark << std::endl;
-	}*/
+		Cur = Cur->next;
+	}
 }
-void createStudent(NodeStudent*& phead)
+void createStudent(NodeStudent*& pHead)
 {
 	std::ifstream file("allStudent.csv", std::ios::in);
-	NodeStudent* head = nullptr, *pCur = nullptr;
+	NodeStudent* pCur = nullptr;
 	if (file.is_open())
 	{
 		std::string check;
@@ -1764,10 +1768,10 @@ void createStudent(NodeStudent*& phead)
 			std::getline(file, check);
 			if (check == "") break;
 			line = split(check, ",");
-			if (head == nullptr)
+			if (pHead == nullptr)
 			{
 				pCur = new NodeStudent;
-				head = pCur;
+				pHead = pCur;
 			}
 			else
 			{
@@ -1778,15 +1782,16 @@ void createStudent(NodeStudent*& phead)
 			pCur->LastName = line[3];
 			pCur->ID = line[1];
 			pCur->next = nullptr;
+		
 		}
 		file.close();
 	}
 	//test output
-	/*pCur = head; 
+	pCur = pHead; 
 	while (pCur)
 	{
-		std::cout << pCur->ID << " " << pCur->LastName;
+		std::cout << pCur->ID << " " << pCur->LastName << std::endl;
 		pCur = pCur->next;
-	}*/
+	}
 	
 }
