@@ -412,9 +412,8 @@ home:
 						std::cout << char(205);
 					}
 					Gotoxy(125, 29);
-					std::string startYearDate;
-					std::cin >> startYearDate;
-
+					std::cout << "...";
+				
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -433,27 +432,56 @@ home:
 							goto home;
 						if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
 							goto year;
-						if (coord.X > 40 && coord.Y < 10)
+						if (coord.X < 138 && coord.X>122 && coord.Y < 31 && coord.Y>27)
 						{
-							// create year function here
-							if (!CanAddYear(nYear, ParseDate(startYearDate)))
+							Gotoxy(125, 29);
+							std::cout << "   ";
+							std::string startYearDate;
+							controlTyping(startYearDate, 20);
+							while (1)
 							{
-								Gotoxy(100, 34); std::cout << "INVALID DATE!";
-								Sleep(1000);
-								goto home;
-							}
-							if (!AddYear(nYear, startYearDate))
-							{
-								Gotoxy(100, 34); std::cout << "CAN'T CREATE YEAR";
-								Sleep(1000);
-								goto home;
-							}
 
-							Gotoxy(100, 34); std::cout << "YEAR " << nYear->head->startYear.year << " - " << nYear->head->endYear.year << " HAS BEEN CREATED";
-							WriteAll("data.bin", nYear);
-							Sleep(1000);
-							goto year;
+								coord = GetCursorClick();
+								if (coord.Y < 3 && coord.X < 5)
+								{
+									Gotoxy(0, 50);
+									exit(0);
+								}
+								if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+								{
+									system("cls");
+									loginDisplay();
+									login();
+								}
+								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+									goto home;
+								if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+									goto year;
+
+								if (coord.X > 40 && coord.Y < 10)
+								{
+									// create year function here
+									if (!CanAddYear(nYear, ParseDate(startYearDate)))
+									{
+										Gotoxy(100, 34); std::cout << "INVALID DATE!";
+										Sleep(1000);
+										goto home;
+									}
+									if (!AddYear(nYear, startYearDate))
+									{
+										Gotoxy(100, 34); std::cout << "CAN'T CREATE YEAR";
+										Sleep(1000);
+										goto home;
+									}
+
+									Gotoxy(100, 34); std::cout << "YEAR " << nYear->head->startYear.year << " - " << nYear->head->endYear.year << " HAS BEEN CREATED";
+									WriteAll("data.bin", nYear);
+									Sleep(1000);
+									goto year;
+								}
+							}
 						}
+						
 					}
 					goto year;
 				}
@@ -510,7 +538,7 @@ home:
 							Gotoxy(0,15); OutputListYear(nYear);
 							short sem;
 							short yearIndex;
-							std::string start, end;
+							std::string start, end, nsem, nyear;
 							Gotoxy(100, 29);
 							std::cout << "SEMESTER (1 TO 3): ";
 							for (int i = 132; i < 140; i++)
@@ -520,6 +548,7 @@ home:
 								Gotoxy(i, 30);
 								std::cout << char(205);
 							}
+							Gotoxy(134, 29); std::cout << "...";
 							Gotoxy(100, 33);
 							std::cout << "START DATE (dd/mm/yyyy): ";
 							for (int i = 132; i < 140; i++)
@@ -529,6 +558,7 @@ home:
 								Gotoxy(i, 34);
 								std::cout << char(205);
 							}
+							Gotoxy(134, 33); std::cout << "...";
 							Gotoxy(100, 37);
 							std::cout << "END DATE (dd/mm/yyyy): ";
 							for (int i = 132; i < 140; i++)
@@ -538,6 +568,7 @@ home:
 								Gotoxy(i, 38);
 								std::cout << char(205);
 							}
+							Gotoxy(134, 37); std::cout << "...";
 							Gotoxy(100, 41);
 							std::cout << "YEAR THAT SEMESTER BELONG TO:  ";
 							for (int i = 132; i < 140; i++)
@@ -547,11 +578,8 @@ home:
 								Gotoxy(i, 42);
 								std::cout << char(205);
 							}
-							Gotoxy(134, 29); std::cin >> sem;
-							Gotoxy(134, 33); std::cin >> start;
-							Gotoxy(134, 37); std::cin >> end;
-							Gotoxy(134, 41); std::cin >> yearIndex;
-							Gotoxy(134, 50);
+							Gotoxy(134, 41); std::cout << "...";
+							
 							while (1)
 							{
 								coord = GetCursorClick();
@@ -570,36 +598,70 @@ home:
 									goto home;
 								if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
 									goto year;
-								if (coord.X > 40 && coord.Y < 10)
+								if (coord.Y < 31 && coord.Y >27 && coord.X < 140 && coord.X>132)
 								{
-									// create year function here 
-									NodeYear* CurYear = getNode(nYear->head, yearIndex);
-									if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto sem; }
-									if (CmpDate(ParseDate(end), ParseDate(start)) == -1)
+									Gotoxy(134, 29); std::cout << "   ";
+									Gotoxy(134, 29); controlTyping(nsem, 20);
+									Gotoxy(134, 33); std::cout << "   ";
+									Gotoxy(134, 33); controlTyping(start, 20);
+									Gotoxy(134, 37); std::cout << "   ";
+									Gotoxy(134, 37); controlTyping(end, 20);
+									Gotoxy(134, 41); std::cout << "   ";
+									Gotoxy(134, 41); controlTyping(nyear, 20);
+									sem = std::stoi(nsem);
+									yearIndex = std::stoi(nyear);
+									while (1)
 									{
-										std::cout << "END DATE CAN'T BE SOONER THAN START DATE";
-										Sleep(2000);
-										goto sem;
-									}
-									else if (CmpDate(ParseDate(start), CurYear->startYear) == -1)
-									{
-										std::cout << "SEMESTER CAN'T BE SOONER THAN SCHOOL YEAR";
-										Sleep(2000);
-										goto sem;
-									}
-									else if (!CanAddSem(CurYear->semesters, sem, ParseDate(start), ParseDate(end)))
-									{
-										std::cout << "EXISTED SEMESTER OR CONFLICTED/INVALID DATE, CAN'T ADD SEMESTER!";
-										Sleep(2000);
-										goto sem;
-									}
+										coord = GetCursorClick();
+										if (coord.Y < 3 && coord.X < 5)
+										{
+											Gotoxy(0, 50);
+											exit(0);
+										}
+										if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+										{
+											system("cls");
+											loginDisplay();
+											login();
+										}
+										if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+											goto home;
+										if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+											goto year;
+										
+										if (coord.X > 40 && coord.Y < 10)
+										{
+											// create year function here 
+											NodeYear* CurYear = getNode(nYear->head, yearIndex);
+											if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto sem; }
+											if (CmpDate(ParseDate(end), ParseDate(start)) == -1)
+											{
+												std::cout << "END DATE CAN'T BE SOONER THAN START DATE";
+												Sleep(2000);
+												goto sem;
+											}
+											else if (CmpDate(ParseDate(start), CurYear->startYear) == -1)
+											{
+												std::cout << "SEMESTER CAN'T BE SOONER THAN SCHOOL YEAR";
+												Sleep(2000);
+												goto sem;
+											}
+											else if (!CanAddSem(CurYear->semesters, sem, ParseDate(start), ParseDate(end)))
+											{
+												std::cout << "EXISTED SEMESTER OR CONFLICTED/INVALID DATE, CAN'T ADD SEMESTER!";
+												Sleep(2000);
+												goto sem;
+											}
 
-									AddSemester(CurYear->semesters, sem, ParseDate(start), ParseDate(end));
-									std::cout << "SEMESTER " << sem << " IS ADDED TO YEAR " << CurYear->startYear.year << " - " << CurYear->endYear.year;
-									WriteAll("data.bin",nYear);
-									Sleep(2000);
-									goto sem;
+											AddSemester(CurYear->semesters, sem, ParseDate(start), ParseDate(end));
+											std::cout << "SEMESTER " << sem << " IS ADDED TO YEAR " << CurYear->startYear.year << " - " << CurYear->endYear.year;
+											WriteAll("data.bin", nYear);
+											Sleep(2000);
+											goto sem;
+										}
+									}
 								}
+								
 							}
 						}					
 
