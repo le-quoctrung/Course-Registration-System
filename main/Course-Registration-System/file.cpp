@@ -384,44 +384,44 @@ void DeleteCourse(ListCourse*& nCourse, std::string ID, std::string teacher)
 		return;
 }
 
+//void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
+//	std::ofstream myFile(filename);
+//
+//	for (int j = 0; j < dataset.size(); ++j)
+//	{
+//		myFile << dataset.at(j).first;
+//		if (j != dataset.size() - 1) myFile << ","; 
+//	}
+//	myFile << "\n";
+//
+//	
+//	for (int i = 0; i < dataset.at(0).second.size(); ++i)
+//	{
+//		for (int j = 0; j < dataset.size(); ++j)
+//		{
+//			myFile << dataset.at(j).second.at(i);
+//			if (j != dataset.size() - 1) myFile << ","; 
+//		}
+//		myFile << "\n";
+//	}
+//
+//	
+//	myFile.close();
+//}
 
-void write_csv(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
-	std::ofstream myFile(filename);
-
-	for (int j = 0; j < dataset.size(); ++j)
-	{
-		myFile << dataset.at(j).first;
-		if (j != dataset.size() - 1) myFile << ","; 
-	}
-	myFile << "\n";
-
-	
-	for (int i = 0; i < dataset.at(0).second.size(); ++i)
-	{
-		for (int j = 0; j < dataset.size(); ++j)
-		{
-			myFile << dataset.at(j).second.at(i);
-			if (j != dataset.size() - 1) myFile << ","; 
-		}
-		myFile << "\n";
-	}
-
-	
-	myFile.close();
-}
-void writeScoreboard() {
-	
-	std::vector<int> vec1(10, 0);
-	std::vector<int> vec2(10, 0);
-	std::vector<int > vec3(10, 0);
-
-	std::vector<int> vec4(10, 0);
-	std::vector<int> vec5(10, 0);
-	std::vector<int> vec6(10, 0);
-	std::vector<int> vec7(10, 0);
-	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"NO", vec1}, {"ID", vec2}, {"FULL NAME", vec3}, {"MID MARK", vec4} ,{"FINAL MARK", vec5} ,{"OTHER MARK", vec6} ,{"TOTAL MARK", vec7} };
-	write_csv("7_cols.csv", vals);
-}
+//void writeScoreboard() {
+//	
+//	std::vector<int> vec1(10, 0);
+//	std::vector<int> vec2(10, 0);
+//	std::vector<int > vec3(10, 0);
+//
+//	std::vector<int> vec4(10, 0);
+//	std::vector<int> vec5(10, 0);
+//	std::vector<int> vec6(10, 0);
+//	std::vector<int> vec7(10, 0);
+//	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"NO", vec1}, {"ID", vec2}, {"FULL NAME", vec3}, {"MID MARK", vec4} ,{"FINAL MARK", vec5} ,{"OTHER MARK", vec6} ,{"TOTAL MARK", vec7} };
+//	write_csv("7_cols.csv", vals);
+//}
 
 bool WriteAll(std::string path, ListYear* nYear)
 {
@@ -495,6 +495,8 @@ bool WriteAll(std::string path, ListYear* nYear)
 				fout.write((char*)&CurSem->type, sizeof(int));
 				fout.write((char*)&CurSem->start, sizeof(date));
 				fout.write((char*)&CurSem->end, sizeof(date));
+				fout.write((char*)&CurSem->sessStart, sizeof(date));
+				fout.write((char*)&CurSem->sessEnd, sizeof(date));
 
 				//For each semester, write courses info
 				numCourse = getSize(CurSem->Courses->head);
@@ -572,7 +574,7 @@ bool ReadAll(std::string path, ListYear*& nYear)
 
 		//Sem Info
 		int type;
-		date start, end;
+		date start, end, sessStart, sessEnd;
 
 		//Course Info
 		std::string ID, cName, TeacherName;
@@ -633,10 +635,13 @@ bool ReadAll(std::string path, ListYear*& nYear)
 
 			for (int sem = 0; sem < numSem; sem++)
 			{
+				//Sem info
 				fin.read((char*)&type, sizeof(int));
 				fin.read((char*)&start, sizeof(date));
 				fin.read((char*)&end, sizeof(date));
-				AddSemester(nYear->tail->semesters, type, start, end);
+				fin.read((char*)&sessStart, sizeof(date));
+				fin.read((char*)&sessEnd, sizeof(date));
+				AddSemester(nYear->tail->semesters, type, start, end, sessStart, sessEnd);
 
 				fin.read((char*)&numCourse, sizeof(int));
 				for (int course = 1; course <= numCourse; course++)

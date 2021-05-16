@@ -12,8 +12,7 @@ int main()
 login:
     loginDisplay();
     login();
- 
-    
+
     /*POINT CursorPos;
     HANDLE hout = GetStdHandle(STD_OUTPUT_HANDLE);
     HANDLE hin = GetStdHandle(STD_INPUT_HANDLE);

@@ -609,8 +609,11 @@ home:
 							system("cls");
 							hcmusfame();
 							Gotoxy(105, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
-							
+							Gotoxy(0, 15); OutputListYear(nYear);
+
 							date start, end;
+							int yearIndex;
+
 							Gotoxy(65, 20);
 							std::cout << "START:   ";
 							Gotoxy(80, 20); std::cout << "DAY:";
@@ -622,7 +625,9 @@ home:
 							Gotoxy(80, 23); std::cout << "DAY:";
 							Gotoxy(90, 23); std::cout << "MONTH:";
 							Gotoxy(105, 23); std::cout << "YEAR:";
-							
+							Gotoxy(80, 30);
+							std::cout << "YEAR THAT SEMESTER BELONG TO:  ";
+
 						checkvalid:
 
 							HienTroChuot();
@@ -632,19 +637,28 @@ home:
 							Gotoxy(86, 23); std::cin >> end.day;
 							Gotoxy(98, 23); std::cin >> end.month;
 							Gotoxy(111, 23); std::cin >> end.year;
+							Gotoxy(111, 30); std::cin >> yearIndex;
+							NodeYear* CurYear = getNode(nYear->head, yearIndex);
+							if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto checkvalid; }
 							AnTroChuot();
-							if ((!CheckValid(start) || !CheckValid(end)) || CmpDate(start,end))
+
+							if (!CheckValid(start) ||
+								!CheckValid(end) ||
+								CmpDate(end, start) <= 0 ||
+								CmpDate(start, CurYear->semesters->tail->start) == -1 ||
+								CmpDate(end, CurYear->semesters->tail->end) == 1)
 							{
 								Gotoxy(85, 27);
-								std::cout << "INVAIL DATE";
-								Gotoxy(86, 20); std::cout << "   ";
-								Gotoxy(98, 20); std::cout << "   ";
-								Gotoxy(111, 20); std::cout << "   ";
-								Gotoxy(86, 23); std::cout << "   ";
-								Gotoxy(98, 23); std::cout << "     ";
-								Gotoxy(111, 23); std::cout << "     ";
+								std::cout << "INVALID DATE";
+								Gotoxy(86, 20); std::cout << "     ";
+								Gotoxy(98, 20); std::cout << "     ";
+								Gotoxy(111, 20); std::cout << "        ";
+								Gotoxy(86, 23); std::cout << "     ";
+								Gotoxy(98, 23); std::cout << "      ";
+								Gotoxy(111, 23); std::cout << "          ";
 								goto checkvalid;
 							}
+
 							while (1)
 							{
 								coord = GetCursorClick();
@@ -665,8 +679,15 @@ home:
 									goto year;
 								if (coord.X > 40 && coord.Y < 10)
 								{
-				// create course registation session function here (use date start and end to control)				
-								goto sem;
+								// create course registation session function here (use date start and end to control)
+
+									std::cout << "COURSE REGISTRATION SESSION STARTED IN SEMESTER " <<CurYear->semesters->tail->type 
+										<< " OF YEAR " << CurYear->startYear.year << " - " << CurYear->endYear.year;
+									CopyDate(CurYear->semesters->tail->sessStart, start);
+									CopyDate(CurYear->semesters->tail->sessEnd, end);
+									WriteAll("data.bin", nYear);
+									Sleep(2000);
+									goto sem;
 								}
 							}
 						}
@@ -677,8 +698,7 @@ home:
 							system("cls");
 							hcmusfame();
 							Gotoxy(110, 5); std::cout << "ADD COURSE TO SEMESTER";
-
-				//show list course here
+							Gotoxy(0, 15); OutputListYear(nYear);
 
 							Gotoxy(80, 20);
 							std::cout << "COURSE NAME:  ";

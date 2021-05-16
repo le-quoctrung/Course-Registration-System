@@ -94,9 +94,6 @@ void OutputCourse(NodeCourse* nCourse);
 void OutputListCourse(ListCourse* nCourse);
 void OutputHeaderListCourse(ListCourse* nCourse); //Only show the course header
 void Enroll(ListCourse* nCourse, NodeStudent* enStudent);
-//void displayEnrollCourse(ListCourse* nCourse, ListCourse* eCourse, NodeStudent* enStudent);
-//void viewListStudentinaCourse(ListCourse* nCourse, ListStudent* nStudent, NodeStudent* enStudent);
-void ViewScoreBoard(ListScore listSc, ListStudent listSt);
 
 //CLASS
 struct NodeClass
@@ -123,7 +120,7 @@ NodeStudent* FindStudent(ListClass* nClass, std::string ID);
 //SEMESTER
 struct NodeSem
 {
-	date start, end;
+	date start, end, sessStart, sessEnd;
 	ListCourse* Courses;
 	int type;
 
@@ -137,6 +134,12 @@ struct ListSem
 };
 
 bool CanAddSem(ListSem* nSem, int type, date start, date end);
+bool AddSemester(ListSem*& nSem,
+	int type,
+	date start,
+	date end,
+	date sessStart,
+	date sessEnd);
 bool AddSemester(ListSem*& nSem,
 	int type,
 	date start,

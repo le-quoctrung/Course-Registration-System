@@ -264,6 +264,15 @@ bool CanAddSem(ListSem* nSem, int type, date start, date end)
 	return true;
 }
 
+bool AddSemester(ListSem*& nSem, int type, date start, date end, date sessStart, date sessEnd)
+{
+	if (!nSem) return false;
+	AddSemester(nSem, type, start, end);
+	CopyDate(nSem->tail->sessStart,sessStart);
+	CopyDate(nSem->tail->sessEnd,sessEnd);
+	return true;
+}
+
 bool AddSemester(ListSem*& nSem, int type, date start, date end)
 {
 	if (!nSem) return false;
@@ -273,6 +282,8 @@ bool AddSemester(ListSem*& nSem, int type, date start, date end)
 	newSem->type = type;
 	CopyDate(newSem->start, start);
 	CopyDate(newSem->end, end);
+	CopyDate(newSem->sessStart, start);	//Init start of registration session
+	CopyDate(newSem->sessEnd, start);	//default of registration session
 	newSem->Courses = nullptr;
 	createEmptyList(newSem->Courses);
 	newSem->next = nullptr;
@@ -312,9 +323,20 @@ void OutputSem(NodeSem* nSem)
 {
 	std::cout << "Type: " << nSem->type << "\t"
 		<< "Start Date: " << DisplayDate(nSem->start) << "\t"
-		<< "End Date: " << DisplayDate(nSem->end) << "\n"
-		<< "Course in Semester: \n\n"; OutputHeaderListCourse(nSem->Courses);
-	std::cout << "\n";
+		<< "End Date: " << DisplayDate(nSem->end) << "\n";
+
+	//If regsitration session is available
+	if (CmpDate(nSem->sessStart, nSem->sessEnd) != 0)
+	{
+		std::cout << "Start Registration: " << DisplayDate(nSem->sessStart) << "\n"
+			<< "End Registration: " << DisplayDate(nSem->sessEnd) << "\n";
+	}
+
+	if (nSem->Courses->head != nullptr) 
+	{
+		std::cout << "Course in Semester: \n"; OutputHeaderListCourse(nSem->Courses);
+		std::cout << "\n";
+	}
 }
 
 void OutputListSem(ListSem* nSem)
@@ -325,9 +347,7 @@ void OutputListSem(ListSem* nSem)
 	while (pCur)
 	{
 		std::cout << count++ << ". ";
-		std::cout << "Type: " << pCur->type << "\t"
-			<< "Start Date: " << DisplayDate(pCur->start) << "\t"
-			<< "End Date: " << DisplayDate(pCur->end) << "\n";
+		OutputSem(pCur);
 		pCur = pCur->next;
 	}
 }
@@ -374,6 +394,7 @@ void DeleteListCourse(ListCourse*& nCourse)
 	{
 		next = pCur->next;
 		DeleteTable(pCur->tb);
+		DeleteListStudent(pCur->cClass);
 		delete pCur;
 		pCur = next;
 	}
@@ -506,6 +527,7 @@ void DeleteListStudent(ListStudent*& nStudent)
 	while (pCur)
 	{
 		next = pCur->next;
+		DeleteTable(pCur->tb);
 		delete pCur;
 		pCur = next;
 	}
