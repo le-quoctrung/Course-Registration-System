@@ -404,8 +404,15 @@ home:
 					Gotoxy(120, 5); std::cout << "CREATE YEAR";
 					Gotoxy(100, 29); std::cout << "START YEAR: ";
 					Gotoxy(100, 32); std::cout << "NOTE: END YEAR WILL BE THE NEXT YEAR OF THE FIRST YEAR";
+					for (int i = 122; i < 138; i++)
+					{
+						Gotoxy(i, 28); 
+						std::cout << char(205);
+						Gotoxy(i, 30);
+						std::cout << char(205);
+					}
 					Gotoxy(123, 29);
-					int startYear;
+					short startYear;
 					std::cin >> startYear;
 					while (1)
 					{
@@ -428,7 +435,7 @@ home:
 						if (coord.X > 40 && coord.Y < 10)
 						{
 							// create year function here 
-							Gotoxy(100, 34); std::cout << "YEAR " << startYear <<" - "<<startYear +1<<" HAS BEEN CREATED";
+							Gotoxy(100, 36); std::cout << "YEAR " << startYear <<" - "<<startYear +1<<" HAS BEEN CREATED";
 							Sleep(1000);
 							goto year;
 						}
@@ -480,8 +487,74 @@ home:
 						/********CREATE SEMESTER********/
 						if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
 						{
-							std::cout << "CREATE SEMESTER";
-							goto sem;
+							system("cls");
+							hcmusfame();
+							Gotoxy(120, 5); std::cout << "CREATE SEM";
+					
+							Gotoxy(100, 29);
+							std::cout << "SEMESTER (1 TO 3): ";
+							for (int i = 132; i < 140; i++)
+							{
+								Gotoxy(i, 28);
+								std::cout << char(205);
+								Gotoxy(i, 30);
+								std::cout << char(205);
+							}
+							Gotoxy(100, 33);
+							std::cout << "YEAR THAT SEMESTER BELONG TO:  ";
+							for (int i = 132; i < 140; i++)
+							{
+								Gotoxy(i, 32);
+								std::cout << char(205);
+								Gotoxy(i, 34);
+								std::cout << char(205);
+							}
+							Gotoxy(134, 29);
+							short sem;
+							std::cin >> sem;
+							
+							Gotoxy(134, 33);
+							short year;
+							std::cin >> year;
+							while (sem > 3 || sem < 1)
+							{
+								Gotoxy(123, 27);
+								std::cout << "ONLY SEMESTER 1 TO 3 IS ALLOWED";
+								Sleep(1500);
+								Gotoxy(123, 27);
+								std::cout << "                               ";
+								Gotoxy(123, 29);
+								std::cout << "        ";
+								Gotoxy(123, 29);
+								std::cin >> sem;
+							}
+							while (1)
+							{
+								coord = GetCursorClick();
+								if (coord.Y < 3 && coord.X < 5)
+								{
+									Gotoxy(0, 50);
+									exit(0);
+								}
+								if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+								{
+									system("cls");
+									loginDisplay();
+									login();
+								}
+								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+									goto home;
+								if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+									goto year;
+								if (coord.X > 40 && coord.Y < 10)
+								{
+									// create year function here 
+									std::cout << sem << " HAVE BEEN CREATED AND ADDED TO YEAR " << year;;
+									goto sem;
+								}
+							}
+							
+							
 						}
 
 						/*********CREATE COURSE REGISTATION SESSION********/
@@ -618,10 +691,10 @@ home:
 									goto home;
 								if (coord.X > 40 && coord.Y < 10)
 								{
-									Gotoxy(107, 34);
+									Gotoxy(104, 34);
 									// import file function here 
 									std::cout << "CREATED SUCCESSFULLY!";
-									Gotoxy(100, 36);
+									Gotoxy(90, 36);
 									std::cout << fileName << ".cvs IMPORTED TO THE CLASS " << className;
 									//std::cout << "                                                         ";
 									Sleep(2500);
@@ -631,11 +704,11 @@ home:
 						}
 						if (coord.X > 40 && coord.Y < 10)
 						{
-							Gotoxy(107, 28);
+							Gotoxy(104, 23);
 							// import file function here 
 							std::cout << "PLEASE ENTER CLASS NAME AND FILE NAME";
 							Sleep(2000);
-							Gotoxy(107, 28);
+							Gotoxy(104, 28);
 							std::cout << "                      ";
 							goto create;
 						}
