@@ -180,7 +180,7 @@ void loginDisplay()
 		std::cout << char(219);
 		Gotoxy(x1 + 38, i);
 		std::cout << char(219);
-
+		
 		Gotoxy(x1 + 57, i);
 		std::cout << char(219);
 		Gotoxy(x1 + 58, i);
@@ -196,13 +196,50 @@ void loginDisplay()
 		Gotoxy(x1 + 79, i);
 		std::cout << char(219);
 	}
+	//Gotoxy(x1 + 39, y1 + 12); std::cout << "123456789012345678";
+
+	for (int i = x1 + 38 + 8; i < x1 + 38 + 12; i++)
+	{
+		Gotoxy(i, y1 + 16);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 5; i < x1 + 38 + 8; i++)
+	{
+		Gotoxy(i, y1 + 15);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 12; i < x1 + 38 + 15; i++)
+	{
+		Gotoxy(i, y1 + 15);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 15; i < x1 + 38 + 17; i++)
+	{
+		Gotoxy(i, y1 + 14);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 17; i < x1 + 38 + 19; i++)
+	{
+		Gotoxy(i, y1 + 13);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 1; i < x1 + 38 + 3; i++)
+	{
+		Gotoxy(i, y1 + 13);
+		std::cout << char(219);
+	}
+	for (int i = x1 + 38 + 3; i < x1 + 38 + 5; i++)
+	{
+		Gotoxy(i, y1 + 14);
+		std::cout << char(219);
+	}
 	for (int i = x1 + 65; i < x1 + 78; i++)
 	{
 		Gotoxy(i, y1 + 20);
 		std::cout << char(220);
 	}
 	/*s*/
-	for (int i = x1 + 83; i < 104; i++)
+	for (int i = x1 + 83; i < 106; i++)
 	{
 		Gotoxy(i, y1 + 13);
 		std::cout << char(223);
@@ -220,9 +257,9 @@ void loginDisplay()
 	}
 	for (int i = y1 + 17; i < y1 + 21; i++)
 	{
-		Gotoxy(103, i);
+		Gotoxy(105, i);
 		std::cout << char(219);
-		Gotoxy(102, i);
+		Gotoxy(104, i);
 		std::cout << char(219);
 	}
 	
@@ -505,16 +542,18 @@ home:
 				{
 					goto home;
 				}
-			create:
+			
 
 				/**********CREATE CLASS*******/
 				if (coord.X > 40 && coord.X < 98 && coord.Y < 10)
 				{
+				
+
 					system("cls");
 					hcmusfame();
 					Gotoxy(123, 5); std::cout << "IMPORT FILE";
 					Gotoxy(100, 25); std::cout << "FILE NAME:";
-					Gotoxy(114, 25); std::cout << ". . .";
+					
 					for (int i = 113; i < 130; i++)
 					{
 						Gotoxy(i, 24);
@@ -522,6 +561,8 @@ home:
 						Gotoxy(i, 26);
 						std::cout << char(205);
 					}
+				create:
+					Gotoxy(114, 25); std::cout << "...";
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -540,12 +581,15 @@ home:
 							goto Class;
 						if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 							goto home;
-						if(coord.X < 130 && coord.X >113 && coord.Y == 25)
+						if(coord.X < 130 && coord.X >113 && coord.Y < 27 && coord.Y >23)
 						{
 							Gotoxy(114, 25); std::cout << "     ";
 							Gotoxy(113, 25);
-							char fileName[20];
-							std::cin.get(fileName, 20);
+							/*std::string fileName;
+							std::cin.ignore();
+							std::getline(std::cin, fileName);*/
+							int fileName;
+							std::cin >> fileName;
 							while (1)
 							{
 								coord = GetCursorClick();
@@ -569,7 +613,9 @@ home:
 									Gotoxy(107, 28);
 									// import file function here 
 									std::cout << fileName << ".cvs IMPORTED TO THE CLASS";
-									Sleep(2000);
+									Gotoxy(107, 28);
+									std::cout << "                                              ";
+									Sleep(1500);
 									goto create;
 								}
 							}
@@ -579,7 +625,7 @@ home:
 							Gotoxy(107, 28);
 							// import file function here 
 							std::cout << "PLEASE ENTER FILE NAME";
-							Sleep(2000);
+							Sleep(1500);
 							Gotoxy(107, 28);
 							std::cout << "                      ";
 							goto create;
