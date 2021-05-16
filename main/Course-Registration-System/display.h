@@ -3,10 +3,11 @@
 #include<fstream>
 #include"Console.h"
 #include<vector>
+#include "school.h"
+#include "Login_System.h"
 
-void home_student(std::string name);	
 void loginDisplay();
-void home_staff();
+void home_staff(ListYear* nYear);
+void home_student(ListYear* nYear, std::string name);
 void hcmusfame();
 void ShowStudentInfo(std::string name);
-
