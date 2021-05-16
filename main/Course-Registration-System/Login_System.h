@@ -1,7 +1,6 @@
 #ifndef _LOGIN_SYSTEM_H_
 #define _LOGIN_SYSTEM_H_
 
-
 #include <iostream>
 #include <string>
 #include <fstream>

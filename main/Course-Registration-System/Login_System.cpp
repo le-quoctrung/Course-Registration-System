@@ -1,6 +1,4 @@
 #include "Login_System.h"
-#include"file.h"
-#include"Console.h"
 
 void login()
 {
@@ -47,6 +45,16 @@ void login()
 	}
 	//system("cls");
 	COORD coord;
+
+	ListYear* nYear = nullptr;
+	std::ifstream checkPath("data.bin", std::ios::binary);
+	if (checkPath)
+	{
+		if (checkPath.is_open())
+			ReadAll("data.bin", nYear);
+	}
+	else createEmptyList(nYear);
+
 	while (1)
 	{
 		coord = GetCursorClick();
@@ -90,7 +98,7 @@ void login()
 				std::cout << "WELCOME BACK STAFF! HAVE A NICE WEEK!";
 				Sleep(2000);
 				system("cls");
-				home_staff();
+				home_staff(nYear);
 				
 			}
 			case 0:
@@ -100,7 +108,7 @@ void login()
 				std::cout << "WELCOME BACK TO HELL STUDENT!";
 				Sleep(1500);
 				system("cls");
-				home_student(name);
+				home_student(nYear,name);
 				//ShowStudentInfo(name);
 				
 			}

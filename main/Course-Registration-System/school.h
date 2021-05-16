@@ -165,6 +165,8 @@ struct ListYear
 
 bool CanAddYear(ListYear* nYear, date today);
 bool AddYear(ListYear*& nYear);
+bool AddYear(ListYear*& nYear, std::string startYear);
+bool AddYear(ListYear*& nYear, date startYear);
 void DeleteListYear(ListYear*& nYear);
 void OutputYear(NodeYear* nYear);
 void OutputListYear(ListYear* nYear); //not found function definition

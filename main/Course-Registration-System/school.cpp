@@ -130,18 +130,20 @@ int CountTb(TimeTable* a)
 //SCHOOL STRUCT
 bool CanAddYear(ListYear* nYear, date today)
 {
-	NodeYear* pCur = nYear->head;
-
-	if (today.year < nYear->tail->endYear.year) return false; //Smaller than the lastest Node
-
-	while (pCur)
-	{
-		if (CmpDate(pCur->startYear, today) == 0)	//Existed
-			return false;
-		pCur = pCur->next;
-	}
-
 	if (today.month != 10 && today.day < nYear->tail->endYear.day) return false;
+
+	if (nYear->tail != nullptr)
+	{
+		if (today.year < nYear->tail->endYear.year) return false; //Smaller than the lastest Node
+		NodeYear* pCur = nYear->head;
+
+		while (pCur)
+		{
+			if (CmpDate(pCur->startYear, today) == 0)	//Existed
+				return false;
+			pCur = pCur->next;
+		}
+	}
 
 	return true;
 }
@@ -150,6 +152,20 @@ bool AddYear(ListYear*& nYear)
 {
 	if (!nYear) return false;
 	date today = GetDate();
+	AddYear(nYear, today);
+	return true;
+}
+
+bool AddYear(ListYear*& nYear, std::string startYear)
+{
+	if (!nYear) return false;
+	AddYear(nYear, ParseDate(startYear));
+	return true;
+}
+
+bool AddYear(ListYear*& nYear, date startYear)
+{
+	if (!nYear) return false;
 
 	//info
 	NodeYear* newYear = new NodeYear;
@@ -158,14 +174,14 @@ bool AddYear(ListYear*& nYear)
 	createEmptyList(newYear->classes);
 	createEmptyList(newYear->semesters);
 
-	newYear->startYear.year = today.year;
-	newYear->startYear.month = today.month;
-	newYear->startYear.day = today.day;
+	newYear->startYear.year = startYear.year;
+	newYear->startYear.month = startYear.month;
+	newYear->startYear.day = startYear.day;
 
 	//School year ends in the next year
-	//with each semsester is 3 months
+	//with each semsester is 3 months = 9 months + 2 month breaks
 	newYear->endYear.year = newYear->startYear.year + 1;
-	newYear->endYear.month = newYear->startYear.month + 3;
+	newYear->endYear.month = newYear->startYear.month -1;
 	newYear->endYear.day = newYear->startYear.day;
 
 	newYear->next = nullptr;
@@ -204,10 +220,17 @@ void DeleteListYear(ListYear*& nYear)
 
 void OutputYear(NodeYear* nYear)
 {
-	std::cout << "School Year: " << nYear->startYear.year << "-" << nYear->endYear.year;
-	OutputListSem(nYear->semesters);
-	std::cout << "\n";
-	OutputListClass(nYear->classes);
+	std::cout << "School Year: " << DisplayDate(nYear->startYear) << " - " << DisplayDate(nYear->endYear);
+	if (nYear->semesters->head != nullptr)
+	{
+		std::cout << "\n-Semesters:\n";
+		OutputListSem(nYear->semesters);
+	}
+	if (nYear->classes->head != nullptr)
+	{
+		std::cout << "\n-Classes:\n";
+		OutputListClass(nYear->classes);
+	}
 }
 
 void OutputListYear(ListYear* nYear)
@@ -227,19 +250,16 @@ bool CanAddSem(ListSem* nSem, int type, date start, date end)
 {
 	switch (type)
 	{
-	case 1: {if (start.month != 10) return false; break; }  //first sem start at d/10/20xx
-	case 2: {if (start.month != 1) return false; break; }	//second sem start at d/1/20xy
-	case 3: {if (start.month != 5) return false; break; }	//third sem start at  d/5/20xy
+	case 1: {if (start.month != 10 || end.month != 1  || (start.year+1 != end.year)) return false; break; }		//first sem start at d/10/20xx
+	case 2: {if (start.month != 1  || end.month != 5  || (start.year != end.year))	 return false; break; }		//second sem start at d/1/20xy
+	case 3: {if (start.month != 5  || end.month != 9  || (start.year != end.year))	 return false; break; }		//third sem start at  d/5/20xy
 	}
 
 	NodeSem* pCur = nSem->head;
 	if (getSize(pCur) == 3) return false; // 3 Semesters already
-	if (CmpDate(nSem->tail->end, start) == 1) return false; //Conflicted dates
-	while (pCur)
-	{
-		if (pCur->type == type) return false;	//Existed Semester
-		pCur = pCur->next;
-	}
+	if (getSize(pCur) >= type) return false;	// Semester existed
+	if (nSem->tail != nullptr)
+		if(CmpDate(nSem->tail->end, start) == 1) return false; //Conflicted dates
 
 	return true;
 }
