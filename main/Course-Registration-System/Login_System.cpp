@@ -2,6 +2,7 @@
 
 void login()
 {
+	NodeStudent* phead = nullptr;
 	std::string name = "", pass = "";
 	char chpass, chname;
 	int x = 152;
@@ -98,7 +99,7 @@ void login()
 				std::cout << "WELCOME BACK STAFF! HAVE A NICE WEEK!";
 				Sleep(2000);
 				system("cls");
-				home_staff(nYear);
+				home_staff(nYear, phead);
 				
 			}
 			case 0:

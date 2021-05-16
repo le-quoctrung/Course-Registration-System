@@ -8,13 +8,11 @@
 
 int main()
 {
-  /*  Start();
+    Start();
 login:
     loginDisplay();
-    login();*/
-    NodeStudent* phead = nullptr;
-    createStudent(phead);
-    importScoreBoard("scoreboard.txt", phead);
+    login();
+
 
     
 

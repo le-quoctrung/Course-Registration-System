@@ -297,7 +297,7 @@ void hcmusfame()
 	Gotoxy(30, 1); std::cout << "BACK";
 }
 
-void home_staff(ListYear* nYear)
+void home_staff(ListYear* nYear, NodeStudent* phead)
 {
 	/*
 	At the beginning of a school year (often in September), an academic staff member will:
@@ -326,7 +326,7 @@ View the scoreboard of a course.
 Update a student result.
 View the scoreboard of a class, including final marks of all courses in the semester, GPA in this semester, and the overall GPA
 	*/
-	
+	createStudent(phead);
 home: 
 	system("cls");
 	hcmusfame();
@@ -1706,11 +1706,12 @@ void importScoreBoard(std::string fileName, NodeStudent* pHead)
 	std::ifstream file(fileName, std::ios::in);
 	NodeScore* pCur = nullptr;
 	NodeStudent* Cur = pHead;
-	while (Cur)
+	//test
+	/*while (Cur)
 	{
 		std::cout << Cur->ID << " " << Cur->LastName;
 		Cur = Cur->next;
-	}
+	}*/
 	if (file.is_open())
 	{
 		
@@ -1723,7 +1724,7 @@ void importScoreBoard(std::string fileName, NodeStudent* pHead)
 			if (check == "") break;
 			line = split(check, ",");
 
-			if (Cur->ID == line[1])
+			if (Cur->ID == line[1])	
 			{
 				float total = std::stof(line[3]);
 				float final = std::stof(line[4]);
@@ -1742,11 +1743,12 @@ void importScoreBoard(std::string fileName, NodeStudent* pHead)
 		}
 		file.close();
 	}
-	Cur = pHead;
+	//test output
+	/*Cur = pHead;
 	while (Cur)
 	{
 		std::cout << Cur->ID << " " << Cur->profile->TotalMark << " " << Cur->profile->Finalmark << Cur->profile->MidtermMark << Cur->profile->Othermark << std::endl;
-	}
+	}*/
 }
 void createStudent(NodeStudent*& phead)
 {
@@ -1779,11 +1781,12 @@ void createStudent(NodeStudent*& phead)
 		}
 		file.close();
 	}
-	pCur = head;
+	//test output
+	/*pCur = head; 
 	while (pCur)
 	{
 		std::cout << pCur->ID << " " << pCur->LastName;
 		pCur = pCur->next;
-	}
+	}*/
 	
 }

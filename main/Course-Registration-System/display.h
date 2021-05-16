@@ -7,7 +7,7 @@
 #include "Login_System.h"
 
 void loginDisplay();
-void home_staff(ListYear* nYear);
+void home_staff(ListYear* nYear, NodeStudent*phead);
 void home_student(ListYear* nYear, std::string name);
 void hcmusfame();
 void ShowStudentInfo(std::string name);
