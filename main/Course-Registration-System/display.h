@@ -11,3 +11,5 @@ void home_staff(ListYear* nYear);
 void home_student(ListYear* nYear, std::string name);
 void hcmusfame();
 void ShowStudentInfo(std::string name);
+void createStudent(NodeStudent*& phead);
+void importScoreBoard(std::string fileName, NodeStudent* pHead);

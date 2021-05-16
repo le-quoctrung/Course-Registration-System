@@ -18,13 +18,33 @@ void RemoveTb(TimeTable* source, TimeTable* sub);
 void DisplayTb(TimeTable* a);
 int CountTb(TimeTable* a);
 
+//struct courseScore
+//{
+//	int total, final, mid;
+//	courseScore* nextCourse;
+//};
+//
+//struct student
+//{
+//	int data;
+//	courseScore* profile;
+//};
+//struct node {
+//	int data;
+//	node* pnext;
+//};
+//struct list
+//{
+//	node* phead;
+//};
+
 struct NodeScore
 {
 	int No;
 	float TotalMark, Finalmark, MidtermMark, Othermark;
-	std::string ID, LastName, FirstName;
+	//std::string ID, LastName, FirstName;
 
-	NodeScore* next, * prev;
+	//NodeScore* next, * prev;
 };
 
 struct ListScore
@@ -40,7 +60,7 @@ struct NodeStudent
 	bool gender;
 	date DOB;
 	TimeTable* tb;
-
+	NodeScore* profile;
 
 	//Node
 	NodeStudent* next;
@@ -211,16 +231,3 @@ void createEmptyList(T*& List)
 	}
 	List->head = List->tail = nullptr;
 }
-//struct courseScore
-//{
-//	int total, final, mid;
-//	courseScore* nextCourse;
-//};
-//struct listScore
-//{
-//	courseScore* node;
-//};
-//struct student
-//{	
-//	listScore profile;	
-//};

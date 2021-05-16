@@ -40,7 +40,7 @@ void loginDisplay()
 		std::cout << char(219);
 		Gotoxy(189, i);
 		std::cout << char(219);
-	}*/
+	}*/	
 	/***********LOGIN BOX***********/
 
 	int  x = 140, y = 10;
@@ -999,8 +999,23 @@ home:
 		else if (coord.X > 155 && coord.Y < 10) //course
 		{
 		if (nYear->head == nullptr) { Gotoxy(100, 34); std::cout << "NONE SCHOOL YEAR IS AVAILABLE!"; Sleep(1000); goto home; }
-	course:
+	
+		std::string yearIndex;
+	precourse:
 
+		Gotoxy(100, 29); std::cout << "YEAR INDEX:";
+		for (int i = 122; i < 128; i++)
+		{
+			Gotoxy(i, 28);
+			std::cout << char(205);
+			Gotoxy(i, 30);
+			std::cout << char(205);
+		}
+		Gotoxy(122, 29);
+		controlTyping(yearIndex, 2);
+		NodeYear* CurYear = getNode(nYear->head, std::stoi(yearIndex));
+		if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto precourse; }
+	course:
 		system("cls");
 		hcmusfame();
 		for (int i = 0; i <= 10; i++)
@@ -1014,23 +1029,7 @@ home:
 		Gotoxy(120, 5); std::cout << "CREATE COURSE";
 		Gotoxy(177, 5);  std::cout << "MODIFY COURSE";
 		Gotoxy(0, 15); OutputListYear(nYear);
-
-		Gotoxy(100, 29); std::cout << "YEAR INDEX:";
-		std::string yearIndex;
-		for (int i = 122; i < 128; i++)
-		{
-			Gotoxy(i, 28);
-			std::cout << char(205);
-			Gotoxy(i, 30);
-			std::cout << char(205);
-		}
-		Gotoxy(122, 29);
-		controlTyping(yearIndex, 2);
-		NodeYear* CurYear = getNode(nYear->head, std::stoi(yearIndex));
-		if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto course; }
-
-		Gotoxy(177, 5);  std::cout << "UPDATE COURSE";
-	
+		
 		while (1)
 		{
 			coord = GetCursorClick();
@@ -1283,6 +1282,8 @@ home:
 					/*********DELETE************/
 					if (coord.X > 127 && coord.Y < 10)
 					{
+					updatecourse:
+
 						Gotoxy(30, 22); std::cout << "COURSE INFORMATION: ";
 						Gotoxy(30, 25); std::cout << "COURSE ID:";
 						Gotoxy(30, 30); std::cout << "TEACHER:";
@@ -1315,7 +1316,7 @@ home:
 								login();
 							}
 							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
-								goto Class;
+								goto course;
 							if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 								goto home;
 							if (coord.X < 60 && coord.X >43 && coord.Y < 27 && coord.Y >23)
@@ -1333,9 +1334,10 @@ home:
 								NodeCourse* find = FindCourse(CurYear->semesters->tail->Courses, courseID, teacherName);
 								if (find == nullptr)
 								{
+									Gotoxy(25, 35);		
 									std::cout << "CAN'T FIND COURSE WITH THE GIVEN INFOMATION!";
 									Sleep(2000);
-									goto course;
+									goto updatecourse;
 								}
 
 								while (1)
@@ -1353,7 +1355,7 @@ home:
 										login();
 									}
 									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
-										goto Class;
+										goto course;
 									if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 										goto home;
 									if (coord.X > 127 && coord.Y < 10)
@@ -1415,7 +1417,7 @@ home:
 								login();
 							}
 							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
-								goto Class;
+								goto course;
 							if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 								goto home;
 							if (coord.X < 60 && coord.X >43 && coord.Y < 27 && coord.Y >23)
@@ -1434,9 +1436,11 @@ home:
 								NodeCourse* find = FindCourse(CurYear->semesters->tail->Courses, courseID, teacherName);
 								if (find == nullptr)
 								{
+									Gotoxy(25, 35);
 									std::cout << "CAN'T FIND COURSE WITH THE GIVEN INFOMATION!";
 									Sleep(2000);
-									goto course;
+									std::cout << "                                            ";
+									goto updatecourse;
 								}
 								OutputCourse(find);
 
@@ -1474,7 +1478,7 @@ home:
 										login();
 									}
 									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
-										goto Class;
+										goto course;
 									if (coord.X < 40 && coord.Y < 10 && coord.Y >3)
 										goto home;
 									if (coord.X > 40 && coord.X < 127 && coord.Y < 10)
@@ -1675,6 +1679,111 @@ void ShowStudentInfo(std::string name)
 			}
 		}
 		file.close();
+	}
+	
+}
+void showScoreBoard(std::string courseName, std::string fileName)
+{
+	std::ifstream file(fileName, std::ios::in);
+	if (file.is_open())
+	{
+		std::string check;
+		std::vector<std::string> line;
+
+		while (!file.eof())
+		{
+			std::getline(file, check);
+			if (check == "") break;
+			line = split(check, ",");
+			
+			
+		}
+		file.close();
+	}
+}
+void importScoreBoard(std::string fileName, NodeStudent* pHead)
+{
+	std::ifstream file(fileName, std::ios::in);
+	NodeScore* pCur = nullptr;
+	NodeStudent* Cur = pHead;
+	while (Cur)
+	{
+		std::cout << Cur->ID << " " << Cur->LastName;
+		Cur = Cur->next;
+	}
+	if (file.is_open())
+	{
+		
+		std::string check;
+		std::vector<std::string> line;
+
+		while (!file.eof())
+		{
+			std::getline(file, check);
+			if (check == "") break;
+			line = split(check, ",");
+
+			if (Cur->ID == line[1])
+			{
+				float total = std::stof(line[3]);
+				float final = std::stof(line[4]);
+				float mid = std::stof(line[5]);
+				float other = std::stof(line[6]);
+				
+				pCur = new NodeScore;
+				Cur->profile = pCur;
+				pCur->TotalMark = total;
+				pCur->Finalmark = final;
+				pCur->MidtermMark = mid;
+				pCur->Othermark = other;
+			}
+			Cur = Cur->next;
+
+		}
+		file.close();
+	}
+	Cur = pHead;
+	while (Cur)
+	{
+		std::cout << Cur->ID << " " << Cur->profile->TotalMark << " " << Cur->profile->Finalmark << Cur->profile->MidtermMark << Cur->profile->Othermark << std::endl;
+	}
+}
+void createStudent(NodeStudent*& phead)
+{
+	std::ifstream file("allStudent.csv", std::ios::in);
+	NodeStudent* head = nullptr, *pCur = nullptr;
+	if (file.is_open())
+	{
+		std::string check;
+		std::vector<std::string> line;
+
+		while (!file.eof())
+		{
+			std::getline(file, check);
+			if (check == "") break;
+			line = split(check, ",");
+			if (head == nullptr)
+			{
+				pCur = new NodeStudent;
+				head = pCur;
+			}
+			else
+			{
+				pCur->next = new NodeStudent;
+				pCur = pCur->next;
+			}
+			pCur->FirstName = line[2];
+			pCur->LastName = line[3];
+			pCur->ID = line[1];
+			pCur->next = nullptr;
+		}
+		file.close();
+	}
+	pCur = head;
+	while (pCur)
+	{
+		std::cout << pCur->ID << " " << pCur->LastName;
+		pCur = pCur->next;
 	}
 	
 }
