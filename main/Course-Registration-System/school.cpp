@@ -778,20 +778,18 @@ void Enroll(ListCourse* nCourse, NodeStudent* nStudent)
 //	}
 //
 
-void ViewScoreBoard( ListScore listSc,ListStudent listSt) {
-	std::string input;
-	std::cout << "input your ID: ";
-	std::getline(std::cin, input);
-	for (NodeScore* cur = listSc.head; cur != nullptr; cur = cur->next) {
-		if (cur->ID == input) {
-			system("cls");
-			std::cout << "ScoreBoard" << "\n" << std::endl;
-			std::cout << "StudentID: " << cur->ID << std::endl;
-			std::cout << "Student FullName: " << cur->FirstName<<" "<<cur->LastName << std::endl;
-			std::cout << "MidTerm Mark: " << cur->MidtermMark << std::endl;
-			std::cout << "Final Mark: " << cur->Finalmark << std::endl;
-			std::cout << "Other Mark: " << cur->Othermark << std::endl;
-			std::cout << "Total Mark: " << cur->TotalMark << std::endl;
+void ViewScoreBoard(NodeStudent* nstudent) {
+	std::string ID;
+	std::cout << "ID: ";
+	getline(std::cin, ID);
+	if (ID == nstudent->ID) {
+		ListCourse* nCourse = new ListCourse;
+		if (!nCourse) return;
+		NodeCourse* pCur = nCourse->head;
+		OutputCourse(pCur);
+		std::cout << "name: " << "\t" << "mid: " << " \t" << "final" << "\t" << "other: " << "total";
+		for (pCur; pCur != nullptr; pCur++) {
+			std::cout << pCur->name << " " << pCur->nScore->MidtermMark << " " << pCur->nScore->Finalmark << " " << pCur->nScore->Othermark << " " << pCur->nScore->TotalMark;
 		}
 	}
 }
