@@ -567,7 +567,76 @@ home:
 						/************ADD COURSE TO SEMESTER************/
 						else if (coord.X > 155 && coord.Y < 10)
 						{
-							std::cout << "ADD COURSE TO SEMESTER";
+							system("cls");
+							hcmusfame();
+							Gotoxy(110, 5); std::cout << "ADD COURSE TO SEMESTER";
+
+				//show list course here
+
+							Gotoxy(80, 20);
+							std::cout << "COURSE NAME:  ";
+							for (int i = 100; i < 120; i++)
+							{
+								Gotoxy(i, 19);
+								std::cout << char(205);
+								Gotoxy(i, 21);
+								std::cout << char(205);
+							}
+							Gotoxy(80, 24);
+							std::cout << "SEMESTER (1 TO 3): ";
+							for (int i = 100; i < 110; i++)
+							{
+								Gotoxy(i, 23);
+								std::cout << char(205);
+								Gotoxy(i, 25);
+								std::cout << char(205);
+							}
+							Gotoxy(102, 20);
+						
+							std::string courseName;
+							controlTyping(courseName, 20);
+							
+							Gotoxy(102, 24);
+							int sem;
+							std::cin >> sem;
+							
+							while (sem > 3 || sem < 1)
+							{
+								Gotoxy(103, 27);
+								std::cout << "ONLY SEMESTER 1 TO 3 IS ALLOWED";
+								Sleep(1500);
+								Gotoxy(103, 26);
+								std::cout << "                               ";
+								Gotoxy(102, 24);
+								std::cout << "        ";
+								Gotoxy(102, 24);
+								std::cin >> sem;
+							}
+							while (1)
+							{
+								coord = GetCursorClick();
+								if (coord.Y < 3 && coord.X < 5)
+								{
+									Gotoxy(0, 50);
+									exit(0);
+								}
+								if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+								{
+									system("cls");
+									loginDisplay();
+									login();
+								}
+								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
+									goto home;
+								if (coord.X < 40 && coord.X > 23 && coord.Y < 3)
+									goto year;
+								if (coord.X > 40 && coord.Y < 10)
+								{
+				// add course function here
+									
+									goto sem;
+								}
+							}
 							goto sem;
 						}
 					}			
