@@ -1542,6 +1542,18 @@ home:
 			system("cls");
 			hcmusfame();
 			Gotoxy(123, 5); std::cout << "REMOVE COURSE";
+			Gotoxy(50, 14); std::wcout << "COURSE-NUMBER YOU WANT TO REMOVE: ";
+		//show list course here
+			for (int i = 90; i < 100; i++)
+			{
+				Gotoxy(i, 13);
+				std::cout << char(205);
+				Gotoxy(i, 15);
+				std::cout << char(205);
+			}
+			Gotoxy(93, 14);
+			std::cout << "...";
+
 			while (1)
 			{
 				coord = GetCursorClick();
@@ -1560,12 +1572,41 @@ home:
 				{
 					goto home;
 				}
-				if (coord.Y < 10 && coord.X>40)
+				if (coord.X < 100 && coord.X >90 && coord.Y > 13 && coord.Y < 15)
 				{
-					std::cout << "remove";
-					//do sth
-					goto enrolled;
+					Gotoxy(92, 14);
+					std::cout << "    ";
+					Gotoxy(93, 14);
+					std::string course;
+					controlTyping(course, 2);
+					int course = std::stoi(course);
+					while (1)
+					{
+						coord = GetCursorClick();
+						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
+							exit(0);
+						}
+						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+						{
+							system("cls");
+							loginDisplay();
+							login();
+						}
+						if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
+						{
+							goto home;
+						}
+						if (coord.Y < 10 && coord.X>40)
+						{
+							std::cout << "erolled";
+				//remove course function here
+							goto enrolled;
+						}
+					}
 				}
+				
 			}
 		}
 		/**********ENROLL COURSE**********/
@@ -1576,7 +1617,18 @@ home:
 			system("cls");
 			hcmusfame();
 			Gotoxy(123, 5); std::cout << "ENROLL COURSE";
-			Gotoxy(50, 14); std::wcout << "COURSE-NUMBER YOU WANT TO ENROLL: ";
+			Gotoxy(50, 14); std::wcout << "COURSE-NUMBER YOU WANT TO ENROLL:  ";
+		//show list course here
+			for (int i = 88; i < 100; i++)
+			{
+				Gotoxy(i, 13);
+				std::cout << char(205);
+				Gotoxy(i, 15);
+				std::cout << char(205);
+			}
+			Gotoxy(92, 14);
+			std::cout << "...";
+
 			while (1)
 			{
 				coord = GetCursorClick();
@@ -1595,11 +1647,39 @@ home:
 				{
 					goto home;
 				}
-				if (coord.Y < 10 && coord.X>40)
+				if (coord.X < 100 && coord.X >88 && coord.Y > 13 && coord.Y < 15)
 				{
-					std::cout << "eroll";
-					//do sth
-					goto enroll;
+					Gotoxy(92, 14);
+					std::cout << "    ";
+					Gotoxy(93, 14);
+					std::string course;
+					controlTyping(course, 2);
+					int course = std::stoi(course);
+					while (1)
+					{
+						coord = GetCursorClick();
+						if (coord.Y < 3 && coord.X < 5)
+						{
+							Gotoxy(0, 50);
+							exit(0);
+						}
+						if (coord.Y < 3 && coord.X < 23 && coord.X >5)
+						{
+							system("cls");
+							loginDisplay();
+							login();
+						}
+						if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
+						{
+							goto home;
+						}
+						if (coord.Y < 10 && coord.X>40)
+						{
+							std::cout << "erolled";
+				//add course function here
+							goto enroll;
+						}
+					}
 				}
 			}
 		}

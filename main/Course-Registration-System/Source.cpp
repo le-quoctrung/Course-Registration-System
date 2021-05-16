@@ -8,16 +8,16 @@
 
 int main()
 {
-//    Start();
-//login:
-//    loginDisplay();
-//    login();
-//
+    Start();
+login:
+    loginDisplay();
+    login();
+
 
     
-    NodeStudent* phead = nullptr;
-    createStudent(phead);
-    importScoreBoard("score.txt", phead);
+    //NodeStudent* phead = nullptr;
+    //createStudent(phead);
+    //importScoreBoard("score.txt", phead);
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                                                                                         //
