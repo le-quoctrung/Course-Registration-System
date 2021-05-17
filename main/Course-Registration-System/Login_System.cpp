@@ -1,6 +1,6 @@
 #include "Login_System.h"
 
-void login()
+void login(ListYear*& nYear)
 {
 	NodeStudent* phead = nullptr;
 	std::string name = "", pass = "";
@@ -47,7 +47,7 @@ void login()
 	//system("cls");
 	COORD coord;
 
-	ListYear* nYear = nullptr;
+	
 	std::ifstream checkPath("data.bin", std::ios::binary);
 	if (checkPath)
 	{
@@ -78,7 +78,7 @@ void login()
 				Sleep(1500);
 				Gotoxy(x, 16); std::cout << "              ";
 				Gotoxy(x, 21); std::cout << "              ";
-				login();
+				login(nYear);
 				
 			}
 			case -1:
@@ -89,7 +89,7 @@ void login()
 				Sleep(1500);
 				Gotoxy(x, 16); std::cout << "              ";
 				Gotoxy(x, 21); std::cout << "              ";
-				login();
+				login(nYear);
 				
 			}
 			case 1:

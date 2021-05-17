@@ -164,7 +164,7 @@ bool AddSemester(ListSem*& nSem,
 	int type,
 	date start,
 	date end);
-void DeleteListSem(ListSem*& nSem);
+void DeleteListSem(ListSem* nSem);
 void OutputSem(NodeSem* nSem);
 void OutputListSem(ListSem* nSem);
 

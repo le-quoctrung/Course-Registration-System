@@ -297,7 +297,7 @@ void hcmusfame()
 	Gotoxy(30, 1); std::cout << "BACK";
 }
 
-void home_staff(ListYear* nYear, NodeStudent* phead)
+void home_staff(ListYear*& nYear, NodeStudent* phead)
 {
 	/*
 	At the beginning of a school year (often in September), an academic staff member will:
@@ -356,7 +356,7 @@ home:
 		{
 			system("cls");
 			loginDisplay();
-			login();
+			login(nYear);
 		}
 	
 		/********YEAR********/
@@ -387,7 +387,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				/********HCMUS********/
 				if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) ||(coord.Y < 10 && coord.X < 40 && coord.Y >3))
@@ -426,7 +426,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 							goto home;
@@ -437,6 +437,7 @@ home:
 							Gotoxy(125, 29);
 							std::cout << "   ";
 							std::string startYearDate;
+							Gotoxy(124, 29);
 							controlTyping(startYearDate, 20);
 							while (1)
 							{
@@ -451,7 +452,7 @@ home:
 								{
 									system("cls");
 									loginDisplay();
-									login();
+									login(nYear);
 								}
 								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 									goto home;
@@ -476,7 +477,7 @@ home:
 
 									Gotoxy(100, 34); std::cout << "YEAR " << nYear->head->startYear.year << " - " << nYear->head->endYear.year << " HAS BEEN CREATED";
 									WriteAll("data.bin", nYear);
-									Sleep(1000);
+									Sleep(2000);
 									goto year;
 								}
 							}
@@ -505,7 +506,7 @@ home:
 					Gotoxy(62, 5); std::cout << "CREATE SEMESTER";
 					Gotoxy(111, 5); std::cout << "CREATE COURSE REGISTATION SESSION";
 					Gotoxy(167, 5);  std::cout << "CREATE AND ADD COURSE TO SEMESTER";
-					Gotoxy(0, 15); OutputListYear(nYear);
+					Gotoxy(0, 17); OutputListYear(nYear);
 					while (1)
 					{
 						coord = GetCursorClick();
@@ -518,7 +519,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 						{
@@ -592,7 +593,7 @@ home:
 								{
 									system("cls");
 									loginDisplay();
-									login();
+									login(nYear);
 								}
 								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 									goto home;
@@ -622,7 +623,7 @@ home:
 										{
 											system("cls");
 											loginDisplay();
-											login();
+											login(nYear);
 										}
 										if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 											goto home;
@@ -633,27 +634,36 @@ home:
 										{
 											// create year function here 
 											NodeYear* CurYear = getNode(nYear->head, yearIndex);
-											if (CurYear == nullptr) { std::cout << "INDEX NOT FOUND!"; goto sem; }
+											if (CurYear == nullptr)
+											{
+												Gotoxy(90, 45);
+												std::cout << "INDEX NOT FOUND!";
+												goto sem;
+											}
 											if (CmpDate(ParseDate(end), ParseDate(start)) == -1)
 											{
+												Gotoxy(90, 45);
 												std::cout << "END DATE CAN'T BE SOONER THAN START DATE";
 												Sleep(2000);
 												goto sem;
 											}
 											else if (CmpDate(ParseDate(start), CurYear->startYear) == -1)
 											{
+												Gotoxy(90, 45);
 												std::cout << "SEMESTER CAN'T BE SOONER THAN SCHOOL YEAR";
 												Sleep(2000);
 												goto sem;
 											}
 											else if (!CanAddSem(CurYear->semesters, sem, ParseDate(start), ParseDate(end)))
 											{
+												Gotoxy(90, 45);
 												std::cout << "EXISTED SEMESTER OR CONFLICTED/INVALID DATE, CAN'T ADD SEMESTER!";
 												Sleep(2000);
 												goto sem;
 											}
 
 											AddSemester(CurYear->semesters, sem, ParseDate(start), ParseDate(end));
+											Gotoxy(90, 45);
 											std::cout << "SEMESTER " << sem << " IS ADDED TO YEAR " << CurYear->startYear.year << " - " << CurYear->endYear.year;
 											WriteAll("data.bin", nYear);
 											Sleep(2000);
@@ -733,7 +743,7 @@ home:
 								{
 									system("cls");
 									loginDisplay();
-									login();
+									login(nYear);
 								}
 								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 									goto home;
@@ -754,7 +764,7 @@ home:
 							}
 						}
 
-						/************ADD COURSE TO SEMESTER************/
+						/************CREATE AND ADD COURSE TO SEMESTER************/
 						else if (coord.X > 155 && coord.Y < 10)
 						{
 							system("cls");
@@ -814,7 +824,7 @@ home:
 								{
 									system("cls");
 									loginDisplay();
-									login();
+									login(nYear);
 								}
 								if (coord.X < 40 && coord.Y < 10 && coord.Y > 3)
 									goto home;
@@ -867,7 +877,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				/********HCMUS********/
 				if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) ||(coord.Y < 10 && coord.X < 40 && coord.Y >3))
@@ -919,7 +929,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 							goto Class;
@@ -952,7 +962,7 @@ home:
 								{
 									system("cls");
 									loginDisplay();
-									login();
+									login(nYear);
 								}
 								if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 									goto Class;
@@ -1034,7 +1044,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 						{
@@ -1104,7 +1114,7 @@ home:
 			{
 				system("cls");
 				loginDisplay();
-				login();
+				login(nYear);
 			}
 		
 			/********HCMUS********/
@@ -1142,7 +1152,7 @@ home:
 					{
 						system("cls");
 						loginDisplay();
-						login();
+						login(nYear);
 					}
 					if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 					{
@@ -1188,7 +1198,7 @@ home:
 							{
 								system("cls");
 								loginDisplay();
-								login();
+								login(nYear);
 							}
 							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 							{
@@ -1211,13 +1221,13 @@ home:
 				//break;
 			}
 
-			/*********CREATE COURSE INFORMATION********/
+			/*********CREATE COURSE ********/
 			else if (coord.X > 98 && coord.X < 155 && coord.Y < 10)
 			{
 			system("cls");
 			hcmusfame();
 			Gotoxy(123, 5); std::cout << "IMPORT FILE";
-			Gotoxy(0, 15); OutputSem(CurYear->semesters->tail);
+			Gotoxy(0, 17); OutputSem(CurYear->semesters->tail);
 			Gotoxy(100, 30); std::cout << "FILE NAME:";
 			for (int i = 113; i < 130; i++)
 			{
@@ -1227,9 +1237,10 @@ home:
 				Gotoxy(i, 31);
 				std::cout << char(205);
 			}
+			Gotoxy(114, 30); std::cout << "...           ";
 		createcourse:
 		
-			Gotoxy(114, 30); std::cout << "...           ";
+			
 			while (1)
 			{
 				coord = GetCursorClick();
@@ -1242,7 +1253,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 					goto course;
@@ -1267,7 +1278,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 							goto Class;
@@ -1287,7 +1298,7 @@ home:
 
 							ReadListToCourse(fileName,CurYear->semesters->tail->Courses);						
 							std::cout << "CREATED SUCCESSFULLY!";
-							Gotoxy(0, 40);
+							Gotoxy(0, 37);
 							OutputSem(CurYear->semesters->tail);															
 							Sleep(2500);
 							goto course;
@@ -1332,7 +1343,7 @@ home:
 					{
 						system("cls");
 						loginDisplay();
-						login();
+						login(nYear);
 					}
 					if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 					{
@@ -1375,7 +1386,7 @@ home:
 							{
 								system("cls");
 								loginDisplay();
-								login();
+								login(nYear);
 							}
 							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 								goto course;
@@ -1414,7 +1425,7 @@ home:
 									{
 										system("cls");
 										loginDisplay();
-										login();
+										login(nYear);
 									}
 									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 										goto course;
@@ -1476,7 +1487,7 @@ home:
 							{
 								system("cls");
 								loginDisplay();
-								login();
+								login(nYear);
 							}
 							if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 								goto course;
@@ -1537,7 +1548,7 @@ home:
 									{
 										system("cls");
 										loginDisplay();
-										login();
+										login(nYear);
 									}
 									if (coord.Y < 3 && coord.X < 40 && coord.X > 23)
 										goto course;
@@ -1568,7 +1579,7 @@ home:
 void home_student(ListYear* nYear, std::string name) // vẽ giao diện sau khi login thành công
 {
 home:
-
+	
 	system("cls");
 	hcmusfame();
 	for (int i = 0; i <= 10; i++)
@@ -1594,7 +1605,7 @@ home:
 		{
 			system("cls");
 			loginDisplay();
-			login();
+			login(nYear);
 		}
 		/**********ENROLLED COURSE**********/
 		if (coord.Y < 10 && coord.X < 98 && coord.X > 40)
@@ -1628,7 +1639,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
 				{
@@ -1654,7 +1665,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
 						{
@@ -1673,6 +1684,7 @@ home:
 		/**********ENROLL COURSE**********/
 		else if (coord.Y < 10 && coord.X>98 && coord.X < 155)
 		{
+			NodeYear* CurYear = getNode(nYear->head, 1);
 		enroll:
 
 			system("cls");
@@ -1680,6 +1692,10 @@ home:
 			Gotoxy(123, 5); std::cout << "ENROLL COURSE";
 			Gotoxy(50, 14); std::wcout << "COURSE-NUMBER YOU WANT TO ENROLL:  ";
 		//show list course here
+			Gotoxy(0, 15); OutputListYear(nYear);
+			//NodeYear* CurYear = getNode(nYear->head, 1);
+			//OutputSem(CurYear->semesters->tail);
+			//OutputSem(CurYear->semesters->tail);
 			for (int i = 88; i < 100; i++)
 			{
 				Gotoxy(i, 13);
@@ -1702,7 +1718,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
 				{
@@ -1728,7 +1744,7 @@ home:
 						{
 							system("cls");
 							loginDisplay();
-							login();
+							login(nYear);
 						}
 						if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
 						{
@@ -1762,7 +1778,7 @@ home:
 				{
 					system("cls");
 					loginDisplay();
-					login();
+					login(nYear);
 				}
 				if ((coord.Y < 3 && coord.X < 40 && coord.X > 23) || (coord.Y < 10 && coord.X < 40 && coord.Y >3))
 				{

@@ -12,7 +12,7 @@
 #include "file.h"
 
 /*	FUNCTIONS	*/
-void login();//call first to run all login function
+void login(ListYear*& nYear);//call first to run all login function
 void ChooseOption();//option ex: show student info, course,..
 void ShowOption();//draw option icon to click in 
 #endif // !_LOGIN_SYSTEM_H_

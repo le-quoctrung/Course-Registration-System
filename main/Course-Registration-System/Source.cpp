@@ -10,8 +10,9 @@ int main()
 {
     Start();
 login:
+    ListYear* nYear = nullptr;
     loginDisplay();
-    login();
+    login(nYear);
 
 
     

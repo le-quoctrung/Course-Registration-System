@@ -300,7 +300,7 @@ bool AddSemester(ListSem*& nSem, int type, date start, date end)
 	return true;
 }
 
-void DeleteListSem(ListSem*& nSem)
+void DeleteListSem(ListSem* nSem)
 {
 	if (!nSem) return;
 
@@ -631,7 +631,11 @@ void OutputListCourse(ListCourse* nCourse)
 
 void OutputHeaderListCourse(ListCourse* nCourse)
 {
-	if (!nCourse) return;
+	if (!nCourse)
+	{
+		std::cout << "NO DATA";	
+		return;
+	}
 	NodeCourse* pCur = nCourse->head;
 	int count = 1;
 	while (pCur)
